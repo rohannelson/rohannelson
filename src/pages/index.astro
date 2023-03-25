@@ -1,8 +1,9 @@
 ---
 import Layout from "../layouts/Layout.astro";
+const title = "Welcome to My Website!";
+const description = "A description for my home page";
 ---
 
-<Layout title="Home">
-    <h1>Welcome to My Website</h1>
+<Layout title={title} description={description}>
     <p>This is a website where I can publish random things!</p>
 </Layout>

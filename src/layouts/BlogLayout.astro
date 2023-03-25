@@ -1,0 +1,17 @@
+---
+import Layout from "./Layout.astro";
+const { frontmatter } = Astro.props;
+---
+
+<Layout title={frontmatter.title} description={frontmatter.description}>
+    <img src={frontmatter.image ?? "/blog.svg"} />
+    <div>
+        <slot />
+    </div>
+</Layout>
+<style>
+    img {
+        min-width: 200px;
+        height: auto;
+    }
+</style>

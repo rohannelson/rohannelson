@@ -1,0 +1,42 @@
+---
+import Layout from "../../layouts/Layout.astro";
+const title = "My Blog";
+const description = "A list of all my blog posts";
+const allBlogs = await Astro.glob("./*.mdx");
+---
+
+<Layout title={title} description={description}>
+    <p>Here's a bunch of blog posts!</p>
+    <ul>
+        {
+            allBlogs.map((blog) => (
+                <li>
+                    <a href={blog.url}>
+                        <img src={blog.frontmatter.image ?? "/blog.svg"} />
+                    </a>
+                    <a href={blog.url}>
+                        <h3>{blog.frontmatter.title}</h3>
+                    </a>
+                    <p>{blog.frontmatter.description}</p>
+                </li>
+            ))
+        }
+    </ul>
+</Layout>
+<style>
+    ul {
+        padding: 0;
+        margin: 0;
+    }
+    li {
+        list-style: none;
+        border: 1px solid black;
+        border-radius: 4px;
+        padding: 1rem;
+        margin: 1rem 0;
+    }
+    img {
+        height: 75px;
+        width: 75px;
+    }
+</style>
