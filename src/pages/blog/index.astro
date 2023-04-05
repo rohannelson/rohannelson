@@ -12,7 +12,7 @@ const allBlogs = await Astro.glob("./*.mdx");
             allBlogs.map((blog) => (
                 <li>
                     <a href={blog.url}>
-                        <img src={blog.frontmatter.image ?? "/blog.svg"} />
+                        <img src={blog.frontmatter.image ?? "/img/blog.svg"} />
                     </a>
                     <a href={blog.url}>
                         <h3>{blog.frontmatter.title}</h3>

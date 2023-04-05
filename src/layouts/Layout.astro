@@ -16,7 +16,24 @@ const pageDescription = description ?? frontmatter.description;
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link
+			rel="apple-touch-icon"
+			sizes="180x180"
+			href="/apple-touch-icon.png"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="32x32"
+			href="/favicon-32x32.png"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="16x16"
+			href="/favicon-16x16.png"
+		/>
+		<link rel="manifest" href="/site.webmanifest" />
 		<meta name="generator" content={Astro.generator} />
 		<meta name="description" content={pageDescription} />
 		<title>{pageTitle} - rohannelson.com</title>
@@ -39,11 +56,11 @@ const pageDescription = description ?? frontmatter.description;
 		--accent: 124, 58, 237;
 		--accent-gradient: linear-gradient(110deg, #a3c9ca, #cbf6ff);
 		--theme-color: #a3c9ca;
-		--theme-background: #e1d9d6;
+		--theme-background: #f1f1f1 /*#e1d9d6*/;
 	}
 	html {
 		font-family: system-ui, sans-serif;
-		background-color: #f6f6f6;
+		background-color: var(--theme-background);
 	}
 	code {
 		font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
@@ -69,7 +86,7 @@ const pageDescription = description ?? frontmatter.description;
 		max-width: 700px;
 		justify-content: center;
 		margin: 0 auto;
-		background-color: var(--theme-background);
+		background-color: #f1f1f1;
 		padding: 2rem 2rem 2rem 2rem;
 		min-height: calc(100vh - var(--header-height));
 	}

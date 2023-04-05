@@ -2,33 +2,44 @@
 ---
 
 <header>
-    <div>
-        <a href="/">RN</a>
+    <div class="container">
+        <div class="wrapper">
+            <a href="/">RN</a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/blog">Blog</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </nav>
     </div>
-    <nav>
-        <ul>
-            <li><a href="/blog">Blog</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/contact">Contact</a></li>
-        </ul>
-    </nav>
 </header>
 
 <style>
     :root {
-        --header-height: 3.75rem;
+        --header-height: 5rem;
     }
     header {
         display: flex;
         width: 100%;
-        padding: 1rem;
-        border-bottom: 2px dotted white;
+        /*border-bottom: 2px dotted white;*/
         background-color: var(--theme-background);
         position: fixed;
         top: 0;
         height: var(--header-height);
+        justify-content: center;
     }
-    div > a {
+    div.container {
+        max-width: 700px;
+        padding: 2rem 2rem 0 2rem;
+        width: 100%;
+        height: var(--header-height);
+        display: flex;
+        justify-content: flex-end;
+        border-bottom: dotted 1px black;
+    }
+    div.wrapper > a {
         padding: 0.75rem;
         background: var(--accent-gradient);
         border-radius: 100%;
@@ -38,8 +49,9 @@
     }
     ul {
         display: flex;
-        justify-content: center;
-        margin: 0 auto;
+        justify-content: flex-end;
+        align-items: center;
+        margin: 0;
     }
     li {
         list-style: none;
@@ -58,8 +70,8 @@
         outline: solid 1px black;
         font-weight: 600;
     }
-    div > a:focus,
-    div > a:hover {
+    div.wrapper > a:focus,
+    div.wrapper > a:hover {
         outline: solid 1px black;
         transition: 0.25s;
     }
