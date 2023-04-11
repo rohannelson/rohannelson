@@ -3,13 +3,14 @@ import Layout from "../../layouts/Layout.astro";
 const title = "My Blog";
 const description = "A list of all my blog posts";
 const allBlogs = await Astro.glob("./*.mdx");
+const nonDraftBlogs = allBlogs.filter((blog) => !blog.frontmatter.draft);
 ---
 
 <Layout title={title} description={description}>
     <p>Here's a bunch of blog posts!</p>
     <ul>
         {
-            allBlogs.map((blog) => (
+            nonDraftBlogs.map((blog) => (
                 <li>
                     <a href={blog.url}>
                         <img src={blog.frontmatter.image ?? "/img/blog.svg"} />
@@ -39,6 +40,7 @@ const allBlogs = await Astro.glob("./*.mdx");
         height: 80px;
         width: auto;
         float: right;
+        margin-left: 1rem;
     }
     h3 {
         margin-top: 0px;
