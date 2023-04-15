@@ -1,44 +1,46 @@
 ---
 import Layout from "./Layout.astro";
+import NavCard from "../components/NavCard.astro";
 const { frontmatter } = Astro.props;
 const allBlogs = await Astro.glob("../pages/blog/*.mdx");
-let previousBlogObj = {};
-let nextBlogObj = {};
+let previousBlogObj: any = {};
+let nextBlogObj: any = {};
 allBlogs.forEach((blog, i) => {
     if (frontmatter.title === blog.frontmatter.title) {
         previousBlogObj = allBlogs[i - 1];
         nextBlogObj = allBlogs[i + 1];
     }
 });
-let previousBlogHeading = "";
-let previousBlogTitle = "";
-if (previousBlogObj) {
-    previousBlogHeading = "Previous Blog";
-    previousBlogTitle = previousBlogObj.frontmatter.title;
-}
-let nextBlogHeading = "";
-let nextBlogTitle = "";
-if (nextBlogObj) {
-    nextBlogHeading = "Next Blog";
-    nextBlogTitle = nextBlogObj.frontmatter.title;
-}
 ---
 
 <Layout title={frontmatter.title} description={frontmatter.description}>
     <img src={frontmatter.image ?? "/img/blog.svg"} />
     <slot />
-    <nav class="blogNavigation">
-        <a class="previousBlog" href={previousBlogObj?.url}>
-            <h4>{previousBlogHeading}</h4>
-            {previousBlogTitle}
-        </a>
-        <a class="nextBlog" href={nextBlogObj?.url}>
-            <h4>
-                {nextBlogHeading}
-            </h4>
-            {nextBlogTitle}
-        </a>
-    </nav>
+    <hr />
+    <ul>
+        {
+            nextBlogObj && (
+                <NavCard
+                    cardURL={nextBlogObj.url}
+                    cardHeading={"Next Blog: " + nextBlogObj.frontmatter.title}
+                    cardDescription={nextBlogObj.frontmatter.description}
+                    cardImage={nextBlogObj.frontmatter.image}
+                />
+            )
+        }
+        {
+            previousBlogObj && (
+                <NavCard
+                    cardURL={previousBlogObj.url}
+                    cardHeading={
+                        "Previous Blog: " + previousBlogObj.frontmatter.title
+                    }
+                    cardDescription={previousBlogObj.frontmatter.description}
+                    cardImage={previousBlogObj.frontmatter.image}
+                />
+            )
+        }
+    </ul>
     <style>
         img {
             width: 200px;
@@ -47,17 +49,10 @@ if (nextBlogObj) {
             float: right;
             padding: 10px 10px 5px 10px;
         }
-        nav.blogNavigation {
+        ul {
             display: flex;
-        }
-        a.previousBlog {
-            margin-right: auto;
-        }
-        a.nextBlog {
-            margin-left: auto;
-        }
-        a h4 {
-            text-decoration: none;
+            padding: 0;
+            flex-direction: column;
         }
     </style>
 </Layout>
