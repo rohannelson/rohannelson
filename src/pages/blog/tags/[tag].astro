@@ -1,0 +1,67 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import NavCard from "../../../components/NavCard.astro";
+
+export async function getStaticPaths() {
+    const allBlogs = await Astro.glob("../*.mdx");
+    const nonDraftBlogs = allBlogs.filter((blog) => !blog.frontmatter.draft);
+    const uniqueTags = [...new Set(nonDraftBlogs.map((blog) => blog.frontmatter.tags).flat())];
+    return uniqueTags.map((tag) => {
+    const filteredBlogs = nonDraftBlogs.filter((blog) => blog.frontmatter.tags.includes(tag));
+    return {
+      params: { tag },
+      props: { blogs: filteredBlogs },
+    };
+  });
+}
+const { tag } = Astro.params;
+const { blogs } = Astro.props;
+const title = tag;
+const description = `All posts tagged with ${tag}`;
+const capitalise = (str) => {
+    return str.charAt(0).toUpperCase() + str.slice(1)
+}
+---
+
+<Layout title={capitalise(title)} description={description}>
+    <p>{description}</p>
+    <ul>
+        {
+            blogs.map((blog) => (
+                <NavCard
+                    cardURL={blog.url}
+                    cardHeading={blog.frontmatter.title}
+                    cardDescription={blog.frontmatter.description}
+                    cardImage={blog.frontmatter.image}
+                />
+            ))
+        }
+    </ul>
+</Layout>
+<style>
+    ul {
+        padding: 0;
+        margin: 0;
+    }
+    a {
+        text-decoration: none;
+        color: black;
+        display: block;
+        padding: 1rem;
+    }
+    li {
+        list-style: none;
+        border: 1px solid black;
+        border-radius: 4px;
+        margin: 1rem 0;
+    }
+    img {
+        height: 80px;
+        width: auto;
+        float: right;
+        margin-left: 1rem;
+    }
+    h3 {
+        margin-top: 0px;
+    }
+</style>

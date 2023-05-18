@@ -1,0 +1,23 @@
+---
+const { tags } = Astro.props
+const capitalise = (str) => {
+    return str.charAt(0).toUpperCase() + str.slice(1)
+}
+---
+<ul>
+    <li><b>Tags: </b></li>
+{tags.map((tag) => {
+    let tagURL = `/blog/tags/${tag}`
+    return <li><a href={tagURL}>{capitalise(tag)}</a></li>})
+}
+</ul>
+<style>
+    ul {
+        display: flex;
+        list-style: none;
+        padding: 0;
+    }
+    li {
+        padding-right: 0.5rem;
+    }
+</style>

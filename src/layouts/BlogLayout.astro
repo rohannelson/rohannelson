@@ -1,6 +1,7 @@
 ---
 import Layout from "./Layout.astro";
 import NavCard from "../components/NavCard.astro";
+import TagList from "../components/TagList.astro";
 const { frontmatter } = Astro.props;
 const allBlogs = await Astro.glob("../pages/blog/*.mdx");
 let previousBlogObj: any = {};
@@ -11,9 +12,13 @@ allBlogs.forEach((blog, i) => {
         nextBlogObj = allBlogs[i + 1];
     }
 });
+const capitalise = (str) => {
+    return str.charAt(0).toUpperCase() + str.slice(1)
+}
 ---
 
-<Layout title={frontmatter.title} description={frontmatter.description}>
+<Layout title={capitalise(frontmatter.title)} description={frontmatter.description}>
+    <TagList tags={frontmatter.tags} />
     <img src={frontmatter.image ?? "/img/blog.svg"} />
     <slot />
     <hr />
