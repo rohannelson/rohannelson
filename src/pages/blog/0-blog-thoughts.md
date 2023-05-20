@@ -2,7 +2,7 @@
 layout: "../../layouts/BlogLayout.astro"
 title: "Blog thoughts"
 description: "Thinking about changes to make to my blog"
-pubDate: 20230411
+pubDate: "2023-04-11"
 tags: []
 draft: true
 ---

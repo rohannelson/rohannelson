@@ -3,32 +3,44 @@ const { frontmatter } = Astro.props;
 const capitalise = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
 };
+const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+const date = new Date(frontmatter.pubDate)
+const fullDate = date.getDate()  + " " + months[date.getMonth()] + " " + date.getFullYear();
 ---
 
-<ul>
-    <li><b>Tags:</b></li>
+<dl>
+        <dt><b>Tags:</b></dt>
     {
         frontmatter.tags.map((tag) => {
             let tagURL = `/blog/tags/${tag}`;
             return (
-                <li>
+                <dd>
                     <a href={tagURL}>{capitalise(tag)}</a>
-                </li>
+                </dd>
             );
         })
     }
-    <li><b>Published:</b>&nbsp;{frontmatter.pubDate}</li>
-    <li><b>Date of Origin:</b>&nbsp;{frontmatter.dateOfOrigin}</li>
-</ul>
+    <dt><b>Published:</b></dt>
+    <dd>{fullDate}</dd>
+    <dt><b>Date of Origin:</b></dt>
+    <dd>{frontmatter.dateOfOrigin}</dd>
+</dl>
 <style>
-    ul {
+    dl {
         display: flex;
         flex-direction: row;
         list-style: none;
         padding: 0;
         flex-wrap: wrap;
     }
-    li {
+    dt {
         padding-right: 0.5rem;
+    }
+    dd {
+        margin: 0;
+        padding-right: 0.5rem;
+    }
+    dt:not(:first-of-type) {
+        margin-left: 0.5rem;
     }
 </style>
