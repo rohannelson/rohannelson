@@ -1,0 +1,34 @@
+---
+const { frontmatter } = Astro.props;
+const capitalise = (str) => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+};
+---
+
+<ul>
+    <li><b>Tags:</b></li>
+    {
+        frontmatter.tags.map((tag) => {
+            let tagURL = `/blog/tags/${tag}`;
+            return (
+                <li>
+                    <a href={tagURL}>{capitalise(tag)}</a>
+                </li>
+            );
+        })
+    }
+    <li><b>Published:</b>&nbsp;{frontmatter.pubDate}</li>
+    <li><b>Date of Origin:</b>&nbsp;{frontmatter.dateOfOrigin}</li>
+</ul>
+<style>
+    ul {
+        display: flex;
+        flex-direction: row;
+        list-style: none;
+        padding: 0;
+        flex-wrap: wrap;
+    }
+    li {
+        padding-right: 0.5rem;
+    }
+</style>

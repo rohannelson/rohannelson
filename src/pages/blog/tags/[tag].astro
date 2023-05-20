@@ -17,7 +17,7 @@ export async function getStaticPaths() {
 const { tag } = Astro.params;
 const { blogs } = Astro.props;
 const title = tag;
-const description = `All posts tagged with ${tag}`;
+const description = `All posts tagged with ${tag}.`;
 const capitalise = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1)
 }
