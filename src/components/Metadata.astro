@@ -3,44 +3,61 @@ const { frontmatter } = Astro.props;
 const capitalise = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
 };
-const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-const date = new Date(frontmatter.pubDate)
-const fullDate = date.getDate()  + " " + months[date.getMonth()] + " " + date.getFullYear();
+const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+];
+const date = new Date(frontmatter.pubDate);
+const fullDate =
+    date.getDate() + " " + months[date.getMonth()] + " " + date.getFullYear();
 ---
 
 <dl>
+    <div>
         <dt><b>Tags:</b></dt>
-    {
-        frontmatter.tags.map((tag) => {
-            let tagURL = `/blog/tags/${tag}`;
-            return (
-                <dd>
-                    <a href={tagURL}>{capitalise(tag)}</a>
-                </dd>
-            );
-        })
-    }
-    <dt><b>Published:</b></dt>
-    <dd>{fullDate}</dd>
-    <dt><b>Date of Origin:</b></dt>
-    <dd>{frontmatter.dateOfOrigin}</dd>
+        {
+            frontmatter.tags.map((tag) => {
+                let tagURL = `/blog/tags/${tag}`;
+                return (
+                    <dd>
+                        <a href={tagURL}>{capitalise(tag)}</a>
+                    </dd>
+                );
+            })
+        }
+        <dt class="pub"><b>Published:</b></dt>
+        <dd>{fullDate}</dd>
+    </div>
+    <div>
+        <dt><b>Context:</b></dt>
+        <dd>{frontmatter.context}</dd>
+    </div>
 </dl>
 <style>
     dl {
-        display: flex;
-        flex-direction: row;
         list-style: none;
         padding: 0;
-        flex-wrap: wrap;
     }
-    dt {
-        padding-right: 0.5rem;
+    div {
+        display: flex;
+        margin-bottom: 1rem;
     }
     dd {
         margin: 0;
-        padding-right: 0.5rem;
-    }
-    dt:not(:first-of-type) {
         margin-left: 0.5rem;
+        font-style: italic;
+    }
+    dt:not(:first-child) {
+        margin-left: 1rem;
     }
 </style>
