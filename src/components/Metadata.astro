@@ -35,6 +35,8 @@ const fullDate =
                 );
             })
         }
+    </div>
+    <div>
         <dt class="pub"><b>Published:</b></dt>
         <dd>{fullDate}</dd>
     </div>
@@ -45,19 +47,19 @@ const fullDate =
 </dl>
 <style>
     dl {
+        display: flex;
+        flex-wrap: wrap;
         list-style: none;
         padding: 0;
     }
     div {
         display: flex;
         margin-bottom: 1rem;
+        margin-right: 1rem;
     }
     dd {
         margin: 0;
         margin-left: 0.5rem;
         font-style: italic;
-    }
-    dt:not(:first-child) {
-        margin-left: 1rem;
     }
 </style>
