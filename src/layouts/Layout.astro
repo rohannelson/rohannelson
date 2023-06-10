@@ -5,7 +5,7 @@ export interface Props {
 	title: string;
 	description: string;
 }
-
+//@ts-ignore
 const { title, description, frontmatter } = Astro.props;
 const pageTitle = title ?? frontmatter.title;
 const pageDescription = description ?? frontmatter.description;
