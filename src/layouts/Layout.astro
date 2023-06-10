@@ -47,62 +47,60 @@ const pageDescription = description ?? frontmatter.description;
 				<slot />
 			</div>
 		</main>
-	</body><style is:global>
-		* {
-			box-sizing: border-box;
-		}
-		:root {
-			--accent: 124, 58, 237;
-			--accent-gradient: linear-gradient(110deg, #a3c9ca, #cbf6ff);
-			--theme-color: #a3c9ca;
-			--theme-background: #f1f1f1 /*#e1d9d6*/;
-		}
-		html {
-			font-family: system-ui, sans-serif;
-			background-color: var(--theme-background);
-		}
-		code {
-			font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-				DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New,
-				monospace;
-		}
-		p,
-		a {
-			font-size: 17px;
-		}
-		h2,
-		h3,
-		h4 {
-			margin-bottom: 0.5rem;
-		}
-		h1 + h2,
-		h2 + h3,
-		h3 + h4 {
-			margin-top: 0px;
-		}
-		li {
-			margin-bottom: 0.5rem;
-		}
-	</style>
-	<style>
-		div.container {
-			max-width: 700px;
-			justify-content: center;
-			margin: 0 auto;
-			background-color: #f1f1f1;
-			padding: 0 2rem 2rem 2rem;
-			min-height: calc(100vh - var(--header-height));
-		}
-		body {
-			margin: 0;
-		}
-		main {
-			margin-top: var(--header-height);
-		}
-		h1 {
-			background-color: #dfdfdf;
-			margin: 0 -2rem 2rem -2rem;
-			padding: 0.75rem 2rem 1.5rem 2rem;
-		}
-	</style>
+		<style is:global>
+			* {
+				box-sizing: border-box;
+			}
+			:root {
+				--accent: 124, 58, 237;
+				--accent-gradient: linear-gradient(110deg, #a3c9ca, #cbf6ff);
+				--theme-color: #a3c9ca;
+				--theme-background: #f1f1f1 /*#e1d9d6*/;
+			}
+			html {
+				font-family: system-ui, sans-serif;
+				background-color: var(--theme-background);
+			}
+			code {
+				font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
+					DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New,
+					monospace;
+			}
+			p,
+			a {
+				font-size: 17px;
+			}
+			h2,
+			h3,
+			h4 {
+				margin-bottom: 0.5rem;
+			}
+			h1 + h2,
+			h2 + h3,
+			h3 + h4 {
+				margin-top: 0px;
+			}
+			li {
+				margin-bottom: 0.5rem;
+			}
+		</style>
+		<style>
+			div.container {
+				max-width: 700px;
+				justify-content: center;
+				margin: 0 auto;
+				background-color: #f1f1f1;
+				padding: 0 2rem 2rem 2rem;
+				min-height: calc(100vh - var(--header-height));
+			}
+			body {
+				margin: 0;
+			}
+			h1 {
+				background-color: #dfdfdf;
+				margin: 0 -2rem 2rem -2rem;
+				padding: 0.75rem 2rem 1.5rem 2rem;
+			}
+		</style>
+	</body>
 </html>

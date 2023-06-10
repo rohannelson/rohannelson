@@ -15,7 +15,7 @@
         </nav>
     </div>
 </header>
-
+<div class="placeholder"></div>
 <style>
     :root {
         --header-height: 5.5rem;
@@ -23,7 +23,6 @@
     header {
         display: flex;
         width: 100%;
-        /*border-bottom: 2px dotted white;*/
         background-color: var(--theme-background);
         position: fixed;
         top: 0;
@@ -53,6 +52,7 @@
         align-items: center;
         margin: 0;
         margin-right: -1rem;
+        padding: 0;
     }
     li {
         list-style: none;
@@ -75,5 +75,13 @@
     div.wrapper > a:hover {
         outline: solid 1px black;
         transition: 0.25s;
+    }
+    div.placeholder {
+        height: var(--header-height);
+    }
+    @media (max-width: 400px) {
+        li {
+            padding: 0;
+        }
     }
 </style>
