@@ -20,7 +20,7 @@
     :root {
         --header-height: 5.5rem;
         --font-size: 16px;
-        --transition-speed: 0.25s;
+        --transition-speed: 0.2s;
     }
     header {
         display: flex;
@@ -98,8 +98,8 @@
     const fontSizeInit = html.style.getPropertyValue("--font-size");
     let options = {
         root: null,
-        rootMargin: "0px",
-        threshold: 1,
+        rootMargin: "15px",
+        threshold: 0,
     };
     const obsCallback = (entries) => {
         entries.forEach((entry) => {
