@@ -5,22 +5,26 @@ import NavCard from "../../../components/NavCard.astro";
 export async function getStaticPaths() {
     const allBlogs = await Astro.glob("../*.mdx");
     const nonDraftBlogs = allBlogs.filter((blog) => !blog.frontmatter.draft);
-    const uniqueTags = [...new Set(nonDraftBlogs.map((blog) => blog.frontmatter.tags).flat())];
+    const uniqueTags = [
+        ...new Set(nonDraftBlogs.map((blog) => blog.frontmatter.tags).flat()),
+    ];
     return uniqueTags.map((tag) => {
-    const filteredBlogs = nonDraftBlogs.filter((blog) => blog.frontmatter.tags.includes(tag));
-    return {
-      params: { tag },
-      props: { blogs: filteredBlogs },
-    };
-  });
+        const filteredBlogs = nonDraftBlogs.filter((blog) =>
+            blog.frontmatter.tags.includes(tag)
+        );
+        return {
+            params: { tag },
+            props: { blogs: filteredBlogs },
+        };
+    });
 }
 const { tag } = Astro.params;
 const { blogs } = Astro.props;
 const title = tag;
 const description = `All posts tagged with ${tag}.`;
 const capitalise = (str) => {
-    return str.charAt(0).toUpperCase() + str.slice(1)
-}
+    return str.charAt(0).toUpperCase() + str.slice(1);
+};
 ---
 
 <Layout title={capitalise(title)} description={description}>

@@ -1,0 +1,69 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import NavCard from "../../components/NavCard.astro";
+import Tags from "../../components/Tags.astro";
+const title = "My Blog";
+const description = "A list of all my blog posts";
+const allBlogs = await Astro.glob("./*.mdx");
+const nonDraftBlogs = allBlogs.filter((blog) => !blog.frontmatter.draft);
+
+export async function getStaticPaths({ paginate }) {
+    const allBlogs = await Astro.glob("./*.mdx");
+    const nonDraftBlogs = allBlogs.filter((blog) => !blog.frontmatter.draft).reverse();
+
+    return paginate(nonDraftBlogs, { pageSize: 1 });
+}
+const { page } = Astro.props;
+---
+
+<Layout title={title} description={description}>
+    <p>{description}</p>
+    <ul>
+        {
+            page.data.map((blog) => (
+                <NavCard
+                    cardURL={blog.url}
+                    cardHeading={blog.frontmatter.title}
+                    cardDescription={blog.frontmatter.description}
+                    cardImage={blog.frontmatter.image}
+                />
+            ))
+        }
+    </ul>
+    <p>Page {page.currentPage} of {page.lastPage}</p>
+    <div>
+    {page.url.prev ? <a href={page.url.prev}>Previous page</a> : null}
+    {page.url.next ? <a href={page.url.next}>Next page</a></p> : null}
+    </div>
+</Layout>
+<style>
+    ul {
+        padding: 0;
+        margin: 0;
+    }
+    a {
+        text-decoration: none;
+        color: black;
+        display: block;
+        padding: 1rem;
+    }
+    li {
+        list-style: none;
+        border: 1px solid black;
+        border-radius: 4px;
+        margin: 1rem 0;
+    }
+    img {
+        height: 80px;
+        width: auto;
+        float: right;
+        margin-left: 1rem;
+    }
+    h3 {
+        margin-top: 0px;
+    }
+    div {
+        display: flex;
+    }
+    div a { padding-left: 0;}
+</style>
