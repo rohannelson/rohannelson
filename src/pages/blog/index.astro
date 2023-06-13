@@ -13,14 +13,16 @@ const nonDraftBlogs = allBlogs.filter((blog) => !blog.frontmatter.draft);
     <Tags />
     <ul>
         {
-            nonDraftBlogs.map((blog) => (
-                <NavCard
-                    cardURL={blog.url}
-                    cardHeading={blog.frontmatter.title}
-                    cardDescription={blog.frontmatter.description}
-                    cardImage={blog.frontmatter.image}
-                />
-            ))
+            nonDraftBlogs
+                .map((blog) => (
+                    <NavCard
+                        cardURL={blog.url}
+                        cardHeading={blog.frontmatter.title}
+                        cardDescription={blog.frontmatter.description}
+                        cardImage={blog.frontmatter.image}
+                    />
+                ))
+                .reverse()
         }
     </ul>
 </Layout>
