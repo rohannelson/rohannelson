@@ -1,9 +1,10 @@
 ---
-import Layout from "../../../layouts/Layout.astro";
-import NavCard from "../../../components/NavCard.astro";
+import Layout from "../../../../layouts/Layout.astro";
+import NavCard from "../../../../components/NavCard.astro";
+import PageNav from "../../../../components/PageNav.astro";
 
-export async function getStaticPaths() {
-    const allBlogs = await Astro.glob("../*.mdx");
+export async function getStaticPaths({ paginate }) {
+    const allBlogs = await Astro.glob("../../*.mdx");
     const nonDraftBlogs = allBlogs.filter((blog) => !blog.frontmatter.draft);
     const uniqueTags = [
         ...new Set(nonDraftBlogs.map((blog) => blog.frontmatter.tags).flat()),
@@ -12,14 +13,14 @@ export async function getStaticPaths() {
         const filteredBlogs = nonDraftBlogs.filter((blog) =>
             blog.frontmatter.tags.includes(tag)
         );
-        return {
+        return paginate(filteredBlogs, {
             params: { tag },
-            props: { blogs: filteredBlogs },
-        };
+            pageSize: 10,
+        });
     });
 }
 const { tag } = Astro.params;
-const { blogs } = Astro.props;
+const { page } = Astro.props;
 const title = tag;
 const description = `All posts tagged with ${tag}.`;
 const capitalise = (str) => {
@@ -31,7 +32,7 @@ const capitalise = (str) => {
     <p>{description}</p>
     <ul>
         {
-            blogs.map((blog) => (
+            page.data.map((blog) => (
                 <NavCard
                     cardURL={blog.url}
                     cardHeading={blog.frontmatter.title}
@@ -41,6 +42,7 @@ const capitalise = (str) => {
             ))
         }
     </ul>
+    <PageNav page={page} />
 </Layout>
 <style>
     ul {

@@ -2,12 +2,15 @@
 import Layout from "../../layouts/Layout.astro";
 import NavCard from "../../components/NavCard.astro";
 import Tags from "../../components/Tags.astro";
+import PageNav from "../../components/PageNav.astro";
 const title = "My Blog";
 const description = "A list of all my blog posts";
 
 export async function getStaticPaths({ paginate }) {
     const allBlogs = await Astro.glob("./*.mdx");
-    const nonDraftBlogs = allBlogs.filter((blog) => !blog.frontmatter.draft).reverse();
+    const nonDraftBlogs = allBlogs
+        .filter((blog) => !blog.frontmatter.draft)
+        .reverse();
 
     return paginate(nonDraftBlogs, { pageSize: 10 });
 }
@@ -29,11 +32,7 @@ const { page } = Astro.props;
             ))
         }
     </ul>
-    <div>
-    {page.url.prev ? <a href={page.url.prev}>Previous page</a> : null}
-    {page.lastPage > 1 ? <p>Page {page.currentPage} of {page.lastPage}</p> : null}
-    {page.url.next ? <a href={page.url.next}>Next page</a></p> : null}
-    </div>
+    <PageNav page={page} />
 </Layout>
 <style>
     ul {
@@ -60,17 +59,5 @@ const { page } = Astro.props;
     }
     h3 {
         margin-top: 0px;
-    }
-    div {
-        display: flex;
-        gap: 1rem;
-        align-items: center;
-        justify-content: center;
-    }
-    div a { 
-    padding: 0;
-    text-decoration: underline}
-    div p {
-        font-size: 16px;
     }
 </style>
