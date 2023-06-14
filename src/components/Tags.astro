@@ -7,10 +7,6 @@ const nonDraftBlogs = allBlogs.filter((blog) => !blog.frontmatter.draft);
 const uniqueTags = [
     ...new Set(nonDraftBlogs.map((blog) => blog.frontmatter.tags).flat()),
 ];
-const tagList = [];
-uniqueTags.forEach((tag) => {
-    tagList.push(`<li><a>watup</a></li>`);
-});
 ---
 
 <ul>

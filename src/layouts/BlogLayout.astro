@@ -12,6 +12,22 @@ allBlogs.forEach((blog, i) => {
         nextBlogObj = allBlogs[i + 1];
     }
 });
+let filteredBlogs = [];
+const uniqueTags = [...new Set(frontmatter.tags.map((tag) => tag).flat())];
+uniqueTags.forEach((tag) => {
+    filteredBlogs = allBlogs.filter((blog) => {
+        return blog.frontmatter.tags.includes(tag);
+    });
+});
+let nextInSeries: any = {};
+let previousInSeries: any = {};
+filteredBlogs.forEach((blog, i) => {
+    if (frontmatter.title === blog.frontmatter.title) {
+        previousInSeries = filteredBlogs[i - 1];
+        nextInSeries = filteredBlogs[i + 1];
+    }
+});
+console.log(previousInSeries);
 ---
 
 <Layout title={frontmatter.title} description={frontmatter.description}>
@@ -21,7 +37,19 @@ allBlogs.forEach((blog, i) => {
     <hr />
     <ul>
         {
-            nextBlogObj && (
+            nextInSeries && (
+                <NavCard
+                    cardURL={nextInSeries.url}
+                    cardHeading={
+                        "Next in Series: " + nextInSeries.frontmatter.title
+                    }
+                    cardDescription={nextInSeries.frontmatter.description}
+                    cardImage={nextInSeries.frontmatter.image}
+                />
+            )
+        }
+        {
+            nextBlogObj && nextBlogObj != nextInSeries && (
                 <NavCard
                     cardURL={nextBlogObj.url}
                     cardHeading={"Next Blog: " + nextBlogObj.frontmatter.title}
@@ -31,7 +59,20 @@ allBlogs.forEach((blog, i) => {
             )
         }
         {
-            previousBlogObj && (
+            previousInSeries && (
+                <NavCard
+                    cardURL={previousInSeries.url}
+                    cardHeading={
+                        "Previous in Series: " +
+                        previousInSeries.frontmatter.title
+                    }
+                    cardDescription={previousInSeries.frontmatter.description}
+                    cardImage={previousInSeries.frontmatter.image}
+                />
+            )
+        }
+        {
+            previousBlogObj && previousBlogObj != previousInSeries && (
                 <NavCard
                     cardURL={previousBlogObj.url}
                     cardHeading={
