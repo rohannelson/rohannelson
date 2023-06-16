@@ -36,51 +36,16 @@ console.log(previousInSeries);
     <slot />
     <hr />
     <ul>
-        {
-            nextInSeries && (
-                <NavCard
-                    cardURL={nextInSeries.url}
-                    cardHeading={
-                        "Next in Series: " + nextInSeries.frontmatter.title
-                    }
-                    cardDescription={nextInSeries.frontmatter.description}
-                    cardImage={nextInSeries.frontmatter.image}
-                />
-            )
-        }
+        {nextInSeries && <NavCard post={nextInSeries} />}
         {
             nextBlogObj && nextBlogObj != nextInSeries && (
-                <NavCard
-                    cardURL={nextBlogObj.url}
-                    cardHeading={"Next Blog: " + nextBlogObj.frontmatter.title}
-                    cardDescription={nextBlogObj.frontmatter.description}
-                    cardImage={nextBlogObj.frontmatter.image}
-                />
+                <NavCard post={nextBlogObj} />
             )
         }
-        {
-            previousInSeries && (
-                <NavCard
-                    cardURL={previousInSeries.url}
-                    cardHeading={
-                        "Previous in Series: " +
-                        previousInSeries.frontmatter.title
-                    }
-                    cardDescription={previousInSeries.frontmatter.description}
-                    cardImage={previousInSeries.frontmatter.image}
-                />
-            )
-        }
+        {previousInSeries && <NavCard post={previousInSeries} />}
         {
             previousBlogObj && previousBlogObj != previousInSeries && (
-                <NavCard
-                    cardURL={previousBlogObj.url}
-                    cardHeading={
-                        "Previous Blog: " + previousBlogObj.frontmatter.title
-                    }
-                    cardDescription={previousBlogObj.frontmatter.description}
-                    cardImage={previousBlogObj.frontmatter.image}
-                />
+                <NavCard post={previousBlogObj} />
             )
         }
     </ul>

@@ -1,15 +1,14 @@
 ---
-const { cardURL, cardHeading, cardDescription, cardImage } = Astro.props;
+const { post } = Astro.props;
 ---
 
 <li>
-    <a href={cardURL}>
-        <img src={cardImage} />
-        <h3>{cardHeading}</h3>
-        <p>{cardDescription}</p>
+    <a href={post.url}>
+        <img src={post.frontmatter.image} />
+        <h3>{post.frontmatter.title}</h3>
+        <p>{post.frontmatter.description}</p>
     </a>
 </li>
-
 <style>
     ul {
         padding: 0;

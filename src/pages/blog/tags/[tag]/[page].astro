@@ -31,16 +31,7 @@ const capitalise = (str) => {
 <Layout title={capitalise(title)} description={description}>
     <p>{description}</p>
     <ul>
-        {
-            page.data.map((blog) => (
-                <NavCard
-                    cardURL={blog.url}
-                    cardHeading={blog.frontmatter.title}
-                    cardDescription={blog.frontmatter.description}
-                    cardImage={blog.frontmatter.image}
-                />
-            ))
-        }
+        {page.data.map((blog) => <NavCard post={blog} />)}
     </ul>
     <PageNav page={page} />
 </Layout>

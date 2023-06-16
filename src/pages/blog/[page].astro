@@ -23,12 +23,9 @@ const { page } = Astro.props;
     <ul>
         {
             page.data.map((blog) => (
-                <NavCard
-                    cardURL={blog.url}
-                    cardHeading={blog.frontmatter.title}
-                    cardDescription={blog.frontmatter.description}
-                    cardImage={blog.frontmatter.image}
-                />
+                <>
+                    <NavCard post={blog} />
+                </>
             ))
         }
     </ul>
