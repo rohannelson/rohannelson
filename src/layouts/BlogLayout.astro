@@ -27,7 +27,6 @@ filteredBlogs.forEach((blog, i) => {
         nextInSeries = filteredBlogs[i + 1];
     }
 });
-console.log(previousInSeries);
 ---
 
 <Layout title={frontmatter.title} description={frontmatter.description}>
@@ -36,16 +35,29 @@ console.log(previousInSeries);
     <slot />
     <hr />
     <ul>
-        {nextInSeries && <NavCard post={nextInSeries} />}
         {
-            nextBlogObj && nextBlogObj != nextInSeries && (
-                <NavCard post={nextBlogObj} />
+            nextInSeries && (
+                <NavCard post={nextInSeries} titlePrefix="Next in Series: " />
             )
         }
-        {previousInSeries && <NavCard post={previousInSeries} />}
+        {
+            nextBlogObj && nextBlogObj != nextInSeries && (
+                <NavCard post={nextBlogObj} titlePrefix="Next Blog: " />
+            )
+        }
+        {
+            previousInSeries && (
+                <>
+                    <NavCard
+                        post={previousInSeries}
+                        titlePrefix="Previous in Series: "
+                    />
+                </>
+            )
+        }
         {
             previousBlogObj && previousBlogObj != previousInSeries && (
-                <NavCard post={previousBlogObj} />
+                <NavCard post={previousBlogObj} titlePrefix="Previous Blog: " />
             )
         }
     </ul>

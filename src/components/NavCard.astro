@@ -1,11 +1,11 @@
 ---
-const { post } = Astro.props;
+const { post, titlePrefix = "" } = Astro.props;
 ---
 
 <li>
     <a href={post.url}>
         <img src={post.frontmatter.image} />
-        <h3>{post.frontmatter.title}</h3>
+        <h3>{titlePrefix + post.frontmatter.title}</h3>
         <p>{post.frontmatter.description}</p>
     </a>
 </li>
