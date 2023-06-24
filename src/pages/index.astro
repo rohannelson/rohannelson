@@ -1,7 +1,22 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import NavCard from "../components/NavCard.astro";
 const title = "Welcome!";
 const description = "A description for my home page";
+const allBlogs = await Astro.glob("./blog/*.mdx");
+/*const latest = (blogs) => {
+    let pubDate = new Date("1990-01-01");
+    let latestBlog = {};
+    blogs.forEach((blog, i) => {
+        let date = new Date(blog.frontmatter.pubDate);
+        if (date > pubDate) {
+            pubDate = date;
+            latestBlog = blog;
+        }
+    });
+    return latestBlog;
+};*/
+let latestBlog = allBlogs.reverse()[0];
 ---
 
 <Layout title={title} description={description}>
@@ -11,7 +26,7 @@ const description = "A description for my home page";
         and&nbsp;blog!
     </p>
     <h2>What's Here?</h2>
-    <h3>A Blog...</h3>
+    <h3>A Blog</h3>
     <p>
         I'm hoping to share some of my thoughts here &ndash; some old and some
         new. But as I'm not a big reader myself (and seeing how I sometimes feel
@@ -20,6 +35,7 @@ const description = "A description for my home page";
         should be pretty easy to keep up with if you're interested in me or
         my&nbsp;thoughts!
     </p>
+    <NavCard post={latestBlog} titlePrefix="Latest Blog: " />
     <h3>Web Experiments</h3>
     <p>
         I've also been learning web development for fun since early 2022, so
