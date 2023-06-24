@@ -56,6 +56,8 @@ const pageDescription = description ?? frontmatter.description;
 				--accent-gradient: linear-gradient(110deg, #a3c9ca, #cbf6ff);
 				--theme-color: #a3c9ca;
 				--theme-background: #f1f1f1 /*#e1d9d6*/;
+				--grey: #dfdfdf;
+				--light-grey: #e8e8e8;
 			}
 			html {
 				font-family: system-ui, sans-serif;
@@ -107,7 +109,7 @@ const pageDescription = description ?? frontmatter.description;
 				margin: 0;
 			}
 			h1 {
-				background-color: #dfdfdf;
+				background-color: var(--grey);
 				margin: 0 -2rem 2rem -2rem;
 				padding: 0.75rem 2rem 1.5rem 2rem;
 			}
