@@ -1,0 +1,20 @@
+---
+const fetchblogs = () => {
+    fetch("http://192.168.1.109:1337/api/blogs", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            authorization: `bearer ${import.meta.env.API_TOKEN}`,
+        },
+    })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("API issues.");
+            }
+            return response.json();
+        })
+        .then((data) => console.log(data))
+        .catch((error) => console.error(error));
+};
+fetchblogs();
+---
