@@ -12,11 +12,12 @@ const fetchblogsasync = async () => {
     const data = await response.json();
     return data;
 };
-const fetchdata = await fetchblogsasync();
+
+/*const fetchdata = await fetchblogsasync();
 console.log(fetchdata.data);
 const title = fetchdata.data[0].attributes.Title;
 ---
-
 <Layout title={title} description={description}>
     <p>{fetchdata.data[0].attributes.Content}</p>
-</Layout>
+</Layout>*/
+---
