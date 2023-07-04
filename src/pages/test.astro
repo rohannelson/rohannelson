@@ -1,22 +1,20 @@
 ---
-import Layout from "../layouts/Layout.astro";
-const description = "Does this work?";
-const fetchblogsasync = async () => {
-    const response = await fetch("http://192.168.1.109:1337/api/blogs", {
+const fetchblogs = () => {
+    fetch("http://192.168.1.109:1337/api/blogs", {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
             authorization: `bearer ${import.meta.env.API_TOKEN}`,
         },
-    });
-    const data = await response.json();
-    return data;
+    })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("API issues.");
+            }
+            return response.json();
+        })
+        .then((data) => console.log(data))
+        .catch((error) => console.error(error));
 };
-const fetchdata = await fetchblogsasync();
-console.log(fetchdata.data);
-const title = fetchdata.data[0].attributes.Title;
+fetchblogs();
 ---
-
-<Layout title={title} description={description}>
-    <p>{fetchdata.data[0].attributes.Content}</p>
-</Layout>
