@@ -1,0 +1,73 @@
+---
+const { attributes } = Astro.props;
+const capitalise = (str) => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+};
+const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+];
+const date = new Date(attributes.pubDate);
+const fullDate =
+    date.getDate() + " " + months[date.getMonth()] + " " + date.getFullYear();
+---
+
+<dl>
+    <div>
+        <dt><b>Tags:</b></dt>
+        {
+            attributes.tags.map((tag) => {
+                let tagURL = `/blog/tags/${tag}/1`;
+                return (
+                    <dd>
+                        <a class="tag" href={tagURL}>
+                            {capitalise(tag)}
+                        </a>
+                    </dd>
+                );
+            })
+        }
+    </div>
+    <div>
+        <dt class="pub"><b>Published:</b></dt>
+        <dd>{fullDate}</dd>
+    </div>
+    <div>
+        <dt><b>Context:</b></dt>
+        <dd>{attributes.context}</dd>
+    </div>
+</dl>
+<style>
+    dl {
+        display: flex;
+        flex-wrap: wrap;
+        list-style: none;
+        padding: 0;
+        align-items: center;
+    }
+    div {
+        display: flex;
+        margin-bottom: 1rem;
+        margin-right: 1rem;
+    }
+    dd {
+        margin: 0;
+        margin-left: 0.5rem;
+        font-style: italic;
+    }
+    a.tag {
+        padding: 0.2rem 0.4rem;
+        margin: -0.2rem 0;
+        background-color: var(--light-grey);
+    }
+</style>

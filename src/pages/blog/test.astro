@@ -1,11 +1,11 @@
 ---
-import Layout from "../layouts/Layout.astro";
-const description = "Does this work?";
+import Layout from "../../layouts/BlogLayoutStrapi.astro";
 const fetchblogsasync = async () => {
     const response = await fetch("http://192.168.1.109:1337/api/blogs", {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
+            //@ts-ignore
             authorization: `bearer ${import.meta.env.API_TOKEN}`,
         },
     });
@@ -13,11 +13,11 @@ const fetchblogsasync = async () => {
     return data;
 };
 
-/*const fetchdata = await fetchblogsasync();
-console.log(fetchdata.data);
-const title = fetchdata.data[0].attributes.Title;
+const fetchdata = await fetchblogsasync();
+const blog = fetchdata.data[0].attributes;
+const blogs = fetchdata.data;
 ---
-<Layout title={title} description={description}>
-    <p>{fetchdata.data[0].attributes.Content}</p>
-</Layout>*/
----
+
+<Layout blog={blog} blogs={blogs}>
+    <p>{fetchdata.data[0].attributes.content}</p>
+</Layout>

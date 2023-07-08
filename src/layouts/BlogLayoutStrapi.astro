@@ -1,0 +1,85 @@
+---
+import Layout from "./Layout.astro";
+import NavCardStrapi from "../components/NavCardStrapi.astro";
+import MetadataStrapi from "../components/MetadataStrapi.astro";
+const { blog, blogs } = Astro.props;
+let previousBlogObj: any = {};
+let nextBlogObj: any = {};
+blogs.forEach((post, i) => {
+    if (blog.title === post.attributes.title) {
+        previousBlogObj = blogs[i - 1];
+        nextBlogObj = blogs[i + 1];
+    }
+});
+let filteredBlogs = [];
+const uniqueTags = [...new Set(blog.tags.map((tag) => tag).flat())];
+console.log(uniqueTags);
+uniqueTags.forEach((tag) => {
+    filteredBlogs = blogs.filter((post) => {
+        return post.attributes.tags.includes(tag);
+    });
+    console.log(filteredBlogs);
+});
+let nextInSeries: any = {};
+let previousInSeries: any = {};
+filteredBlogs.forEach((post, i) => {
+    if (blog.title === post.attributes.title) {
+        previousInSeries = filteredBlogs[i - 1];
+        nextInSeries = filteredBlogs[i + 1];
+    }
+});
+---
+
+<Layout title={blog.title} description={blog.description}>
+    <MetadataStrapi attributes={blog} />
+    <img src={blog.image ?? "/img/blog.svg"} />
+    <slot />
+    <hr />
+    <ul>
+        {
+            nextInSeries && (
+                <NavCardStrapi
+                    post={nextInSeries}
+                    titlePrefix="Next in Series: "
+                />
+            )
+        }
+        {
+            nextBlogObj && nextBlogObj != nextInSeries && (
+                <NavCardStrapi post={nextBlogObj} titlePrefix="Next Blog: " />
+            )
+        }
+        {
+            previousInSeries && (
+                <>
+                    <NavCardStrapi
+                        post={previousInSeries}
+                        titlePrefix="Previous in Series: "
+                    />
+                </>
+            )
+        }
+        {
+            previousBlogObj && previousBlogObj != previousInSeries && (
+                <NavCardStrapi
+                    post={previousBlogObj}
+                    titlePrefix="Previous Blog: "
+                />
+            )
+        }
+    </ul>
+    <style>
+        img {
+            width: 200px;
+            max-width: 30vw;
+            height: auto;
+            float: right;
+            padding: 10px 10px 5px 10px;
+        }
+        ul {
+            display: flex;
+            padding: 0;
+            flex-direction: column;
+        }
+    </style>
+</Layout>
