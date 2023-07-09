@@ -1,5 +1,6 @@
 ---
-import Layout from "../../layouts/BlogLayoutStrapi.astro";
+import Layout from "../../../layouts/BlogLayoutStrapi.astro";
+import PageNav from "../../../components/PageNav.astro";
 const fetchblogsasync = async () => {
     const response = await fetch("http://192.168.1.109:1337/api/blogs", {
         method: "GET",
@@ -16,6 +17,21 @@ const fetchblogsasync = async () => {
 const fetchdata = await fetchblogsasync();
 const blog = fetchdata.data[0].attributes;
 const blogs = fetchdata.data;
+console.log("BLOGS MAP");
+console.log(blogs.map((blog) => blog.attributes));
+
+export async function getStaticPaths({ paginate }) {
+    return paginate(
+        /*blogs.map((blog) => blog.attributes.title*/
+        ,
+        {
+            pageSize: 1,
+        }
+    );
+}
+const { page } = Astro.props;
+console.log("Page object");
+console.log(page);
 ---
 
 <Layout blog={blog} blogs={blogs}>
