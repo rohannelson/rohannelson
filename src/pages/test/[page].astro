@@ -18,8 +18,7 @@ import fetchApi from "../../components/strapi";
 const fetchdata = await fetchblogsasync();
 const blog = fetchdata.data[0].attributes;
 const blogs = fetchdata.data;
-console.log("BLOGS MAP");
-console.log(blogs.map((blog) => blog.attributes));*/
+*/
 const blogsG = await fetchApi({
     endpoint: "blogs",
     wrappedByKey: "data",
@@ -41,8 +40,6 @@ export async function getStaticPaths({ paginate }) {
     });
 }
 const { page } = Astro.props;
-console.log("Page object");
-console.log(page);
 ---
 
 <Layout blog={page.data[0]} blogs={blogsArrayG} />
