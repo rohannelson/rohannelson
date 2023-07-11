@@ -2,6 +2,7 @@
 import Layout from "./Layout.astro";
 import NavCardStrapi from "../components/NavCardStrapi.astro";
 import MetadataStrapi from "../components/MetadataStrapi.astro";
+import Markdown from "@astrojs/markdown-component";
 const { blog, blogs } = Astro.props;
 let previousBlogObj: any = {};
 let nextBlogObj: any = {};
@@ -32,7 +33,7 @@ filteredBlogs.forEach((post, i) => {
 <Layout title={blog.title} description={blog.description}>
     <MetadataStrapi attributes={blog} />
     <img src={blog.image ?? "/img/blog.svg"} />
-    {blog.content}
+    <Markdown content={blog.content} />
     <hr />
     <ul>
         {
@@ -79,6 +80,9 @@ filteredBlogs.forEach((post, i) => {
             display: flex;
             padding: 0;
             flex-direction: column;
+        }
+        ul ul {
+            padding-left: 2rem;
         }
     </style>
 </Layout>

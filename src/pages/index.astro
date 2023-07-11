@@ -4,7 +4,7 @@ import NavCard from "../components/NavCardStrapi.astro";
 import blogsArray from "../components/fetchBlogs.js";
 const title = "Welcome!";
 const description = "Welcome to my personal website and blog!";
-let latestBlog = blogsArray.reverse()[0];
+let latestBlog = [...blogsArray].reverse()[0];
 ---
 
 <Layout title={title} description={description}>
@@ -26,7 +26,7 @@ let latestBlog = blogsArray.reverse()[0];
     <NavCard
         post={latestBlog}
         titlePrefix="Latest Blog: "
-        slugPrefix="/test/"
+        slugPrefix="/blog/"
     />
     <h3>Web Experiments</h3>
     <p>

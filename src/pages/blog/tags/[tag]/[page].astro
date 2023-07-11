@@ -1,17 +1,14 @@
 ---
 import Layout from "../../../../layouts/Layout.astro";
-import NavCard from "../../../../components/NavCard.astro";
+import NavCard from "../../../../components/NavCardStrapi.astro";
 import PageNav from "../../../../components/PageNav.astro";
+import blogsArray from "../../../../components/fetchBlogs";
 
 export async function getStaticPaths({ paginate }) {
-    const allBlogs = await Astro.glob("../../*.mdx");
-    const nonDraftBlogs = allBlogs.filter((blog) => !blog.frontmatter.draft);
-    const uniqueTags = [
-        ...new Set(nonDraftBlogs.map((blog) => blog.frontmatter.tags).flat()),
-    ];
+    const uniqueTags = [...new Set(blogsArray.map((blog) => blog.tags).flat())];
     return uniqueTags.map((tag) => {
-        const filteredBlogs = nonDraftBlogs.filter((blog) =>
-            blog.frontmatter.tags.includes(tag)
+        const filteredBlogs = blogsArray.filter((blog) =>
+            blog.tags.includes(tag)
         );
         return paginate(filteredBlogs, {
             params: { tag },

@@ -1,12 +1,10 @@
 ---
+import blogsArray from "./fetchBlogs";
 const capitalise = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
 };
-const allBlogs = await Astro.glob("../pages/blog/*.mdx");
-const nonDraftBlogs = allBlogs.filter((blog) => !blog.frontmatter.draft);
-const uniqueTags = [
-    ...new Set(nonDraftBlogs.map((blog) => blog.frontmatter.tags).flat()),
-];
+
+const uniqueTags = [...new Set(blogsArray.map((blog) => blog.tags).flat())];
 ---
 
 <ul>
