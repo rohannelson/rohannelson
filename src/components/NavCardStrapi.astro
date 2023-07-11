@@ -1,9 +1,9 @@
 ---
-const { post, titlePrefix = "" } = Astro.props;
+const { post, titlePrefix = "", slugPrefix = "" } = Astro.props;
 ---
 
 <li>
-    <a href={post.url}>
+    <a href=`${slugPrefix}${post.slug}`>
         <img src={post.image} />
         <h3>{titlePrefix + post.title}</h3>
         <p>{post.description}</p>

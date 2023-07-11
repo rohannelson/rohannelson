@@ -1,22 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import NavCard from "../components/NavCard.astro";
+import NavCard from "../components/NavCardStrapi.astro";
+import blogsArray from "../components/fetchBlogs.js";
 const title = "Welcome!";
-const description = "A description for my home page";
-const allBlogs = await Astro.glob("./blog/*.mdx");
-/*const latest = (blogs) => {
-    let pubDate = new Date("1990-01-01");
-    let latestBlog = {};
-    blogs.forEach((blog, i) => {
-        let date = new Date(blog.frontmatter.pubDate);
-        if (date > pubDate) {
-            pubDate = date;
-            latestBlog = blog;
-        }
-    });
-    return latestBlog;
-};*/
-let latestBlog = allBlogs.reverse()[0];
+const description = "Welcome to my personal website and blog!";
+let latestBlog = blogsArray.reverse()[0];
 ---
 
 <Layout title={title} description={description}>
@@ -35,7 +23,11 @@ let latestBlog = allBlogs.reverse()[0];
         should be pretty easy to keep up with if you're interested in me or
         my&nbsp;thoughts!
     </p>
-    <NavCard post={latestBlog} titlePrefix="Latest Blog: " />
+    <NavCard
+        post={latestBlog}
+        titlePrefix="Latest Blog: "
+        slugPrefix="/test/"
+    />
     <h3>Web Experiments</h3>
     <p>
         I've also been learning web development for fun since early 2022, so
