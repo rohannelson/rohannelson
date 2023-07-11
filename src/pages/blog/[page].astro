@@ -8,6 +8,7 @@ const description = "A list of all my blog posts";
 
 export async function getStaticPaths({ paginate }) {
     const allBlogs = await Astro.glob("./*.mdx");
+    console.log(allBlogs);
     const nonDraftBlogs = allBlogs
         .filter((blog) => !blog.frontmatter.draft)
         .reverse();

@@ -1,0 +1,48 @@
+---
+import Layout from "../../layouts/BlogLayoutStrapi.astro";
+import PageNav from "../../components/PageNav.astro";
+import fetchApi from "../../components/strapi";
+/*const fetchblogsasync = async () => {
+    const response = await fetch("http://192.168.1.109:1337/api/blogs", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            //@ts-ignore
+            authorization: `bearer ${import.meta.env.API_TOKEN}`,
+        },
+    });
+    const data = await response.json();
+    return data;
+};
+
+const fetchdata = await fetchblogsasync();
+const blog = fetchdata.data[0].attributes;
+const blogs = fetchdata.data;
+console.log("BLOGS MAP");
+console.log(blogs.map((blog) => blog.attributes));*/
+const blogsG = await fetchApi({
+    endpoint: "blogs",
+    wrappedByKey: "data",
+});
+const blogsArrayG = [];
+//@ts-ignore
+blogsG.forEach((blog) => blogsArrayG.push(blog.attributes));
+
+export async function getStaticPaths({ paginate }) {
+    const blogs = await fetchApi({
+        endpoint: "blogs",
+        wrappedByKey: "data",
+    });
+    const blogsArray = [];
+    //@ts-ignore
+    blogs.forEach((blog) => blogsArray.push(blog.attributes));
+    return paginate(blogsArray, {
+        pageSize: 1,
+    });
+}
+const { page } = Astro.props;
+console.log("Page object");
+console.log(page);
+---
+
+<Layout blog={page.data[0]} blogs={blogsArrayG} />

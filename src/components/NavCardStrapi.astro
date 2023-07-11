@@ -4,9 +4,9 @@ const { post, titlePrefix = "" } = Astro.props;
 
 <li>
     <a href={post.url}>
-        <img src={post.attributes.image} />
-        <h3>{titlePrefix + post.attributes.title}</h3>
-        <p>{post.attributes.description}</p>
+        <img src={post.image} />
+        <h3>{titlePrefix + post.title}</h3>
+        <p>{post.description}</p>
     </a>
 </li>
 <style>

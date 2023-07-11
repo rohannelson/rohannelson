@@ -3,7 +3,11 @@ import Layout from "./Layout.astro";
 import NavCardStrapi from "../components/NavCardStrapi.astro";
 import MetadataStrapi from "../components/MetadataStrapi.astro";
 const { blog, blogs } = Astro.props;
-let previousBlogObj: any = {};
+console.log("BLOG");
+console.log(blog);
+console.log("BLOGS");
+console.log(blogs);
+/*let previousBlogObj: any = {};
 let nextBlogObj: any = {};
 blogs.forEach((post, i) => {
     if (blog.title === post.title) {
@@ -26,15 +30,10 @@ filteredBlogs.forEach((post, i) => {
         previousInSeries = filteredBlogs[i - 1];
         nextInSeries = filteredBlogs[i + 1];
     }
-});
----
+});*/
 
-<Layout title={blog.title} description={blog.description}>
-    <MetadataStrapi attributes={blog} />
-    <img src={blog.image ?? "/img/blog.svg"} />
-    {blog.content}
-    <hr />
-    <ul>
+/*
+<ul>
         {
             nextInSeries && (
                 <NavCardStrapi
@@ -67,6 +66,15 @@ filteredBlogs.forEach((post, i) => {
             )
         }
     </ul>
+    */
+---
+
+<Layout title={blog.title} description={blog.description}>
+    <MetadataStrapi attributes={blog} />
+    <img src={blog.image ?? "/img/blog.svg"} />
+    <slot />
+    <hr />
+
     <style>
         img {
             width: 200px;
