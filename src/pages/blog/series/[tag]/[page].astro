@@ -1,0 +1,67 @@
+---
+import Layout from "../../../../layouts/Layout.astro";
+import NavCard from "../../../../components/NavCard.astro";
+import PageNav from "../../../../components/PageNav.astro";
+
+export async function getStaticPaths({ paginate }) {
+  const allBlogs = await Astro.glob("../../*.mdx");
+  const nonDraftBlogs = allBlogs.filter((blog) => !blog.frontmatter.draft);
+  const uniqueTags = [
+    ...new Set(nonDraftBlogs.map((blog) => blog.frontmatter.tags).flat()),
+  ];
+  return uniqueTags.map((tag) => {
+    const filteredBlogs = nonDraftBlogs.filter((blog) =>
+      blog.frontmatter.tags.includes(tag)
+    );
+    return paginate(filteredBlogs, {
+      params: { tag },
+      pageSize: 10,
+    });
+  });
+}
+const { tag } = Astro.params;
+const { page } = Astro.props;
+const title = tag;
+const description = `The home of my ${tag} series.`;
+const capitalise = (str) => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
+const tagPages = await Astro.glob("../../../../components/series/*.mdx");
+const tagPage = tagPages.filter((page) => page.frontmatter.tags.includes(tag));
+const TagPageContent = tagPage[0].Content;
+---
+
+<Layout title={capitalise(title)} description={description}>
+  <TagPageContent />
+  <ul>
+    {page.data.map((blog) => <NavCard post={blog} />)}
+  </ul>
+  <PageNav page={page} />
+</Layout>
+<style>
+  ul {
+    padding: 0;
+    margin: 0;
+  }
+  a {
+    text-decoration: none;
+    color: black;
+    display: block;
+    padding: 1rem;
+  }
+  li {
+    list-style: none;
+    border: 1px solid black;
+    border-radius: 4px;
+    margin: 1rem 0;
+  }
+  img {
+    height: 80px;
+    width: auto;
+    float: right;
+    margin-left: 1rem;
+  }
+  h3 {
+    margin-top: 0px;
+  }
+</style>

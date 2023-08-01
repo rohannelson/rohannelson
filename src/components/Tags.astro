@@ -1,38 +1,38 @@
 ---
 const capitalise = (str) => {
-    return str.charAt(0).toUpperCase() + str.slice(1);
+  return str.charAt(0).toUpperCase() + str.slice(1);
 };
 const allBlogs = await Astro.glob("../pages/blog/*.mdx");
 const nonDraftBlogs = allBlogs.filter((blog) => !blog.frontmatter.draft);
 const uniqueTags = [
-    ...new Set(nonDraftBlogs.map((blog) => blog.frontmatter.tags).flat()),
+  ...new Set(nonDraftBlogs.map((blog) => blog.frontmatter.tags).flat()),
 ];
 ---
 
 <ul>
-    {
-        uniqueTags.map((tag) => {
-            let tagURL = `/blog/tags/${tag}/1`;
-            return (
-                <li>
-                    <a class="tag" href={tagURL}>
-                        {capitalise(tag)}
-                    </a>
-                </li>
-            );
-        })
-    }
+  {
+    uniqueTags.map((tag) => {
+      let tagURL = `/blog/series/${tag}/1`;
+      return (
+        <li>
+          <a class="tag" href={tagURL}>
+            {capitalise(tag)}
+          </a>
+        </li>
+      );
+    })
+  }
 </ul>
 <style>
-    ul {
-        display: flex;
-        flex-wrap: wrap;
-        padding: 0;
-        row-gap: 10px;
-    }
-    li {
-        list-style: none;
-        margin-right: 0.5rem;
-        background-color: var(--light-grey);
-    }
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+    row-gap: 10px;
+  }
+  li {
+    list-style: none;
+    margin-right: 0.5rem;
+    background-color: var(--light-grey);
+  }
 </style>
