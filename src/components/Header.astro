@@ -2,117 +2,146 @@
 ---
 
 <header>
-    <div class="container">
-        <div class="wrapper">
-            <a href="/">RN</a>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="/blog/1">Blog</a></li>
-                <li><a href="/about">About</a></li>
-                <li><a href="/contact">Contact</a></li>
-            </ul>
-        </nav>
+  <div class="container">
+    <div class="wrapper">
+      <a href="/">RN</a>
     </div>
+    <nav>
+      <ul>
+        <li><a href="/blog/1">Blog</a></li>
+        <li><a href="/projects">Projects</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+    </nav>
+    <button class="hamburger">
+      <div></div>
+      <div></div>
+      <div></div>
+    </button>
+  </div>
 </header>
 <div class="header-trigger"></div>
 <style>
-    :root {
-        --header-height: 5.5rem;
-        --font-size: 16px;
-        --transition-speed: 0.2s;
-    }
-    header {
-        display: flex;
-        width: 100%;
-        background-color: var(--theme-background);
-        position: fixed;
-        top: 0;
-        height: var(--header-height);
-        justify-content: center;
-        font-size: var(--font-size);
-        transition: var(--transition-speed);
-    }
-    div.container {
-        max-width: 700px;
-        padding: 2em 2rem 0 2rem;
-        width: 100%;
-        height: var(--header-height);
-        display: flex;
-        justify-content: flex-end;
-        border-bottom: solid 1px #dfdfdf;
-        transition: var(--transition-speed);
-    }
-    div.wrapper > a {
-        padding: 12px;
-        background: var(--accent-gradient);
-        border-radius: 100%;
-    }
-    nav {
-        width: 100%;
-    }
-    ul {
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        margin: 0;
-        margin-right: -1rem;
-        padding: 0;
+  :root {
+    --header-height: 5.5rem;
+    --font-size: 16px;
+    --transition-speed: 0.2s;
+  }
+  header {
+    display: flex;
+    width: 100%;
+    background-color: var(--theme-background);
+    position: fixed;
+    top: 0;
+    height: var(--header-height);
+    justify-content: center;
+    font-size: var(--font-size);
+    transition: var(--transition-speed);
+  }
+  div.container {
+    max-width: 700px;
+    padding: 2em 2rem 0 2rem;
+    width: 100%;
+    height: var(--header-height);
+    display: flex;
+    justify-content: flex-end;
+    border-bottom: solid 1px #dfdfdf;
+    transition: var(--transition-speed);
+  }
+  div.wrapper > a {
+    padding: 12px;
+    background: var(--accent-gradient);
+    border-radius: 100%;
+  }
+  nav {
+    width: 100%;
+  }
+  ul {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 0;
+    margin-right: -1rem;
+    padding: 0;
+  }
+  li {
+    list-style: none;
+    padding: 0 0.5rem;
+  }
+  a {
+    text-decoration: none;
+    color: black;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+  a:focus,
+  a:hover {
+    outline: solid 1px black;
+    font-weight: 600;
+  }
+  div.wrapper > a:focus,
+  div.wrapper > a:hover {
+    outline: solid 1px black;
+    transition: var(--transition-speed);
+  }
+  div.header-trigger {
+    height: 5.5rem;
+    transition: var(--transition-speed);
+  }
+
+  button.hamburger {
+    display: none;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    height: 40px;
+    width: 40px;
+    align-self: top;
+    padding: 0;
+  }
+  button.hamburger div {
+    background-color: black;
+    margin: 2px auto;
+    padding: 0;
+    display: inline-block;
+    height: 5px;
+    width: 25px;
+    flex-shrink: 0;
+  }
+  @media (max-width: 600px) {
+    button.hamburger {
+      display: flex;
     }
     li {
-        list-style: none;
-        padding: 0 0.5rem;
+      padding: 0;
     }
-    a {
-        text-decoration: none;
-        color: black;
-        padding: 0.5rem 1rem;
-        border-radius: 5px;
-        font-size: 1.1rem;
-        font-weight: 500;
-    }
-    a:focus,
-    a:hover {
-        outline: solid 1px black;
-        font-weight: 600;
-    }
-    div.wrapper > a:focus,
-    div.wrapper > a:hover {
-        outline: solid 1px black;
-        transition: var(--transition-speed);
-    }
-    div.header-trigger {
-        height: 5.5rem;
-        transition: var(--transition-speed);
-    }
-    @media (max-width: 400px) {
-        li {
-            padding: 0;
-        }
-    }
+  }
 </style>
 <script>
-    const html = document.documentElement;
-    const headerTrigger = document.querySelector(".header-trigger");
-    const headerHeightInit = html.style.getPropertyValue("--header-height");
-    const fontSizeInit = html.style.getPropertyValue("--font-size");
-    let options = {
-        root: null,
-        rootMargin: "15px",
-        threshold: 0,
-    };
-    const obsCallback = (entries) => {
-        entries.forEach((entry) => {
-            if (!entry.isIntersecting) {
-                html.style.setProperty("--header-height", "4rem");
-                html.style.setProperty("--font-size", "10px");
-            } else {
-                html.style.setProperty("--header-height", headerHeightInit);
-                html.style.setProperty("--font-size", fontSizeInit);
-            }
-        });
-    };
+  const html = document.documentElement;
+  const headerTrigger = document.querySelector(".header-trigger");
+  const headerHeightInit = html.style.getPropertyValue("--header-height");
+  const fontSizeInit = html.style.getPropertyValue("--font-size");
+  let options = {
+    root: null,
+    rootMargin: "15px",
+    threshold: 0,
+  };
+  const obsCallback = (entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) {
+        html.style.setProperty("--header-height", "4rem");
+        html.style.setProperty("--font-size", "10px");
+      } else {
+        html.style.setProperty("--header-height", headerHeightInit);
+        html.style.setProperty("--font-size", fontSizeInit);
+      }
+    });
+  };
 
-    let headerObserver = new IntersectionObserver(obsCallback, options);
-    headerObserver.observe(headerTrigger);
+  let headerObserver = new IntersectionObserver(obsCallback, options);
+  headerObserver.observe(headerTrigger);
 </script>

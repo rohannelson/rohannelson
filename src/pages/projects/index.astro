@@ -1,0 +1,144 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import TicTacToe from "./TicTacToe.jsx";
+import FourInARow from "./FourInARow.jsx";
+import Checkers from "./Checkers.jsx";
+const title = "My Web Projects";
+const description = "A home for my web experiments";
+---
+
+<Layout title={title} description={description}>
+  <p>Hi, check out these games that I made with React for fun!</p>
+  <TicTacToe client:load />
+  <FourInARow client:load />
+  <Checkers client:load />
+</Layout>
+
+<!--Tic Tac Toe Styling (some shared)-->
+<style is:global>
+  .square {
+    background: #fff;
+    border: 1px solid #999;
+    float: left;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 34px;
+    height: 34px;
+    margin-right: -1px;
+    margin-top: -1px;
+    padding: 0;
+    text-align: center;
+    width: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .board-row:after {
+    clear: both;
+    content: "";
+    display: table;
+  }
+
+  .status {
+    margin-bottom: 10px;
+  }
+  .game {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .game-info {
+    margin-left: 20px;
+  }
+  .breaker {
+    height: 20px;
+  }
+</style>
+
+<!--Four In A Row Styling-->
+<style is:global>
+  .circle {
+    background: #fff;
+    border: 1px solid #999;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 31px;
+    height: 31px;
+    padding: 0;
+    margin: 1px;
+    text-align: center;
+    width: 31px;
+    border-radius: 100%;
+    float: left;
+  }
+  .board {
+    height: 204px;
+    width: 240px;
+    background: red;
+    z-index: -1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+  }
+  .board-column:after {
+    clear: both;
+    content: "";
+    display: table;
+  }
+  .inputWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 240px;
+    margin-bottom: 5px;
+  }
+  .input {
+    width: 31px;
+    margin: 1px;
+    font-size: 16px;
+  }
+  .circle.green {
+    background: greenyellow;
+    border: 2px solid black;
+  }
+
+  .circle.blue {
+    background: aqua;
+    border: 2px solid black;
+  }
+</style>
+<!--Checkers Styling-->
+<style is:global>
+  .blackChecker {
+    background-color: black;
+    border: 1px solid white;
+    height: 90%;
+    width: 90%;
+    border-radius: 100%;
+  }
+  .blackCheckerKing {
+    border: 3px solid gold;
+  }
+  .whiteChecker {
+    background-color: white;
+    border: 1px solid black;
+    height: 90%;
+    width: 90%;
+    border-radius: 100%;
+  }
+  .whiteCheckerKing {
+    border: 3px solid gold;
+  }
+  .square.black {
+    background: gray;
+  }
+  .placeholder {
+    cursor: url(whiteChecker.svg), default;
+    cursor: url(blackChecker.svg), default;
+  }
+  .blackHeld {
+    cursor: url(blackChecker.svg), default;
+  }
+</style>
