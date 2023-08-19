@@ -8,7 +8,11 @@ const description = "A home for my web experiments";
 ---
 
 <Layout title={title} description={description}>
-  <p>Hi, check out these games that I made with React for fun!</p>
+  <p>
+    Hi, check out these games that I made with React for fun!<br />
+    I haven't made them responsive yet, so the layout breaks on screens smaller than
+    368px - apologies to those with small resolutions.
+  </p>
   <TicTacToe client:load />
   <FourInARow client:load />
   <Checkers client:load />

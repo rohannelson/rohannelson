@@ -6,7 +6,7 @@
     <div class="wrapper">
       <a href="/">RN</a>
     </div>
-    <nav>
+    <nav class="headerNav hidden">
       <ul>
         <li><a href="/blog/1">Blog</a></li>
         <li><a href="/projects">Projects</a></li>
@@ -14,7 +14,7 @@
         <li><a href="/contact">Contact</a></li>
       </ul>
     </nav>
-    <button class="hamburger">
+    <button type="button" class="headerNavToggle hamburger">
       <div></div>
       <div></div>
       <div></div>
@@ -91,32 +91,97 @@
     height: 5.5rem;
     transition: var(--transition-speed);
   }
+  @media (max-width: 600px) {
+    ul {
+      position: absolute;
+      left: 0px;
+      top: var(--header-height);
+      flex-direction: column;
+      width: 100vw;
+      margin: auto;
+    }
+    ul li {
+      margin: 0;
+    }
+    li a {
+      display: block;
+      background-color: var(--grey);
+      width: 100vw;
+      text-align: center;
+      margin: 0;
+      padding: 5px 0;
+    }
+    a:hover {
+      outline: none;
+      background-color: grey;
+      color: white;
+      border-radius: 0;
+    }
+    .hidden {
+      display: none;
+    }
+  }
 
-  button.hamburger {
+  /*hamburger styles*/
+  .headerNavToggle {
     display: none;
     flex-direction: column;
-    align-content: center;
     justify-content: center;
-    height: 40px;
-    width: 40px;
-    align-self: top;
-    padding: 0;
+    align-items: center;
+    align-self: flex-start;
+    background-color: var(--grey);
+    border: 0px;
+    transition: 0.25s;
+    cursor: pointer;
+    font-size: 9px;
+    height: 0px;
   }
-  button.hamburger div {
-    background-color: black;
-    margin: 2px auto;
-    padding: 0;
-    display: inline-block;
-    height: 5px;
-    width: 25px;
+
+  .headerNavToggle div {
+    background-color: #333;
+    height: 4px;
+    transition: 0.4s;
     flex-shrink: 0;
+    flex-grow: 0;
+  }
+
+  .headerNavToggle.hamburger div {
+    width: 3.5em;
+    margin: 0.3em 0.1em 0.3em 0;
+    border-radius: 10px;
+  }
+  button {
+    align-self: center;
+    width: auto;
+    padding: 5px;
+    border-radius: 4px;
+  }
+  .toggled div:nth-of-type(1) {
+    border-radius: 10px;
+    transform: rotate(45deg);
+    position: relative;
+    top: 0.85em;
+  }
+
+  .toggled div:nth-of-type(2) {
+    width: 3.1em;
+    margin: 0.15em 0.4em 0.15em 0;
+    border-radius: 10px;
+    transform: rotate(405deg);
+    opacity: 0;
+  }
+
+  .toggled div:nth-of-type(3) {
+    border-radius: 10px;
+    transform: rotate(-45deg);
+    position: relative;
+    bottom: 0.85em;
   }
   @media (max-width: 600px) {
-    button.hamburger {
+    .headerNavToggle {
       display: flex;
-    }
-    li {
-      padding: 0;
+      margin-left: auto;
+      height: 35px;
     }
   }
 </style>
@@ -144,4 +209,12 @@
 
   let headerObserver = new IntersectionObserver(obsCallback, options);
   headerObserver.observe(headerTrigger);
+</script>
+<script>
+  const headerNavToggle = document.querySelector(".headerNavToggle");
+  const headerNav = document.querySelector(".headerNav");
+  headerNavToggle.addEventListener("click", () => {
+    headerNav.classList.toggle("hidden");
+    headerNavToggle.classList.toggle("toggled");
+  });
 </script>
