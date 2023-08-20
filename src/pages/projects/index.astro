@@ -8,11 +8,7 @@ const description = "A home for my web experiments";
 ---
 
 <Layout title={title} description={description}>
-  <p>
-    Hi, check out these games that I made with React for fun!<br />
-    I haven't made them responsive yet, so the layout breaks on screens smaller than
-    368px - apologies to those with small resolutions.
-  </p>
+  <p>Check out these games that I made with React for fun!</p>
   <TicTacToe client:load />
   <FourInARow client:load />
   <Checkers client:load />
@@ -20,40 +16,43 @@ const description = "A home for my web experiments";
 
 <!--Tic Tac Toe Styling (some shared)-->
 <style is:global>
-  .square {
+  .tictactoe .square {
     background: #fff;
     border: 1px solid #999;
     float: left;
-    font-size: 24px;
+    font-size: 30px;
     font-weight: bold;
     line-height: 34px;
-    height: 34px;
+    height: 50px;
     margin-right: -1px;
     margin-top: -1px;
     padding: 0;
     text-align: center;
-    width: 34px;
+    width: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  .board-row:after {
+  .tictactoe .board-row:after {
     clear: both;
     content: "";
     display: table;
   }
 
-  .status {
-    margin-bottom: 10px;
+  .tictactoe .status {
+    margin-bottom: 20px;
+    align-self: flex-start;
   }
-  .game {
+  .tictactoe .game {
     display: flex;
     flex-direction: row;
   }
-
-  .game-info {
-    margin-left: 20px;
+  .tictactoe .wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
   .breaker {
     height: 20px;
@@ -62,23 +61,20 @@ const description = "A home for my web experiments";
 
 <!--Four In A Row Styling-->
 <style is:global>
-  .circle {
+  .fiar .circle {
     background: #fff;
     border: 1px solid #999;
-    font-size: 24px;
-    font-weight: bold;
-    line-height: 31px;
-    height: 31px;
+    height: 32px;
     padding: 0;
     margin: 1px;
-    text-align: center;
-    width: 31px;
+    width: 32px;
     border-radius: 100%;
     float: left;
   }
-  .board {
-    height: 204px;
-    width: 240px;
+  .fiar .board {
+    height: 210px;
+    width: 250px;
+    padding: 3px;
     background: red;
     z-index: -1;
     display: flex;
@@ -86,35 +82,61 @@ const description = "A home for my web experiments";
     justify-content: center;
     border-radius: 3px;
   }
-  .board-column:after {
+  .fiar .board-column:after {
     clear: both;
     content: "";
     display: table;
   }
-  .inputWrapper {
+  .fiar .inputWrapper {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 240px;
-    margin-bottom: 5px;
+    width: 250px;
+    padding: 5px;
   }
-  .input {
+  .fiar .input {
     width: 31px;
     margin: 1px;
-    font-size: 16px;
+    font-size: 17px;
+    padding-bottom: 4px;
   }
-  .circle.green {
+  .fiar .circle.green {
     background: greenyellow;
     border: 2px solid black;
   }
 
-  .circle.blue {
+  .fiar .circle.blue {
     background: aqua;
     border: 2px solid black;
+  }
+  .fiar .wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 </style>
 <!--Checkers Styling-->
 <style is:global>
+  .checkers .square {
+    background: #fff;
+    border: 1px solid #999;
+    float: left;
+    height: 33px;
+    margin-right: -1px;
+    margin-top: -1px;
+    padding: 0;
+    text-align: center;
+    width: 33px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .checkers .board-row:after {
+    clear: both;
+    content: "";
+    display: table;
+  }
   .blackChecker {
     background-color: black;
     border: 1px solid white;
@@ -144,5 +166,11 @@ const description = "A home for my web experiments";
   }
   .blackHeld {
     cursor: url(blackChecker.svg), default;
+  }
+  .checkers .wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 </style>

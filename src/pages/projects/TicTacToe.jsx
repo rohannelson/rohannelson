@@ -101,44 +101,16 @@ export default function Game() {
       setHistory(nextHistory);
       setCurrentMove(nextHistory.length - 1);
       const newMoves = nextHistory.map((squares, move) => {
-        let description;
-        if (move > 0) {
-          description = 'Go to move #' + move;
-        } else {
-          description = 'Go to game start';
-        }
-        return (
-          <li key={move}>
-            {move === nextHistory.length - 1 ? 'You are at move# ' + move : <button onClick={() => jumpTo(move)}>{description}</button>}
-          </li>
-        );
       })
       if (reversed===true) {newMoves.reverse()}
       setMoves(newMoves)
     }
-  
-    function jumpTo(nextMove) {
-      setCurrentMove(nextMove);
-    }
-  
-    function handleButtonClick() {
-      setReversed(!reversed);
-      const newMoves=[...moves].reverse();
-      setMoves(newMoves);
-    }
-  
     return (
-      <>
+      <div className="tictactoe">
       <h2>TicTacToe</h2>
-      <div className="game">
-        <div className="game-board">
+      <div className="game wrapper">
           <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
-        </div>
-        <div className="game-info">
-          <button onClick={() => handleButtonClick()}>sort in reverse</button>
-          <ol>{moves}</ol>
-        </div>
       </div>
-      </>
+      </div>
     );
   }

@@ -50,15 +50,19 @@ export default function Game() {
 }
 
     return (
-        <>
+        <div className="fiar">
         <h2>Four in a Row</h2>
         <div className="status">{gameStatus}</div>
+        <div className="wrapper">
         <div className="inputWrapper">
             {[0,6,12,18,24,30,36].map((i) => <Input key={"i"+i} onInputClick={() => onPlay(i)}/>)}
         </div>
+        <div>
         <Board circles={circles}>
         </Board>
-        </>
+        </div>
+        </div>
+        </div>
     )
 }
 

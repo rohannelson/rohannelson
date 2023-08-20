@@ -217,8 +217,12 @@ export default function Game() {
 
     return (
     <>
+    <div className="checkers">
     <h2>Checkers</h2>
     <div className="status">{turn}'s turn</div>
+    <div className="wrapper">
     <CheckerBoard squares={squares} onSquareClick={handleClick}/>
+    </div>
+    </div>
     </>)
 }
