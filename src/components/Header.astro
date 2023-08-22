@@ -17,9 +17,11 @@
       </ul>
     </nav>
     <button type="button" class="headerNavToggle hamburger">
-      <div></div>
-      <div></div>
-      <div></div>
+      <div class="wrapper">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
     </button>
   </div>
 </header>
@@ -82,7 +84,7 @@
   }
   .logoFillInner {
     font-weight: 500;
-    font-size: calc(28em / 16);
+    font-size: calc(30em / 16);
     color: inherit;
   }
   nav {
@@ -171,7 +173,6 @@
     font-size: var(--font-size);
     height: 5.5em;
     width: 5.5em;
-    padding: 5px;
     align-self: center;
     justify-self: center;
   }
@@ -183,8 +184,23 @@
     transition: 0s;
   }
 
-  .headerNavToggle div {
-    border: solid 3px var(--light-red);
+  .headerNavToggle .wrapper {
+    border-color: var(--light-red);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  .headerNavToggle .wrapper:hover {
+    border-color: white;
+    transition: 0s;
+  }
+
+  .headerNavToggle div:not(.wrapper) {
+    border: solid 2px var(--light-red);
     border-radius: 100%;
     border-color: inherit;
     height: 0px;
@@ -193,32 +209,32 @@
     flex-grow: 0;
   }
 
-  .headerNavToggle.hamburger div {
-    width: 3.5em;
-    margin: 0.3em 0;
+  .headerNavToggle.hamburger div:not(.wrapper) {
+    width: 2.8em;
+    margin: 0.25em 0;
     border-radius: var(--border-radius);
     font-size: var(--font-size);
     transition: var(--transition-speed);
   }
 
-  .toggled div:nth-of-type(1) {
+  .toggled div:not(.wrapper):nth-of-type(1) {
     transform: rotate(45deg);
-    position: relative;
     margin: 0;
-    top: 10%;
+    position: relative;
+    top: 4px;
   }
 
-  .toggled div:nth-of-type(2) {
+  .toggled div:not(.wrapper):nth-of-type(2) {
     margin: 0;
     transform: rotate(405deg);
     opacity: 0;
   }
 
-  .toggled div:nth-of-type(3) {
+  .toggled div:not(.wrapper):nth-of-type(3) {
     transform: rotate(-45deg);
-    position: relative;
     margin: 0;
-    top: -10%;
+    position: relative;
+    bottom: 4px;
   }
   @media (max-width: calc(639rem / 16)) {
     .headerNavToggle {
