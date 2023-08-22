@@ -2,10 +2,12 @@
 ---
 
 <header>
-  <div class="container">
-    <div class="wrapper">
-      <a href="/">RN</a>
-    </div>
+  <div class="headerContainer">
+    <a class="logoAnchor" href="/">
+      <div class="logoFillOuter">
+        <div class="logoFillInner">RN</div>
+      </div>
+    </a>
     <nav class="headerNav hidden">
       <ul>
         <li><a href="/blog/1">Blog</a></li>
@@ -24,14 +26,14 @@
 <div class="header-trigger"></div>
 <style>
   :root {
-    --header-height: 5.5rem;
-    --font-size: 16px;
+    --header-height: calc(120rem / 16);
     --transition-speed: 0.2s;
+    --font-size: 1rem;
   }
   header {
     display: flex;
+    background-color: white;
     width: 100%;
-    background-color: var(--theme-background);
     position: fixed;
     top: 0;
     height: var(--header-height);
@@ -39,20 +41,49 @@
     font-size: var(--font-size);
     transition: var(--transition-speed);
   }
-  div.container {
-    max-width: 700px;
-    padding: 2em 2rem 0 2rem;
-    width: 100%;
-    height: var(--header-height);
-    display: flex;
-    justify-content: flex-end;
-    border-bottom: solid 1px #dfdfdf;
+  div.header-trigger {
+    height: calc(120rem / 16);
     transition: var(--transition-speed);
   }
-  div.wrapper > a {
-    padding: 12px;
-    background: var(--accent-gradient);
+  div.headerContainer {
+    max-width: var(--content-width);
+    height: var(--header-height);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    transition: var(--transition-speed);
+    margin: 0 1.2rem;
+  }
+  /*LOGO STYLES*/
+  .logoAnchor {
     border-radius: 100%;
+    text-decoration: none;
+  }
+  .logoFillOuter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size);
+    height: 5.5em;
+    width: 5.5em;
+    border-radius: 100%;
+    background-color: white;
+    border: solid 4px var(--dark-red);
+    transition: var(--transition-speed);
+    color: var(--light-red);
+  }
+  .logoFillOuter:is(:hover, :focus-within) {
+    background: var(--red-gradient);
+    border: 4px solid white;
+    outline: none;
+    color: white;
+    transition: 0s;
+  }
+  .logoFillInner {
+    font-weight: 500;
+    font-size: calc(28em / 16);
+    color: inherit;
   }
   nav {
     width: 100%;
@@ -69,29 +100,26 @@
     list-style: none;
     padding: 0 0.5rem;
   }
-  a {
+  li a {
     text-decoration: none;
-    color: black;
     padding: 0.5rem 1rem;
-    border-radius: 5px;
+    border-radius: var(--border-radius);
     font-size: 1.1rem;
-    font-weight: 500;
+    font-weight: 700;
   }
-  a:focus,
-  a:hover {
-    outline: solid 1px black;
-    font-weight: 600;
+
+  nav a {
+    color: var(--dark-grey);
   }
-  div.wrapper > a:focus,
-  div.wrapper > a:hover {
-    outline: solid 1px black;
-    transition: var(--transition-speed);
+
+  li a:focus,
+  li a:hover {
+    outline: none;
+    background-color: var(--light-red);
+    color: white;
   }
-  div.header-trigger {
-    height: 5.5rem;
-    transition: var(--transition-speed);
-  }
-  @media (max-width: 600px) {
+
+  @media (max-width: calc(639rem / 16)) {
     ul {
       position: absolute;
       left: 0px;
@@ -99,23 +127,29 @@
       flex-direction: column;
       width: 100vw;
       margin: auto;
+      transition: var(--transition-speed);
     }
     ul li {
       margin: 0;
     }
     li a {
       display: block;
-      background-color: var(--grey);
+      background: var(--red-gradient);
+      color: white;
+      border-radius: 0;
       width: 100vw;
       text-align: center;
       margin: 0;
       padding: 5px 0;
     }
-    a:hover {
+    li a:hover {
       outline: none;
-      background-color: grey;
-      color: white;
+      background: var(--dark-red);
       border-radius: 0;
+    }
+    li:hover {
+      transform: scale(110%);
+      transition: var(--transition-speed);
     }
     .hidden {
       display: none;
@@ -123,23 +157,37 @@
   }
 
   /*hamburger styles*/
+  /*need to change this to an image*/
   .headerNavToggle {
     display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    align-self: flex-start;
-    background-color: var(--grey);
-    border: 0px;
-    transition: 0.25s;
+    background-color: white;
+    border: 4px solid var(--dark-red);
+    border-radius: 100%;
+    transition: var(--transition-speed);
     cursor: pointer;
-    font-size: 9px;
-    height: 0px;
+    font-size: var(--font-size);
+    height: 5.5em;
+    width: 5.5em;
+    padding: 5px;
+    align-self: center;
+    justify-self: center;
+  }
+
+  .headerNavToggle:hover {
+    background: var(--red-gradient);
+    background-color: white;
+    border: 4px solid white;
+    transition: 0s;
   }
 
   .headerNavToggle div {
-    background-color: #333;
-    height: 4px;
+    border: solid 3px var(--light-red);
+    border-radius: 100%;
+    border-color: inherit;
+    height: 0px;
     transition: 0.4s;
     flex-shrink: 0;
     flex-grow: 0;
@@ -147,41 +195,36 @@
 
   .headerNavToggle.hamburger div {
     width: 3.5em;
-    margin: 0.3em 0.1em 0.3em 0;
-    border-radius: 10px;
+    margin: 0.3em 0;
+    border-radius: var(--border-radius);
+    font-size: var(--font-size);
+    transition: var(--transition-speed);
   }
-  button {
-    align-self: center;
-    width: auto;
-    padding: 5px;
-    border-radius: 4px;
-  }
+
   .toggled div:nth-of-type(1) {
-    border-radius: 10px;
     transform: rotate(45deg);
     position: relative;
-    top: 0.85em;
+    margin: 0;
+    top: 10%;
   }
 
   .toggled div:nth-of-type(2) {
-    width: 3.1em;
-    margin: 0.15em 0.4em 0.15em 0;
-    border-radius: 10px;
+    margin: 0;
     transform: rotate(405deg);
     opacity: 0;
   }
 
   .toggled div:nth-of-type(3) {
-    border-radius: 10px;
     transform: rotate(-45deg);
     position: relative;
-    bottom: 0.85em;
+    margin: 0;
+    top: -10%;
   }
-  @media (max-width: 600px) {
+  @media (max-width: calc(639rem / 16)) {
     .headerNavToggle {
       display: flex;
       margin-left: auto;
-      height: 35px;
+      flex-shrink: 0;
     }
   }
 </style>
@@ -192,14 +235,14 @@
   const fontSizeInit = html.style.getPropertyValue("--font-size");
   let options = {
     root: null,
-    rootMargin: "15px",
+    rootMargin: "-10px",
     threshold: 0,
   };
   const obsCallback = (entries) => {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) {
-        html.style.setProperty("--header-height", "4rem");
-        html.style.setProperty("--font-size", "10px");
+        html.style.setProperty("--header-height", "5rem");
+        html.style.setProperty("--font-size", "0.75rem");
       } else {
         html.style.setProperty("--header-height", headerHeightInit);
         html.style.setProperty("--font-size", fontSizeInit);
