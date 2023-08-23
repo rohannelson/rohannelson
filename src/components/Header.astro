@@ -32,6 +32,12 @@
     --transition-speed: 0.2s;
     --font-size: 1rem;
   }
+  @media (max-width: calc(639rem / 16)) {
+    :root {
+      --font-size: 0.85rem;
+      --header-height: calc(100rem / 16);
+    }
+  }
   header {
     display: flex;
     background-color: white;
@@ -46,6 +52,11 @@
   div.header-trigger {
     height: calc(120rem / 16);
     transition: var(--transition-speed);
+  }
+  @media (max-width: calc(639rem / 16)) {
+    div.header-trigger {
+      height: calc(100rem / 16);
+    }
   }
   div.headerContainer {
     max-width: var(--content-width);
@@ -257,8 +268,8 @@
   const obsCallback = (entries) => {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) {
-        html.style.setProperty("--header-height", "5rem");
-        html.style.setProperty("--font-size", "0.75rem");
+        html.style.setProperty("--header-height", "4.75rem");
+        html.style.setProperty("--font-size", "0.7rem");
       } else {
         html.style.setProperty("--header-height", headerHeightInit);
         html.style.setProperty("--font-size", fontSizeInit);
