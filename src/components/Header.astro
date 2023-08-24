@@ -66,7 +66,7 @@
     align-items: center;
     justify-content: flex-end;
     transition: var(--transition-speed);
-    margin: 0 1.2rem;
+    margin: 0 18px;
   }
   /*LOGO STYLES*/
   .logoAnchor {
@@ -159,10 +159,8 @@
       outline: none;
       background: var(--dark-red);
       border-radius: 0;
-    }
-    li:hover {
       transform: scale(110%);
-      transition: var(--transition-speed);
+      transition: transform var(--transition-speed);
     }
     .hidden {
       display: none;
@@ -170,7 +168,6 @@
   }
 
   /*hamburger styles*/
-  /*need to change this to an image*/
   .headerNavToggle {
     display: none;
     flex-direction: column;
@@ -225,7 +222,7 @@
     margin: 0.25em 0;
     border-radius: var(--border-radius);
     font-size: var(--font-size);
-    transition: var(--transition-speed);
+    transition: var(--transition-speed) ease-out;
   }
 
   .toggled div:not(.wrapper):nth-of-type(1) {

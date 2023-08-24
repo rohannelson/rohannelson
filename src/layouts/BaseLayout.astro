@@ -179,7 +179,7 @@ const pageDescription = description ?? frontmatter.description;
       div.container {
         max-width: var(--content-width);
         justify-content: center;
-        margin: 0 auto;
+        margin: 0 max(var(--margin-width), 18px);
         min-height: calc(100vh - var(--header-height));
       }
       body {

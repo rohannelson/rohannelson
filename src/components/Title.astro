@@ -13,7 +13,7 @@ const { title } = Astro.props;
     background: var(--red-gradient);
     height: 80px;
     width: min(calc(var(--content-width)+var(--margin-width) + 20px), 0px);
-    margin-left: min(calc(var(--margin-width) * -1), 0px);
+    margin-left: min(calc(var(--margin-width) * -1), -18px);
     margin-right: -20px;
     border-radius: 0 var(--border-radius) var(--border-radius) 0;
     display: flex;
@@ -21,7 +21,7 @@ const { title } = Astro.props;
   }
   h1 {
     color: white;
-    margin-left: max(var(--margin-width), 1.2rem);
+    margin-left: max(var(--margin-width), 18px);
   }
   div.stickyBorder {
     position: sticky;
@@ -41,6 +41,7 @@ const { title } = Astro.props;
     div {
       width: 100vw;
       border-radius: 0;
+      margin-right: 0;
     }
   }
 </style>
