@@ -1,0 +1,27 @@
+---
+//This has problems - is there a way of taking in SVG attributes from the icons it imports?
+//One option could be to put the SVG in a markdown file, and have the SVG code as an attribute, and the Path as an attribute???
+const { iconColour, iconPath } = Astro.props;
+const icons = await Astro.glob("./icons/*.astro");
+let icon;
+icons.map((icn) => {
+  if (icn.file.includes(`${iconPath}.astro`)) {
+    icon = icn;
+  }
+  return;
+});
+const { svgAttr } = await import({`${icon.file}?raw`});
+console.log(svgAttr);
+---
+
+<svg attributes={iconAttributes}>
+  {(<icon.default />)}
+</svg>
+<style define:vars={{ iconColour }}>
+  svg {
+    fill: var(--iconColour);
+    height: 80px;
+    width: 100%;
+    margin: 20px;
+  }
+</style>
