@@ -17,7 +17,10 @@ const description = "A description for my home page";
   <Grid>
     <div class="card-wrapper">
       <div class="card-header-wrapper">
-        <h2>A Blog</h2>
+        <div class="flex-column">
+          <h2>A Blog</h2>
+          <a href="/blog">Read blog</a>
+        </div>
         <div class="icon-wrapper">
           <Icon name="quill" fill="white" />
         </div>
@@ -42,7 +45,10 @@ const description = "A description for my home page";
     </div>
     <div class="card-wrapper">
       <div class="card-header-wrapper">
-        <h2>Web Experiments</h2>
+        <div class="flex-column">
+          <h2>Web Experiments</h2>
+          <a href="/projects">View projects</a>
+        </div>
         <div class="icon-wrapper">
           <Icon name="code" fill="white" />
         </div>
@@ -57,12 +63,13 @@ const description = "A description for my home page";
       </div>
     </div>
   </Grid>
-  <h3>Under Construction</h3>
-  <p>
-    This site is currently under construction, so please bear with the various
-    unfinished&nbsp;bits.
-  </p>
 </Layout>
+<h3>Under Construction</h3>
+<p>
+  This site is currently under construction, so please bear with the various
+  unfinished&nbsp;bits.
+</p>
+
 <style>
   div.wrapper {
     display: flex;
@@ -120,6 +127,22 @@ const description = "A description for my home page";
     display: flex;
     align-items: flex-start;
   }
+  .card-header-wrapper a {
+    background: white;
+    text-decoration: none;
+    border-radius: var(--border-radius);
+    font-size: var(--font-size-h4);
+    line-height: var(--line-height-h4);
+    font-weight: 700;
+    padding: 5px 12px;
+    align-self: flex-start;
+    margin-top: auto;
+  }
+  div.flex-column {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
   div.icon-wrapper {
     margin-left: auto;
   }
@@ -127,7 +150,8 @@ const description = "A description for my home page";
     background: white;
     border-radius: var(--border-radius);
     padding: 5px 20px 20px 20px;
-    margin-top: auto;
+    height: 100%;
+    margin-top: 1.2rem;
   }
   li {
     list-style: none;
@@ -138,6 +162,6 @@ const description = "A description for my home page";
   [astro-icon] {
     height: 80px;
     width: 100%;
-    margin: 20px 20px 10px 20px;
+    margin: 20px 20px 0 20px;
   }
 </style>

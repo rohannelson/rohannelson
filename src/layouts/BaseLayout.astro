@@ -49,6 +49,21 @@ const pageDescription = description ?? frontmatter.description;
         color: var(--dark-grey);
         line-height: 26px;
       }
+      /*FONT VARIABLES*/
+      :root {
+        --font-size-h1: calc(40rem / 16);
+        --line-height-h1: calc(50rem / 16);
+
+        --font-size-h2: calc(28rem / 16);
+        --line-height-h2: calc(38rem / 16);
+
+        --font-size-h3: calc(24rem / 16);
+        --line-height-h3: calc(34rem / 16);
+
+        --font-size-h4: calc(18rem / 16);
+        --line-height-h4: calc(28rem / 16);
+      }
+
       /*BASIC COLOUR VARIABLES*/
       :root {
         --dark-grey: #52554a;
@@ -115,7 +130,7 @@ const pageDescription = description ?? frontmatter.description;
           var(--light-orange)
         );
       }
-      /*LAYOUT VARIABLES*/
+      /*LAYOUT VARIABLES & CLASSES*/
       :root {
         --content-width: 700px;
         --border-radius: 15px;
