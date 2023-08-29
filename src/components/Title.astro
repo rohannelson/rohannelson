@@ -1,9 +1,27 @@
 ---
-const { title } = Astro.props;
+const { title, pubDate } = Astro.props;
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+const date = new Date(pubDate);
+const fullDate =
+  date.getDate() + " " + months[date.getMonth()] + " " + date.getFullYear();
 ---
 
 <div class="titleWrapper">
   <h1>{title}</h1>
+  <p><span>Published:</span> {fullDate}</p>
 </div>
 <div class="stickyBorder"></div>
 <style>
@@ -33,6 +51,16 @@ const { title } = Astro.props;
     height: 8px;
     background-color: var(--red-gradient);
     transition: var(--transition-speed);
+  }
+  p {
+    align-self: flex-end;
+    margin-left: auto;
+    margin-right: 22px;
+    color: white;
+  }
+  span {
+    color: white;
+    font-weight: 700;
   }
   @media (max-width: calc(864rem / 16)) {
     div {

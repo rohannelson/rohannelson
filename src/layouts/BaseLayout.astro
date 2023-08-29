@@ -8,7 +8,7 @@ export interface Props {
   description: string;
 }
 //@ts-ignore
-const { title, description, frontmatter } = Astro.props;
+const { title, description, frontmatter, pubDate } = Astro.props;
 const pageTitle = title ?? frontmatter.title;
 const pageDescription = description ?? frontmatter.description;
 ---
@@ -37,7 +37,7 @@ const pageDescription = description ?? frontmatter.description;
     <Header />
     <main>
       <div class="container">
-        <Title title={title} />
+        <Title title={title} pubDate={pubDate} />
         <slot />
       </div>
     </main>
@@ -173,20 +173,6 @@ const pageDescription = description ?? frontmatter.description;
       }
       a {
         color: var(--light-red);
-      }
-      a.series {
-        text-decoration: none;
-        color: black;
-        padding: 0.25rem 0.5rem;
-        border-radius: 5px;
-        font-weight: 500;
-        border: 1px solid black;
-        font-style: italic;
-        display: inline-block;
-      }
-      a.series:focus,
-      a.series:hover {
-        transform: scale(106%);
       }
       li {
         margin-bottom: 0.5rem;
