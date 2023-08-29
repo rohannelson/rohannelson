@@ -9,25 +9,25 @@ export async function getStaticPaths({ paginate }) {
   const uniqueTags = [
     ...new Set(nonDraftBlogs.map((blog) => blog.frontmatter.tags).flat()),
   ];
-  return uniqueTags.map((tag) => {
+  return uniqueTags.map((series) => {
     const filteredBlogs = nonDraftBlogs.filter((blog) =>
-      blog.frontmatter.tags.includes(tag)
+      blog.frontmatter.tags.includes(series)
     );
     return paginate(filteredBlogs, {
-      params: { tag },
+      params: { series },
       pageSize: 10,
     });
   });
 }
-const { tag } = Astro.params;
+const { series } = Astro.params;
 const { page } = Astro.props;
-const title = tag;
-const description = `The home of my ${tag} series.`;
+const title = series;
+const description = `The home of my ${series} series.`;
 const capitalise = (str) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
 const tagPages = await Astro.glob("../../../../components/series/*.mdx");
-const tagPage = tagPages.filter((page) => page.frontmatter.tags.includes(tag));
+const tagPage = tagPages.filter((page) => page.frontmatter.tags.includes(series));
 const TagPageContent = tagPage[0].Content;
 ---
 
