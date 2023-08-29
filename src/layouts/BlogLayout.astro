@@ -13,7 +13,7 @@ allBlogs.forEach((blog, i) => {
   }
 });
 let filteredBlogs = [];
-const uniqueSeries = [...new Set(frontmatter.series.map((series) => series).flat())];
+const uniqueSeries = [...new Set(frontmatter.series)];
 uniqueSeries.forEach((series) => {
   filteredBlogs = allBlogs.filter((blog) => {
     return blog.frontmatter.series.includes(series);

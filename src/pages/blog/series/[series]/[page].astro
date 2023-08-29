@@ -6,12 +6,12 @@ import PageNav from "../../../../components/PageNav.astro";
 export async function getStaticPaths({ paginate }) {
   const allBlogs = await Astro.glob("../../*.mdx");
   const nonDraftBlogs = allBlogs.filter((blog) => !blog.frontmatter.draft);
-  const uniqueTags = [
-    ...new Set(nonDraftBlogs.map((blog) => blog.frontmatter.tags).flat()),
+  const uniqueSeries = [
+    ...new Set(nonDraftBlogs.map((blog) => blog.frontmatter.series).flat()),
   ];
-  return uniqueTags.map((series) => {
+  return uniqueSeries.map((series) => {
     const filteredBlogs = nonDraftBlogs.filter((blog) =>
-      blog.frontmatter.tags.includes(series)
+      blog.frontmatter.series?.includes(series)
     );
     return paginate(filteredBlogs, {
       params: { series },
@@ -26,13 +26,15 @@ const description = `The home of my ${series} series.`;
 const capitalise = (str) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
-const tagPages = await Astro.glob("../../../../components/series/*.mdx");
-const tagPage = tagPages.filter((page) => page.frontmatter.tags.includes(series));
-const TagPageContent = tagPage[0].Content;
+const seriesPages = await Astro.glob("../../../../components/series/*.mdx");
+const seriesPage = seriesPages.filter((page) =>
+  page.frontmatter.series?.includes(series)
+);
+const SeriesPageContent = seriesPage[0].Content;
 ---
 
 <Layout title={capitalise(title)} description={description}>
-  <TagPageContent />
+  <SeriesPageContent />
   <ul>
     {page.data.map((blog) => <NavCard post={blog} />)}
   </ul>
