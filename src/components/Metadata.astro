@@ -24,19 +24,12 @@ const fullDate =
 
 <dl>
   <div>
-    <dt><b>Tags:</b></dt>
-    {
-      frontmatter.tags.map((tag) => {
-        let tagURL = `/blog/series/${tag}/1`;
-        return (
-          <dd>
-            <a class="tag" href={tagURL}>
-              {capitalise(tag)}
-            </a>
-          </dd>
-        );
-      })
-    }
+    <dt><b>Series:</b></dt>
+    <dd>
+      <a class="series" href={`/blog/series/${frontmatter.series}/1`}>
+        {capitalise(frontmatter.series)}
+      </a>
+    </dd>
   </div>
   <div>
     <dt class="pub"><b>Published:</b></dt>
@@ -65,7 +58,7 @@ const fullDate =
     margin-left: 0.5rem;
     font-style: italic;
   }
-  a.tag {
+  a.series {
     padding: 0.2rem 0.4rem;
     margin: -0.2rem 0;
     background-color: var(--light-grey);

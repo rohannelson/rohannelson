@@ -13,10 +13,10 @@ allBlogs.forEach((blog, i) => {
   }
 });
 let filteredBlogs = [];
-const uniqueTags = [...new Set(frontmatter.tags.map((tag) => tag).flat())];
-uniqueTags.forEach((tag) => {
+const uniqueSeries = [...new Set(frontmatter.series.map((series) => series).flat())];
+uniqueSeries.forEach((series) => {
   filteredBlogs = allBlogs.filter((blog) => {
-    return blog.frontmatter.tags.includes(tag);
+    return blog.frontmatter.series.includes(series);
   });
 });
 let nextInSeries: any = {};
@@ -35,11 +35,7 @@ filteredBlogs.forEach((blog, i) => {
   <slot />
   <hr />
   <ul>
-    {
-      nextInSeries && (
-        <NavCard post={nextInSeries} titlePrefix="Next in Series: " />
-      )
-    }
+    {nextInSeries && <NavCard post={nextInSeries} titlePrefix="Next in Series: " />}
     {
       nextBlogObj && nextBlogObj != nextInSeries && (
         <NavCard post={nextBlogObj} titlePrefix="Next Blog: " />

@@ -4,19 +4,19 @@ const capitalise = (str) => {
 };
 const allBlogs = await Astro.glob("../pages/blog/*.mdx");
 const nonDraftBlogs = allBlogs.filter((blog) => !blog.frontmatter.draft);
-const uniqueTags = [
-  ...new Set(nonDraftBlogs.map((blog) => blog.frontmatter.tags).flat()),
+const uniqueSeries = [
+  ...new Set(nonDraftBlogs.map((blog) => blog.frontmatter.series).flat()),
 ];
 ---
 
 <ul>
   {
-    uniqueTags.map((tag) => {
-      let tagURL = `/blog/series/${tag}/1`;
+    uniqueSeries.map((series) => {
+      let seriesURL = `/blog/series/${series}/1`;
       return (
         <li>
-          <a class="tag" href={tagURL}>
-            {capitalise(tag)}
+          <a class="series" href={seriesURL}>
+            {capitalise(series)}
           </a>
         </li>
       );
