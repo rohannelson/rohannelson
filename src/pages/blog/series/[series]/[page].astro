@@ -31,12 +31,13 @@ const seriesPage = seriesPages.filter((page) =>
   page.frontmatter.series?.includes(series)
 );
 const SeriesPageContent = seriesPage[0].Content;
+const seriesColour = seriesPage[0].frontmatter.seriesColour;
 ---
 
 <Layout title={capitalise(title)} description={description}>
   <SeriesPageContent />
   <ul>
-    {page.data.map((blog) => <NavCard post={blog} />)}
+    {page.data.map((blog) => <NavCard post={blog} {seriesColour} />)}
   </ul>
   <PageNav page={page} />
 </Layout>
@@ -44,6 +45,8 @@ const SeriesPageContent = seriesPage[0].Content;
   ul {
     padding: 0;
     margin: 0;
+    display: grid;
+    row-gap: 20px;
   }
   a {
     text-decoration: none;

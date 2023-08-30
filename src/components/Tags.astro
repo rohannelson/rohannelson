@@ -1,4 +1,5 @@
 ---
+import Card from "./Card.astro";
 const capitalise = (str) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
@@ -10,7 +11,7 @@ const series = await Astro.glob("./series/*.mdx");
     series.map((series) => {
       let seriesURL = `/blog/series/${series.frontmatter.series}/1`;
       return (
-        <li>
+        <li style={`background: var(--${series.frontmatter.seriesColour}`}>
           <a class="series" href={seriesURL}>
             {capitalise(series.frontmatter.series)}
           </a>

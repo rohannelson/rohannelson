@@ -3,21 +3,29 @@ import Layout from "../../layouts/BaseLayout.astro";
 import Card from "../../components/Card.astro";
 import Grid from "../../components/Grid.astro";
 import Icon from "astro-icon";
+import NavCard from "../../components/NavCard.astro";
 import { capitalise } from "../../components/utils";
 const series = await Astro.glob("../../components/series/*.mdx");
+const blogs = await Astro.glob("./*.mdx")
+const latestPost = blogs.reverse()[0]
+let latestPostColour;
+series.forEach(s => {
+  if (latestPost.frontmatter.series === s.frontmatter.series) {
+    latestPostColour = s.frontmatter.seriesColour
+  }})
 ---
 
 <Layout title="My Blog" description="My Blog">
   <h2>Read by Series</h2>
   <p>Explanation of stuff</p>
   <Grid>
-    {/*
+    {
       series.map((s) => {
         let seriesColour = s.frontmatter.seriesColour;
         let seriesColourVar = `var(--light-${seriesColour})`;
         return (
           <Card cardColour={seriesColour} link={`/blog/series/${s.frontmatter.series}/1`}>
-            <Icon name={s.frontmatter.icon} fill={seriesColourVar}>
+            <Icon name={s.frontmatter.icon} fill={seriesColourVar}/>
             <h3 style={`color: ${seriesColourVar}`}>
               {capitalise(s.frontmatter.series)}
             </h3>
@@ -25,9 +33,32 @@ const series = await Astro.glob("../../components/series/*.mdx");
               <s.Content />
             </p>
           </Card>
-        );
+        )
       })
-    */}
+    }
   </Grid>
+  <div class="flex">
+  <a href="/blog/series/1">More Series: &gt;&gt;&gt;</a>
+  </div>
+  <h2>What's New?</h2>
+  <NavCard post={latestPost} seriesColour={latestPostColour}/>
+  <div class="flex">
+    <a href="/blog/chronological/1">More Recent Articles: &gt;&gt;&gt;</a>
+    </div>
 </Layout>
-<style></style>
+<style>
+    [astro-icon] {
+        height: 80px;
+        width: auto;
+        float: right;
+        margin-left: 1rem;
+    }
+    div.flex {
+      display: flex;
+      margin: 20px 0;
+    }
+    a {
+      margin-left: auto;
+      text-decoration: underline;
+    }
+</style>
