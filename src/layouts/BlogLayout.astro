@@ -46,26 +46,35 @@ const seriesColourVar = `var(--light-${seriesColour})`;
   <div class="blog">
     <slot />
   </div>
-  <hr />
   <ul>
-    {nextInSeries && <NavCard post={nextInSeries} titlePrefix="Next in Series: " />}
-    {
-      nextBlogObj && nextBlogObj != nextInSeries && (
-        <NavCard post={nextBlogObj} titlePrefix="Next Blog: " />
-      )
-    }
+    <div>
     {
       previousInSeries && (
         <>
-          <NavCard post={previousInSeries} titlePrefix="Previous in Series: " />
+          <NavCard post={previousInSeries} titlePrefix="Previous in Series: " {seriesColour}/>
         </>
       )
     }
+    </div>
+    <div>
+    {nextInSeries && <NavCard post={nextInSeries} titlePrefix="Next in Series: " {seriesColour}/>}
+  </div>  
+  </ul>
+    <ul>
+      <div>
     {
       previousBlogObj && previousBlogObj != previousInSeries && (
-        <NavCard post={previousBlogObj} titlePrefix="Previous Blog: " />
+        <NavCard post={previousBlogObj} titlePrefix="Previous Blog: " {seriesColour}/>
       )
     }
+    </div>
+    <div>
+         {
+          nextBlogObj && nextBlogObj != nextInSeries && (
+            <NavCard post={nextBlogObj} titlePrefix="Next Blog: " {seriesColour}/>
+          )
+        }
+</div>
   </ul>
   <style define:vars={{ seriesColourVar }}>
     [astro-icon] {
@@ -76,12 +85,17 @@ const seriesColourVar = `var(--light-${seriesColour})`;
       padding: 10px 10px 5px 10px;
     }
     ul {
-      display: flex;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
       padding: 0;
       flex-direction: column;
     }
     div.blog {
       margin-top: 2rem;
+    }
+    ul div {
+      height: 100%;
     }
     :global(div.blog > p:first-child:first-letter) {
       color: var(--seriesColourVar);

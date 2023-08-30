@@ -1,8 +1,6 @@
 ---
 const { frontmatter, seriesColour } = Astro.props;
-const capitalise = (str) => {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-};
+import { capitalise } from "./utils.js"
 const seriesColourLight = `var(--light-${seriesColour})`;
 ---
 

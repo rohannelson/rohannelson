@@ -1,0 +1,33 @@
+---
+import Layout from "../../layouts/BaseLayout.astro";
+import Card from "../../components/Card.astro";
+import Grid from "../../components/Grid.astro";
+import Icon from "astro-icon";
+import { capitalise } from "../../components/utils";
+const series = await Astro.glob("../../components/series/*.mdx");
+---
+
+<Layout title="My Blog" description="My Blog">
+  <h2>Read by Series</h2>
+  <p>Explanation of stuff</p>
+  <Grid>
+    {/*
+      series.map((s) => {
+        let seriesColour = s.frontmatter.seriesColour;
+        let seriesColourVar = `var(--light-${seriesColour})`;
+        return (
+          <Card cardColour={seriesColour} link={`/blog/series/${s.frontmatter.series}/1`}>
+            <Icon name={s.frontmatter.icon} fill={seriesColourVar}>
+            <h3 style={`color: ${seriesColourVar}`}>
+              {capitalise(s.frontmatter.series)}
+            </h3>
+            <p>
+              <s.Content />
+            </p>
+          </Card>
+        );
+      })
+    */}
+  </Grid>
+</Layout>
+<style></style>

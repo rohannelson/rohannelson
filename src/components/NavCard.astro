@@ -1,43 +1,64 @@
 ---
-const { post, titlePrefix = "" } = Astro.props;
+import Icon from 'astro-icon';
+const { post, titlePrefix = "", seriesColour } = Astro.props;
+const seriesColourLight=`var(--light-${seriesColour})`;
+const seriesColourGradient=`var(--${seriesColour}-gradient-diagonal)`
 ---
 
-<li>
-    <a href={post.url}>
-        <img src={post.frontmatter.image} />
-        <h3>{titlePrefix + post.frontmatter.title}</h3>
-        <p>{post.frontmatter.description}</p>
-    </a>
-</li>
-<style>
-    ul {
-        padding: 0;
-        margin: 0;
-    }
+<a href={post.url}>
+    <li>
+        <h3>{titlePrefix}</h3>
+        <div>
+            <Icon name={post.frontmatter.image} fill={seriesColourLight}/>
+            <h4>{post.frontmatter.title}</h4>
+            <p>{post.frontmatter.description}</p>
+        </div>
+    </li>
+</a>
+
+<style define:vars={{seriesColourGradient, seriesColourLight}}>
     a {
         text-decoration: none;
         color: black;
         display: block;
-        padding: 1rem;
+        padding: 1.2rem;
+        background: var(--seriesColourGradient);
+        border-radius: var(--border-radius);
+        height: 100%;
     }
     li {
         list-style: none;
-        border: 1px solid black;
-        border-radius: 4px;
-        margin: 1rem 0;
-        background-color: var(--light-grey);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
     }
     li:hover,
     li:focus {
         transform: scale(102%);
     }
-    img {
-        height: 80px;
+    div {
+        background: white;
+        padding: 1rem;
+        border-radius: var(--border-radius);
+        height: 100%;
+    }
+    [astro-icon] {
+        height: 60px;
         width: auto;
         float: right;
         margin-left: 1rem;
     }
+    h3, h4 {
+        margin: 0;
+        padding: 0;
+    }
     h3 {
-        margin-top: 0px;
+        color: white;
+    }
+    h4 {
+        color: var(--seriesColourLight)
+    }
+    p {
+        margin: 10px 50px 0 0;
     }
 </style>
