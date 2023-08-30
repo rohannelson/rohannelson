@@ -3,28 +3,28 @@ const { frontmatter, seriesColour } = Astro.props;
 const capitalise = (str) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
+const seriesColourLight = `var(--light-${seriesColour})`;
 ---
 
-<a
-  class="series"
-  href={`/blog/series/${frontmatter.series}/1`}
-  style=`background: var(--light-${seriesColour}); border: solid 3px var(--light-${seriesColour});`
->
+<a class="series" href={`/blog/series/${frontmatter.series}/1`}>
   {capitalise(frontmatter.series)}
 </a>
 <p>
   <b>Context:</b><span style=`color: var(--light-${seriesColour});`
-    >{frontmatter.context}</span>
+    >{frontmatter.context}</span
+  >
 </p>
-<style>
+<style define:vars={{ seriesColourLight }}>
   /*See HTML for inline styles*/
   a.series {
-    padding: 7px 12px;
+    padding: 6px 10px;
     border-radius: var(--border-radius);
     color: white;
     font-size: var(--font-size-h4);
     text-decoration: none;
     font-weight: 700;
+    background: var(--seriesColourLight);
+    border: solid 3px var(--seriesColourLight);
   }
   a.series:hover {
     background: none !important;

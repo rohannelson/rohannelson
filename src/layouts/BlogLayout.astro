@@ -30,7 +30,7 @@ const seriesPage = seriesPages.filter((page) =>
   page.frontmatter.series?.includes(series)
 );
 const { seriesColour } = seriesPage[0].frontmatter;
-const seriesColourStylesheet = `var(--light-${seriesColour})`;
+const seriesColourVar = `var(--light-${seriesColour})`;
 ---
 
 <Layout
@@ -67,7 +67,7 @@ const seriesColourStylesheet = `var(--light-${seriesColour})`;
       )
     }
   </ul>
-  <style define:vars={{ seriesColourStylesheet }}>
+  <style define:vars={{ seriesColourVar }}>
     [astro-icon] {
       width: 200px;
       max-width: 30vw;
@@ -84,7 +84,7 @@ const seriesColourStylesheet = `var(--light-${seriesColour})`;
       margin-top: 2rem;
     }
     :global(div.blog > p:first-child:first-letter) {
-      color: var(--seriesColourStylesheet);
+      color: var(--seriesColourVar);
       float: left;
       font-size: 92px;
       line-height: 92px;
@@ -93,7 +93,7 @@ const seriesColourStylesheet = `var(--light-${seriesColour})`;
       font-weight: 700;
     }
     :global(div.blog p:first-child:first-line) {
-      color: var(--seriesColourStylesheet);
+      color: var(--seriesColourVar);
       font-weight: 700;
     }
   </style>
