@@ -1,7 +1,7 @@
 ---
 import { Icon } from 'astro-icon';
 import { capitalise } from './utils';
-const { series } = Astro.props;
+const { series, titlePrefix="" } = Astro.props;
 const seriesColour = series.frontmatter.seriesColour
 const seriesColourGradient = `var(--${seriesColour}-gradient-diagonal)`
 const seriesColourLight = `var(--light-${seriesColour})`
@@ -10,6 +10,7 @@ const link = `/blog/series/${series.frontmatter.series}/1`
 ---
 <a href={link}>
 <div class="outer">
+        <h3>{titlePrefix}</h3>
     <div class="inner">
         {
             <Icon name={series.frontmatter.icon} fill={seriesColourLight}/>
@@ -34,7 +35,7 @@ const link = `/blog/series/${series.frontmatter.series}/1`
         display: flex;
         flex-direction: column;
         background: var(--seriesColourGradient);
-        padding: 0 20px 20px 20px;
+        padding: 1.2rem;
         border-radius: var(--border-radius);
         height: 100%;
         width: 100%;
@@ -44,7 +45,6 @@ const link = `/blog/series/${series.frontmatter.series}/1`
         border-radius: var(--border-radius);
         padding: 5px 20px 20px 20px;
         height: 100%;
-        margin-top: 1.2rem;
         display: inline-block;
     }
     div.inner:hover {
@@ -55,5 +55,10 @@ const link = `/blog/series/${series.frontmatter.series}/1`
         width: auto;
         float: right;
         margin-left: 1rem;
+    }
+    .outer > h3 {
+        color: white;
+        margin: 0;
+        padding: 0;
     }
 </style>
