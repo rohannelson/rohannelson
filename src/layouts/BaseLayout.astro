@@ -138,6 +138,13 @@ const pageDescription = description ?? frontmatter.description;
         --border-radius: 15px;
         --margin-width: calc((100vw - var(--content-width)) / 2);
       }
+      body {
+        max-width: 100%;
+      }
+      html {
+        max-width: 100%;
+        overflow-x: hidden;
+      }
       /*need to decide on breakpoints and add responsive font-sizing*/
       h1,
       h2,

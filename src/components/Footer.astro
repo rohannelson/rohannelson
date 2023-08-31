@@ -1,11 +1,8 @@
 ---
-const { title } = Astro.props;
 ---
 
 <footer><p>© 2023 Rohan Nelson</p></footer>
 <style>
-  :root {
-  }
   footer {
     background: var(--grey-gradient);
     height: 40px;
@@ -14,7 +11,7 @@ const { title } = Astro.props;
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    padding-right: var(--margin-width);
+    padding-right: max(var(--margin-width), 18px);
     margin-top: 80px;
     margin-bottom: 40px;
   }
@@ -29,7 +26,6 @@ const { title } = Astro.props;
       width: 100vw;
       border-radius: 0;
       margin-left: 0;
-      padding-right: 0;
     }
   }
 </style>

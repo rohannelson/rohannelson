@@ -34,13 +34,15 @@ const fullDate =
   :root {
   }
   div {
+    width: min(calc(var(--content-width)+var(--margin-width) + 20px), 0px);
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  }
+  div.titleWrapper {
     position: relative;
     background: var(--red-gradient);
     height: 80px;
-    width: min(calc(var(--content-width)+var(--margin-width) + 20px), 0px);
     margin-left: min(calc(var(--margin-width) * -1), -18px);
     margin-right: -20px;
-    border-radius: 0 var(--border-radius) var(--border-radius) 0;
     display: flex;
     align-items: center;
     z-index: 5;
@@ -52,10 +54,9 @@ const fullDate =
   div.stickyBorder {
     position: sticky;
     top: var(--header-height);
-    margin-top: -20px;
-    margin-bottom: calc(2rem + 20px);
+    margin: -20px -18px calc(2rem + 20px) min(calc(var(--margin-width) * -1), -18px);
     height: 8px;
-    background-color: var(--red-gradient);
+    background: var(--red-gradient);
     transition: var(--transition-speed);
     z-index: 0;
   }
@@ -70,7 +71,7 @@ const fullDate =
     font-weight: 700;
   }
   @media (max-width: calc(864rem / 16)) {
-    div {
+    div.titleWrapper, div.stickyBorder {
       width: 100vw;
       border-radius: 0;
       margin-right: 0;
