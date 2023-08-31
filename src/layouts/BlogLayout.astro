@@ -101,10 +101,15 @@ const seriesColourVar = `var(--light-${seriesColour})`;
       color: var(--seriesColourVar);
       float: left;
       font-size: 92px;
-      line-height: 92px;
-      padding-top: 6px;
+      line-height: 0.6;
+      padding-top: 14px;
       padding-right: 3px;
       font-weight: 700;
+    }
+    @-moz-document url-prefix() {
+      :global(div.blog > p:first-child:first-letter) {
+        padding-top: 8px;
+      }
     }
     :global(div.blog p:first-child:first-line) {
       color: var(--seriesColourVar);
