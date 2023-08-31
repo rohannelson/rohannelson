@@ -13,11 +13,11 @@ const link = `/blog/series/${series.frontmatter.series}/1`
         <h3>{titlePrefix}</h3>
     <div class="inner">
         {
-            <Icon name={series.frontmatter.icon} fill={seriesColourLight}/>
             <h3 style={`color: ${seriesColourLight}`}>
             {capitalise(series.frontmatter.series)}
           </h3>
           <p>
+            <Icon name={series.frontmatter.icon} fill={seriesColourLight}/>
             <series.Content />
           </p>
         }
@@ -43,7 +43,7 @@ const link = `/blog/series/${series.frontmatter.series}/1`
     div.inner {
         background: white;
         border-radius: var(--border-radius);
-        padding: 5px 20px 20px 20px;
+        padding: 1.2rem;
         height: 100%;
         display: inline-block;
     }
@@ -51,10 +51,14 @@ const link = `/blog/series/${series.frontmatter.series}/1`
         transform: scale(102%);
     }
     [astro-icon] {
-        height: 80px;
+        height: 60px;
         width: auto;
         float: right;
         margin-left: 1rem;
+    }
+    h3 {
+        margin: 0;
+        padding: 0;
     }
     .outer > h3 {
         color: white;

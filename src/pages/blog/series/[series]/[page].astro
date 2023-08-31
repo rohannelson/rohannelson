@@ -5,12 +5,11 @@ import PageNav from "../../../../components/PageNav.astro";
 
 export async function getStaticPaths({ paginate }) {
   const allBlogs = await Astro.glob("../../*.mdx");
-  const nonDraftBlogs = allBlogs.filter((blog) => !blog.frontmatter.draft);
   const uniqueSeries = [
-    ...new Set(nonDraftBlogs.map((blog) => blog.frontmatter.series).flat()),
+    ...new Set(allBlogs.map((blog) => blog.frontmatter.series).flat()),
   ];
   return uniqueSeries.map((series) => {
-    const filteredBlogs = nonDraftBlogs.filter((blog) =>
+    const filteredBlogs = allBlogs.filter((blog) =>
       blog.frontmatter.series?.includes(series)
     );
     return paginate(filteredBlogs, {

@@ -9,15 +9,12 @@ const description = "A list of all my blog posts";
 
 export async function getStaticPaths({ paginate }) {
   const allBlogs = await Astro.glob("../*.mdx");
-  const nonDraftBlogs = allBlogs
-    .filter((blog) => !blog.frontmatter.draft)
-    .reverse();
+allBlogs.reverse();
 
-  return paginate(nonDraftBlogs, { pageSize: 10 });
+  return paginate(allBlogs, { pageSize: 10 });
 }
 const series = await Astro.glob(`../../../components/series/*.mdx`);
 const seriesColoursObj = Object.fromEntries(series.map(s => [s.frontmatter.series, s.frontmatter.seriesColour]));
-console.log(seriesColoursObj);
 const { page } = Astro.props;
 ---
 

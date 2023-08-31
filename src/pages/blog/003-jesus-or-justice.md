@@ -6,7 +6,6 @@ image: "gavel"
 pubDate: "2023-04-11"
 context: "This is adapted from a personal journal entry that I wrote on 13th Aug 2022"
 series: "journalling"
-draft: true
 ---
 
 I’m more and more convinced that if you had to choose between nominal belief in Jesus and practicing justice, it would be better to practice justice.
