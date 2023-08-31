@@ -1,78 +1,114 @@
 ---
-import Layout from "./Layout.astro";
+import Layout from "./BaseLayout.astro";
 import NavCard from "../components/NavCard.astro";
 import Metadata from "../components/Metadata.astro";
+import { Icon } from "astro-icon";
 const { frontmatter } = Astro.props;
 const allBlogs = await Astro.glob("../pages/blog/*.mdx");
 let previousBlogObj: any = {};
 let nextBlogObj: any = {};
 allBlogs.forEach((blog, i) => {
-    if (frontmatter.title === blog.frontmatter.title) {
-        previousBlogObj = allBlogs[i - 1];
-        nextBlogObj = allBlogs[i + 1];
-    }
+  if (frontmatter.title === blog.frontmatter.title) {
+    previousBlogObj = allBlogs[i - 1];
+    nextBlogObj = allBlogs[i + 1];
+  }
 });
-let filteredBlogs = [];
-const uniqueTags = [...new Set(frontmatter.tags.map((tag) => tag).flat())];
-uniqueTags.forEach((tag) => {
-    filteredBlogs = allBlogs.filter((blog) => {
-        return blog.frontmatter.tags.includes(tag);
-    });
+const series = frontmatter.series;
+const filteredBlogs = allBlogs.filter((blog) => {
+  return blog.frontmatter.series.includes(series);
 });
 let nextInSeries: any = {};
 let previousInSeries: any = {};
 filteredBlogs.forEach((blog, i) => {
-    if (frontmatter.title === blog.frontmatter.title) {
-        previousInSeries = filteredBlogs[i - 1];
-        nextInSeries = filteredBlogs[i + 1];
-    }
+  if (frontmatter.title === blog.frontmatter.title) {
+    previousInSeries = filteredBlogs[i - 1];
+    nextInSeries = filteredBlogs[i + 1];
+  }
 });
+const seriesPages = await Astro.glob("../components/series/*.mdx");
+const seriesPage = seriesPages.filter((page) =>
+  page.frontmatter.series?.includes(series)
+);
+const { seriesColour } = seriesPage[0].frontmatter;
+const seriesColourVar = `var(--light-${seriesColour})`;
 ---
 
-<Layout title={frontmatter.title} description={frontmatter.description}>
-    <Metadata frontmatter={frontmatter} />
-    <img src={frontmatter.image ?? "/img/blog.svg"} />
+<Layout
+  title={frontmatter.title}
+  description={frontmatter.description}
+  pubDate={frontmatter.pubDate}
+>
+  <Metadata frontmatter={frontmatter} {seriesColour} />
+  <Icon
+    name={frontmatter.image ?? "/img/blog.svg"}
+    fill={`var(--light-${seriesColour})`}
+  />
+  <div class="blog">
     <slot />
-    <hr />
+  </div>
+  <ul>
+    <div>
+    {
+      previousInSeries && (
+        <>
+          <NavCard post={previousInSeries} titlePrefix="Previous in Series: " {seriesColour}/>
+        </>
+      )
+    }
+    </div>
+    <div>
+    {nextInSeries && <NavCard post={nextInSeries} titlePrefix="Next in Series: " {seriesColour}/>}
+  </div>  
+  </ul>
     <ul>
-        {
-            nextInSeries && (
-                <NavCard post={nextInSeries} titlePrefix="Next in Series: " />
-            )
+      <div>
+    {
+      previousBlogObj && previousBlogObj != previousInSeries && (
+        <NavCard post={previousBlogObj} titlePrefix="Previous Blog: " {seriesColour}/>
+      )
+    }
+    </div>
+    <div>
+         {
+          nextBlogObj && nextBlogObj != nextInSeries && (
+            <NavCard post={nextBlogObj} titlePrefix="Next Blog: " {seriesColour}/>
+          )
         }
-        {
-            nextBlogObj && nextBlogObj != nextInSeries && (
-                <NavCard post={nextBlogObj} titlePrefix="Next Blog: " />
-            )
-        }
-        {
-            previousInSeries && (
-                <>
-                    <NavCard
-                        post={previousInSeries}
-                        titlePrefix="Previous in Series: "
-                    />
-                </>
-            )
-        }
-        {
-            previousBlogObj && previousBlogObj != previousInSeries && (
-                <NavCard post={previousBlogObj} titlePrefix="Previous Blog: " />
-            )
-        }
-    </ul>
-    <style>
-        img {
-            width: 200px;
-            max-width: 30vw;
-            height: auto;
-            float: right;
-            padding: 10px 10px 5px 10px;
-        }
-        ul {
-            display: flex;
-            padding: 0;
-            flex-direction: column;
-        }
-    </style>
+</div>
+  </ul>
+  <style define:vars={{ seriesColourVar }}>
+    [astro-icon] {
+      width: 200px;
+      max-width: 30vw;
+      height: auto;
+      float: right;
+      padding: 10px 10px 5px 10px;
+    }
+    ul {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      padding: 0;
+      flex-direction: column;
+    }
+    div.blog {
+      margin-top: 2rem;
+    }
+    ul div {
+      height: 100%;
+    }
+    :global(div.blog > p:first-child:first-letter) {
+      color: var(--seriesColourVar);
+      float: left;
+      font-size: 92px;
+      line-height: 92px;
+      padding-top: 6px;
+      padding-right: 3px;
+      font-weight: 700;
+    }
+    :global(div.blog p:first-child:first-line) {
+      color: var(--seriesColourVar);
+      font-weight: 700;
+    }
+  </style>
 </Layout>

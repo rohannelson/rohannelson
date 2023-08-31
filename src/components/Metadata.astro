@@ -1,73 +1,36 @@
 ---
-const { frontmatter } = Astro.props;
-const capitalise = (str) => {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-};
-const months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-const date = new Date(frontmatter.pubDate);
-const fullDate =
-  date.getDate() + " " + months[date.getMonth()] + " " + date.getFullYear();
+const { frontmatter, seriesColour } = Astro.props;
+import { capitalise } from "./utils.js"
+const seriesColourLight = `var(--light-${seriesColour})`;
 ---
 
-<dl>
-  <div>
-    <dt><b>Tags:</b></dt>
-    {
-      frontmatter.tags.map((tag) => {
-        let tagURL = `/blog/series/${tag}/1`;
-        return (
-          <dd>
-            <a class="tag" href={tagURL}>
-              {capitalise(tag)}
-            </a>
-          </dd>
-        );
-      })
-    }
-  </div>
-  <div>
-    <dt class="pub"><b>Published:</b></dt>
-    <dd>{fullDate}</dd>
-  </div>
-  <div>
-    <dt><b>Context:</b></dt>
-    <dd>{frontmatter.context}</dd>
-  </div>
-</dl>
-<style>
-  dl {
-    display: flex;
-    flex-wrap: wrap;
-    list-style: none;
-    padding: 0;
-    align-items: center;
+<a class="series" href={`/blog/series/${frontmatter.series}/1`}>
+  {capitalise(frontmatter.series)}
+</a>
+<p>
+  <b>Context:</b><span style=`color: var(--light-${seriesColour});`
+    >{frontmatter.context}</span
+  >
+</p>
+<style define:vars={{ seriesColourLight }}>
+  /*See HTML for inline styles*/
+  a.series {
+    padding: 6px 10px;
+    border-radius: var(--border-radius);
+    color: white;
+    font-size: var(--font-size-h4);
+    text-decoration: none;
+    font-weight: 700;
+    background: var(--seriesColourLight);
+    border: solid 3px var(--seriesColourLight);
   }
-  div {
-    display: flex;
-    margin-bottom: 1rem;
-    margin-right: 1rem;
+  a.series:hover {
+    background: none !important;
+    color: var(--dark-grey);
   }
-  dd {
+  span {
     margin: 0;
     margin-left: 0.5rem;
     font-style: italic;
-  }
-  a.tag {
-    padding: 0.2rem 0.4rem;
-    margin: -0.2rem 0;
-    background-color: var(--light-grey);
   }
 </style>

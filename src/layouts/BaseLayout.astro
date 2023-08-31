@@ -1,0 +1,192 @@
+---
+import Header from "../components/Header.astro";
+import Title from "../components/Title.astro";
+import Footer from "../components/Footer.astro";
+import GoogleAnalytics from "../components/GoogleAnalytics.astro";
+export interface Props {
+  title: string;
+  description: string;
+}
+//@ts-ignore
+const { title, description, frontmatter, pubDate } = Astro.props;
+const pageTitle = title ?? frontmatter.title;
+const pageDescription = description ?? frontmatter.description;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <GoogleAnalytics />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,500;0,700;1,400;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={pageDescription} />
+    <title>{pageTitle} - rohannelson.com</title>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <div class="container">
+        <Title title={title} pubDate={pubDate} />
+        <slot />
+      </div>
+    </main>
+    <Footer />
+    <style is:global>
+      /*SITE-WIDE STYLES*/
+      * {
+        box-sizing: border-box;
+        font-family: "Bitter", serif;
+        font-size: 16px;
+        color: var(--dark-grey);
+        line-height: 26px;
+      }
+      /*FONT VARIABLES*/
+      :root {
+        --font-size-h1: calc(40rem / 16);
+        --line-height-h1: calc(50rem / 16);
+
+        --font-size-h2: calc(28rem / 16);
+        --line-height-h2: calc(38rem / 16);
+
+        --font-size-h3: calc(24rem / 16);
+        --line-height-h3: calc(34rem / 16);
+
+        --font-size-h4: calc(18rem / 16);
+        --line-height-h4: calc(28rem / 16);
+      }
+
+      /*BASIC COLOUR VARIABLES*/
+      :root {
+        --dark-grey: #484648;
+        --light-grey: #9d9597;
+        --dark-red: #8c1930;
+        --light-red: #ff385c;
+        --dark-pink: #702054;
+        --light-pink: #c54097;
+        --dark-purple: #411d53;
+        --light-purple: #804aa6;
+        --dark-blue: #194653;
+        --light-blue: #2da1b8;
+        --dark-green: #27331d;
+        --light-green: #68925e;
+        --dark-yellow: #8a522b;
+        --light-yellow: #ff9b5e;
+        --dark-orange: #92361a;
+        --light-orange: #ff6c3e;
+      }
+      /*COLOUR GRADIENT VARIABLES*/
+      :root {
+        --grey-gradient: linear-gradient(90deg, var(--light-grey), 43%, var(--dark-grey));
+        --red-gradient: linear-gradient(90deg, var(--dark-red), 43%, var(--light-red));
+        --red-gradient-diagonal: linear-gradient(
+          55deg,
+          var(--dark-red),
+          43%,
+          var(--light-red)
+        );
+        --pink-gradient-diagonal: linear-gradient(
+          55deg,
+          var(--dark-pink),
+          43%,
+          var(--light-pink)
+        );
+        --purple-gradient-diagonal: linear-gradient(
+          55deg,
+          var(--dark-purple),
+          43%,
+          var(--light-purple)
+        );
+        --blue-gradient-diagonal: linear-gradient(
+          55deg,
+          var(--dark-blue),
+          43%,
+          var(--light-blue)
+        );
+        --green-gradient-diagonal: linear-gradient(
+          55deg,
+          var(--dark-green),
+          43%,
+          var(--light-green)
+        );
+        --yellow-gradient-diagonal: linear-gradient(
+          55deg,
+          var(--dark-yellow),
+          43%,
+          var(--light-yellow)
+        );
+        --orange-gradient-diagonal: linear-gradient(
+          55deg,
+          var(--dark-orange),
+          43%,
+          var(--light-orange)
+        );
+      }
+      /*LAYOUT VARIABLES & CLASSES*/
+      :root {
+        --content-width: 700px;
+        --border-radius: 15px;
+        --margin-width: calc((100vw - var(--content-width)) / 2);
+      }
+      /*need to decide on breakpoints and add responsive font-sizing*/
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-weight: 700;
+      }
+      h1 {
+        font-size: calc(40rem / 16);
+        line-height: calc(50rem / 16);
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+      h2 {
+        font-size: calc(28rem / 16);
+        line-height: calc(38rem / 16);
+      }
+      h3 {
+        font-size: calc(24rem / 16);
+        line-height: calc(34rem / 16);
+      }
+      h4 {
+        font-size: calc(18rem / 16);
+        line-height: calc(28rem / 16);
+      }
+      h2,
+      h3,
+      h4 {
+        margin-bottom: 0.5rem;
+      }
+      h1 + h2,
+      h2 + h3,
+      h3 + h4 {
+        margin-top: 0px;
+      }
+      a {
+        color: var(--light-red);
+      }
+    </style>
+    <style>
+      div.container {
+        max-width: var(--content-width);
+        justify-content: center;
+        margin: 0 max(var(--margin-width), 18px);
+        min-height: calc(100vh - var(--header-height));
+      }
+      body {
+        margin: 0;
+      }
+    </style>
+  </body>
+</html>

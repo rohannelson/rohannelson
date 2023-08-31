@@ -1,53 +1,184 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import Layout from "../layouts/BaseLayout.astro";
+import Grid from "../components/Grid.astro";
+import Icon from "astro-icon";
 const title = "Welcome!";
 const description = "A description for my home page";
 ---
 
 <Layout title={title} description={description}>
-  <img src="/img/portrait.jpg" />
-  <p class="focus">
-    Hi, I'm Rohan, and this is my personal website and&nbsp;blog!
-  </p>
-  <h2>What's Here?</h2>
-  <h3>A Blog</h3>
-  <p>
-    I've been using this space to share and reflect on my own experiences, for
-    example:
-    <ul>
-      <li>
-        <a href="/blog/series/spiritual experiences/1"
-          >my spiritual experiences
-        </a>
-      </li><li>
-        <a href="/blog/series/reading the bible/1"
-          >my experiences of reading the Bible
-        </a>
-      </li>
-    </ul>
-    The posts are organised into series, and I'd encourage you to read them in order
-    as a series, rather than starting with the latest&nbsp;one.
-  </p>
-  <h3>Web Experiments</h3>
-  <p>
-    I've also been learning web development for fun since early 2022, so this is
-    an opportunity for me to play around and try some things. I'm hoping to add
-    different features over time (e.g. an RSS feed so you can subscribe to
-    updates if you're so&nbsp;inclined).
-  </p>
-  <h3>Under Construction</h3>
-  <p>
+  <div class="wrapper text-padding">
+    <p class="focus">
+      Hi, I'm <strong>Rohan</strong>, and this is&nbsp;my personal website and&nbsp;blog!
+    </p>
+    <img class="profile" src="/img/portrait.jpg" />
+  </div>
+  <h2 class="text-padding">What's Here?</h2>
+  <Grid>
+    <div class="card-wrapper">
+      <div class="card-header-wrapper">
+        <div class="flex-column">
+          <h2>A Blog</h2>
+          <a href="/blog">Read blog</a>
+        </div>
+        <div class="icon-wrapper">
+          <Icon name="code" fill="white" />
+        </div>
+      </div>
+      <div class="inner-card">
+        <p>
+          I've been using this space to share and reflect on my own experiences, for
+          example:
+          <ul>
+            <li>
+              <a href="/blog/series/spiritual experiences/1">My spiritual experiences</a>
+            </li><li>
+              <a href="/blog/series/reading the bible/1"
+                >My experiences of reading the Bible</a
+              >
+            </li>
+          </ul>
+          <p>The posts are organised into series, and each series is intended to be read in order
+          as a&nbsp;series.</p>
+        </p>
+      </div>
+    </div>
+    <div class="card-wrapper">
+      <div class="card-header-wrapper">
+        <div class="flex-column">
+          <h2>Web Experiments</h2>
+          <a href="/projects">View projects</a>
+        </div>
+        <div class="icon-wrapper">
+          <Icon name="code" fill="white" />
+        </div>
+      </div>
+      <div class="inner-card">
+        <p>
+          I've also been learning web development for fun since early 2022, so this is an
+          opportunity for me to play around and try some things. I'm hoping to add
+          different features over time (e.g. an RSS feed so you can subscribe to updates
+          if you're so&nbsp;inclined).
+        </p>
+      </div>
+    </div>
+  </Grid>
+  <h3 class="text-padding" style="margin-top: 30px;">Under Construction</h3>
+  <p class="text-padding" style="margin-top: 6px;">
     This site is currently under construction, so please bear with the various
     unfinished&nbsp;bits.
   </p>
 </Layout>
+
 <style>
-  img {
-    width: 200px;
-    max-width: 30vw;
+  div.wrapper {
+    display: flex;
+  }
+  img.profile {
+    flex-basis: 160px;
+    max-width: 29vw;
+    width: 100%;
     height: auto;
-    float: right;
-    margin: 0 0 0.5rem 1rem;
+    margin-left: auto;
     border-radius: 4px;
+    flex-shrink: 0;
+    align-self: center;
+  }
+  .focus,
+  .focus * {
+    font-size: calc(40rem / 16);
+    line-height: calc(50rem / 16);
+    align-self: center;
+    margin: 0;
+  }
+  .focus {
+    padding-right: 25px;
+  }
+  @media (max-width: calc(639rem / 16)) {
+    .focus,
+    .focus * {
+      font-size: calc(32rem / 16);
+      line-height: calc(40rem / 16);
+    }
+  }
+  @media (max-width: calc(446rem / 16)) {
+    .focus,
+    .focus * {
+      font-size: calc(24rem / 16);
+      line-height: calc(34rem / 16);
+      padding-right: 0;
+    }
+    /*CARD STYLES*/
+  }
+  div.card-wrapper {
+    display: flex;
+    flex-direction: column;
+    background: var(--red-gradient-diagonal);
+    padding: 0 20px 20px 20px;
+    border-radius: var(--border-radius);
+    height: 100%;
+    width: 100%;
+    margin-top: 0.625rem;
+  }
+  div.card-wrapper h2 {
+    color: white;
+  }
+  div.card-header-wrapper {
+    display: flex;
+    align-items: flex-start;
+  }
+  .card-header-wrapper a {
+    background: white;
+    text-decoration: none;
+    border-radius: var(--border-radius);
+    font-size: var(--font-size-h4);
+    line-height: var(--line-height-h4);
+    font-weight: 700;
+    padding: 3px 10px;
+    align-self: flex-start;
+    margin-top: auto;
+    border: 3px solid white;
+  }
+  .card-header-wrapper a:hover {
+    background: none;
+    color: white;
+  }
+  div.flex-column {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  div.icon-wrapper {
+    margin-left: auto;
+  }
+  div.inner-card {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 20px 20px 10px 20px;
+    height: 100%;
+    margin-top: 1.2rem;
+  }
+  .inner-card p:first-of-type {
+    margin-top: 0px;
+  }
+  .inner-card p:last-of-type {
+    margin-bottom: 0px;
+  }
+  .inner-card ul, .inner-card li, .inner-card p, .inner-card a {
+    margin: 12px 0;
+  }
+  li {
+    list-style: none;
+  }
+  ul {
+    padding-left: 0;
+  }
+  [astro-icon] {
+    height: 80px;
+    width: 100%;
+    margin: 20px 18px 0 20px;
+  }
+  .text-padding {
+    padding-left: 10px;
   }
 </style>

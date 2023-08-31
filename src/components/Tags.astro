@@ -1,22 +1,19 @@
 ---
+import Card from "./Card.astro";
 const capitalise = (str) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
-const allBlogs = await Astro.glob("../pages/blog/*.mdx");
-const nonDraftBlogs = allBlogs.filter((blog) => !blog.frontmatter.draft);
-const uniqueTags = [
-  ...new Set(nonDraftBlogs.map((blog) => blog.frontmatter.tags).flat()),
-];
+const series = await Astro.glob("./series/*.mdx");
 ---
 
 <ul>
   {
-    uniqueTags.map((tag) => {
-      let tagURL = `/blog/series/${tag}/1`;
+    series.map((series) => {
+      let seriesURL = `/blog/series/${series.frontmatter.series}/1`;
       return (
-        <li>
-          <a class="tag" href={tagURL}>
-            {capitalise(tag)}
+        <li style={`background: var(--${series.frontmatter.seriesColour}`}>
+          <a class="series" href={seriesURL}>
+            {capitalise(series.frontmatter.series)}
           </a>
         </li>
       );
