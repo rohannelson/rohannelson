@@ -147,14 +147,14 @@ const pageDescription = description ?? frontmatter.description;
         font-weight: 700;
       }
       h1 {
-        font-size: calc(40rem / 16);
-        line-height: calc(50rem / 16);
+        font-size: var(--font-size-h1);
+        line-height: var(--line-height-h1);
         margin-top: 10px;
         margin-bottom: 10px;
       }
       h2 {
-        font-size: calc(28rem / 16);
-        line-height: calc(38rem / 16);
+        font-size: var(--font-size-h2);
+        line-height: var(--line-height-h2);
       }
       h3 {
         font-size: calc(24rem / 16);
@@ -176,6 +176,15 @@ const pageDescription = description ?? frontmatter.description;
       }
       a {
         color: var(--light-red);
+      }
+      @media (max-width: calc(639rem / 16)) {
+        :root {
+        --font-size-h1: calc(30rem / 16);
+        --line-height-h1: calc(40rem / 16);
+
+        --font-size-h2: calc(20rem / 16);
+        --line-height-h2: calc(30rem / 16);
+        }
       }
     </style>
     <style>
