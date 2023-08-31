@@ -1,9 +1,14 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+const title = "What?"
+const description = "troubleshooting and testing."
 ---
+<BaseLayout {title} {description}>
 <div style="background: #5795ae"><div/>
 <div style="background: #2da1b8"><div/>
 <div style="background: hsl(197.24deg 50% 68.24%"><div/>
-
+</BaseLayout>
 <style>
 div {
     height: 100px;
