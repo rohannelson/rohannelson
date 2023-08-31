@@ -13,8 +13,27 @@ const description = "A home for my web experiments";
   <FourInARow client:load />
   <Checkers client:load />
 </Layout>
-
-<!--Tic Tac Toe Styling (some shared)-->
+<!-- Games Shared Styling -->
+<style is:global>
+    .breaker {
+    height: 20px;
+  }
+  .reset {
+    padding: 10px;
+    border-radius: var(--border-radius);
+    color: var(--light-red);
+    border: 3px solid var(--light-red);
+    background: white;
+    font-weight: 700;
+    float: right;
+  }
+  .reset:hover {
+    background: var(--light-red);
+    color: white;
+    cursor: pointer;
+  }
+</style>
+<!-- Tic Tac Toe Styling -->
 <style is:global>
   .tictactoe .square {
     background: #fff;
@@ -41,7 +60,7 @@ const description = "A home for my web experiments";
   }
 
   .tictactoe .status {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     align-self: flex-start;
   }
   .tictactoe .game {
@@ -53,9 +72,6 @@ const description = "A home for my web experiments";
     flex-direction: column;
     align-items: center;
     justify-content: center;
-  }
-  .breaker {
-    height: 20px;
   }
 </style>
 

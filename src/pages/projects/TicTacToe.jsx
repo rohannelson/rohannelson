@@ -105,8 +105,14 @@ export default function Game() {
       if (reversed===true) {newMoves.reverse()}
       setMoves(newMoves)
     }
+    function resetGame() {
+      console.log("Reset")
+      setCurrentMove(0);
+    }
+
     return (
       <div className="tictactoe">
+      <button className="reset" onClick={(resetGame)}>Reset Game</button>
       <h2>TicTacToe</h2>
       <div className="game wrapper">
           <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />

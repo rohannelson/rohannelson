@@ -48,9 +48,13 @@ export default function Game() {
         }
     }
 }
+    function resetGame() {
+        setCircles(Array(42).fill(null));
+    }
 
     return (
         <div className="fiar">
+        <button className="reset" onClick={(resetGame)}>Reset Game</button>
         <h2>Four in a Row</h2>
         <div className="status">{gameStatus}</div>
         <div className="wrapper">
