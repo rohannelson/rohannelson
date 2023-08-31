@@ -1,17 +1,72 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
-const title = "What?"
-const description = "troubleshooting and testing."
+const title = "Hello!"
+const description = "Troubleshooting and testing."
 ---
 <BaseLayout {title} {description}>
-<div style="background: #5795ae"><div/>
-<div style="background: #2da1b8"><div/>
-<div style="background: hsl(197.24deg 50% 68.24%"><div/>
+<h2>Old Colours</h2>
+<div class="grid2">    
+    <div style="background: var(--dark-grey)">Hello!</div>
+    <div style="background: var(--dark-red)">Watup!</div>
+    <div style="background: var(--light-grey)">Bonjour</div>
+    <div style="background: var(--light-red)">Hello!</div>
+</div>
+
+<h2>Power Tools Colours</h2>
+<div class="grid2">    
+    <div style="background: #484648">Hello!</div>
+    <div style="background: #ac222d">Watup!</div>
+    <div style="background: #9d9597">Bonjour</div>
+    <div style="background: #ff4967">Hello!</div>
+</div>
+
+    <h2>Old Colours</h2>
+    <div class="grid6">    
+    <div style="background: var(--dark-pink)">Hello!</div>
+    <div style="background: var(--dark-purple)">Watup!</div>
+    <div style="background: var(--dark-blue)">Bonjour</div>
+    <div style="background: var(--dark-green)">Hello!</div>
+    <div style="background: var(--dark-yellow)">Watup!</div>
+    <div style="background: var(--dark-orange)">Bonjour</div>
+    <div style="background: var(--light-pink)">Hello!</div>
+    <div style="background: var(--light-purple)">Watup!</div>
+    <div style="background: var(--light-blue)">Bonjour</div>
+    <div style="background: var(--light-green)">Hello!</div>
+    <div style="background: var(--light-yellow)">Watup!</div>
+    <div style="background: var(--light-orange)">Bonjour</div>
+</div>
+
+<h2>Power Tools Colours</h2>
+<div class="grid6">
+    <div style="background: #702054">Hello!</div>
+    <div style="background: #411d53">Watup!</div>
+    <div style="background: #194653">Bonjour</div>
+    <div style="background: #27331d">Hello!</div>
+    <div style="background: #8a522b">Watup!</div>
+    <div style="background: #92361a">Bonjour</div>
+    <div style="background: #c54097">Hello!</div>
+    <div style="background: #804aa6">Watup!</div>
+    <div style="background: #2da1b8">Bonjour</div>
+    <div style="background: #68925e">Hello!</div>
+    <div style="background: #ff9b5e">Watup!</div>
+    <div style="background: #ff6c3e">Bonjour</div>
+</div>
 </BaseLayout>
 <style>
 div {
-    height: 100px;
-    width: 100px;
+    height: 100%;
+    width: 100%;
+    color: white;
+}
+div.grid6 {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    height: 200px;
+}
+div.grid2{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    height: 200px;
 }
 </style>
