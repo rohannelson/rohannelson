@@ -1,0 +1,59 @@
+---
+import { Icon } from 'astro-icon';
+import { capitalise } from './utils';
+const { series } = Astro.props;
+const seriesColour = series.frontmatter.seriesColour
+const seriesColourGradient = `var(--${seriesColour}-gradient-diagonal)`
+const seriesColourLight = `var(--light-${seriesColour})`
+const link = `/blog/series/${series.frontmatter.series}/1`
+
+---
+<a href={link}>
+<div class="outer">
+    <div class="inner">
+        {
+            <Icon name={series.frontmatter.icon} fill={seriesColourLight}/>
+            <h3 style={`color: ${seriesColourLight}`}>
+            {capitalise(series.frontmatter.series)}
+          </h3>
+          <p>
+            <series.Content />
+          </p>
+        }
+    </div>
+</div>
+</a>
+
+<style define:vars={{seriesColourGradient}}>
+    a {
+        border-radius: var(--border-radius);
+        text-decoration: none;
+        margin-top: 0.625rem;
+    }
+    div.outer {
+        display: flex;
+        flex-direction: column;
+        background: var(--seriesColourGradient);
+        padding: 0 20px 20px 20px;
+        border-radius: var(--border-radius);
+        height: 100%;
+        width: 100%;
+    }
+    div.inner {
+        background: white;
+        border-radius: var(--border-radius);
+        padding: 5px 20px 20px 20px;
+        height: 100%;
+        margin-top: 1.2rem;
+        display: inline-block;
+    }
+    div.inner:hover {
+        transform: scale(102%);
+    }
+    [astro-icon] {
+        height: 80px;
+        width: auto;
+        float: right;
+        margin-left: 1rem;
+    }
+</style>

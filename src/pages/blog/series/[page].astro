@@ -1,9 +1,8 @@
 ---
 import Layout from "../../../layouts/BaseLayout.astro";
+import Grid from "../../../components/Grid.astro";
+import SeriesCard from "../../../components/SeriesCard.astro";
 import PageNav from "../../../components/PageNav.astro";
-import Card from "../../../components/Card.astro";
-import Icon from "astro-icon";
-import { capitalise } from "../../../components/utils";
 const title = "My Blog (by Series)";
 const description = "A list of all my blog posts";
 export async function getStaticPaths({ paginate }) {
@@ -15,55 +14,8 @@ const { page } = Astro.props;
 
 <Layout title={title} description={description}>
   <p>Here are all my posts by series.</p>
-  <ul>
-    {
-      page.data.map((series) => {
-        let seriesColour = series.frontmatter.seriesColour;
-        let seriesColourVar = `var(--light-${seriesColour})`;
-        return (
-          <Card cardColour={series.frontmatter.seriesColour} link={`/blog/series/${series.frontmatter.series}/1`}>
-            <Icon name={series.frontmatter.icon} fill={seriesColourVar}/>
-            <h3 style={`color: ${seriesColourVar}`}>{capitalise(series.frontmatter.series)}
-            </h3>
-            <series.Content/>
-          </Card>)
-      })
-    }
-  </ul>
+  <Grid>
+    {page.data.map((series) => <SeriesCard {series}/>)}
+  </Grid>
   <PageNav page={page} />
 </Layout>
-<style>
-  ul {
-    display: grid;
-    row-gap: 1.5rem;
-    padding: 0;
-    margin: 0;
-  }
-  a {
-    text-decoration: none;
-    color: black;
-    display: block;
-    padding: 1rem;
-  }
-  li {
-    list-style: none;
-    border: 1px solid black;
-    border-radius: 4px;
-    margin: 1rem 0;
-  }
-  img {
-    height: 80px;
-    width: auto;
-    float: right;
-    margin-left: 1rem;
-  }
-  h3 {
-    margin-top: 0px;
-  }
-  [astro-icon] {
-        height: 80px;
-        width: auto;
-        float: right;
-        margin-left: 1rem;
-    }
-</style>
