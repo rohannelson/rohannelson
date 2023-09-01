@@ -53,7 +53,6 @@ export default function Game() {
     blacksTurn ? notTurn = "white" : notTurn = "black";
     let turnToken;
     blacksTurn ? turnToken = 1 : turnToken = -1;
-
     function handleClick(value, index, offset) {
         let diagonalA;
         let diagonalB;
@@ -88,22 +87,22 @@ export default function Game() {
                     return false
                 }
             }
-                if (squares[possibleLongDiagonalA] === "" && squares[possibleDiagonalA]?.includes(notTurn) && legitTest(possibleLongDiagonalA, "A") && validate(possibleLongDiagonalA)) {
-                    console.log(`PLDA true ${i} to ${possibleLongDiagonalA}`);
-                    possibleOffensiveMoves.push(i)
-            }
-                if (squares[possibleLongDiagonalB] === "" && squares[possibleDiagonalB]?.includes(notTurn) && legitTest(possibleLongDiagonalB, "B") && validate(possibleLongDiagonalB)) {
-                    console.log(`PLDB true ${i} to ${possibleLongDiagonalB}`)
+                function checkForOffensiveMoves(shortCandidate, longCandidate, moveType) {
+                if (squares[longCandidate] === "" && squares[shortCandidate]?.includes(notTurn) && legitTest(longCandidate, moveType) && validate(longCandidate)) {
+                    console.log(`PLD${moveType} true ${i} to ${longCandidate}`);
                     possibleOffensiveMoves.push(i)
                 }
-                if (square?.includes("King") && squares[possibleReverseLongDiagonalA] === "" && squares[possibleReverseDiagonalA]?.includes(notTurn) && legitTest(possibleReverseLongDiagonalA, "B") && validate(possibleReverseLongDiagonalA)) {
-                    console.log(`PRLDA true ${i} to ${possibleReverseDiagonalA}`)
-                    possibleOffensiveMoves.push(i)
                 }
-                if (square?.includes("King") && squares[possibleReverseLongDiagonalB] === "" && squares[possibleReverseDiagonalB]?.includes(notTurn) && legitTest(possibleReverseLongDiagonalB, "A") && validate(possibleReverseLongDiagonalB)) {
-                    console.log(`PRLDB true ${i} to ${possibleReverseLongDiagonalB}`)
-                    possibleOffensiveMoves.push(i)
-                }
+                function checkForOffensiveKingMoves(shortCandidate, longCandidate, moveType) {
+                    if (square?.includes("King") && squares[longCandidate] === "" && squares[shortCandidate]?.includes(notTurn) && legitTest(longCandidate, moveType) && validate(longCandidate)) {
+                        console.log(`PRLD${moveType} true ${i} to ${longCandidate}`);
+                        possibleOffensiveMoves.push(i)
+                    }
+                    }
+                checkForOffensiveMoves(possibleDiagonalA, possibleLongDiagonalA, "A")
+                checkForOffensiveMoves(possibleDiagonalB, possibleLongDiagonalB, "B")
+                checkForOffensiveKingMoves(possibleReverseDiagonalA, possibleReverseLongDiagonalA, "A")
+                checkForOffensiveKingMoves(possibleReverseDiagonalB, possibleReverseLongDiagonalB, "B")
                 }
             })
             console.log(possibleOffensiveMoves)

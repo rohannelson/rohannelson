@@ -10,13 +10,15 @@ const description = "A home for my web experiments";
 <Layout title={title} description={description}>
   <p>Check out these games that I made with React for fun!</p>
   <TicTacToe client:load />
+  <div class="breaker"/>
   <FourInARow client:load />
+  <div class="breaker"/>
   <Checkers client:load />
 </Layout>
 <!-- Games Shared Styling -->
 <style is:global>
     .breaker {
-    height: 20px;
+    height: 30px;
   }
   .reset {
     padding: 10px;
@@ -40,6 +42,9 @@ const description = "A home for my web experiments";
   .flex-row {
     display: flex;
     align-items: flex-end;
+  }
+  h2 {
+    margin-top: 10px;
   }
 </style>
 <!-- Tic Tac Toe Styling -->
