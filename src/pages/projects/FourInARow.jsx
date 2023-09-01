@@ -53,6 +53,7 @@ export default function Game() {
     }
 
     return (
+        <>
         <div className="fiar">
         <button className="reset" onClick={(resetGame)}>Reset Game</button>
         <h2>Four in a Row</h2>
@@ -67,6 +68,7 @@ export default function Game() {
         </div>
         </div>
         </div>
+        </>
     )
 }
 
