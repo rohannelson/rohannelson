@@ -25,12 +25,21 @@ const description = "A home for my web experiments";
     border: 3px solid var(--light-red);
     background: white;
     font-weight: 700;
-    float: right;
+    margin-left: auto;
   }
   .reset:hover {
     background: var(--light-red);
     color: white;
     cursor: pointer;
+  }
+  .status {
+    margin-bottom: 15px;
+    align-self: center;
+    font-weight: 700;
+  }
+  .flex-row {
+    display: flex;
+    align-items: flex-end;
   }
 </style>
 <!-- Tic Tac Toe Styling -->
@@ -57,11 +66,6 @@ const description = "A home for my web experiments";
     clear: both;
     content: "";
     display: table;
-  }
-
-  .tictactoe .status {
-    margin-bottom: 10px;
-    align-self: flex-start;
   }
   .tictactoe .game {
     display: flex;
@@ -91,7 +95,7 @@ const description = "A home for my web experiments";
     height: 210px;
     width: 250px;
     padding: 3px;
-    background: red;
+    background: var(--light-red);
     z-index: -1;
     display: flex;
     align-items: center;
@@ -117,13 +121,13 @@ const description = "A home for my web experiments";
     padding-bottom: 4px;
   }
   .fiar .circle.green {
-    background: greenyellow;
-    border: 2px solid black;
+    background: #9ede8f;
+    border: 2px solid var(--light-green);
   }
 
   .fiar .circle.blue {
-    background: aqua;
-    border: 2px solid black;
+    background: #3edfff;
+    border: 2px solid var(--light-blue);
   }
   .fiar .wrapper {
     display: flex;

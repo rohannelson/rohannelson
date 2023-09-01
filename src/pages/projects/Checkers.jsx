@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { capitalise } from '../../components/utils';
 
 function CheckerSquare({className, value, onSquareClick}) {
     return (<button onClick={onSquareClick} className={`square ${className}`}>
@@ -34,7 +35,7 @@ function CheckerRow({iRow, squares, onSquareClick}) {
 }
 
 function CheckerBoard({squares, onSquareClick}) {
-    const checkerBoard = [0,1,2,3,4,5,6,7].map((iBoard) =><CheckerRow iRow={iBoard} squares={squares} onSquareClick={onSquareClick}/>)
+    const checkerBoard = [0,1,2,3,4,5,6,7].map((iRow) =><CheckerRow iRow={iRow} squares={squares} onSquareClick={onSquareClick}/>)
     return (checkerBoard)
 }
 
@@ -211,16 +212,23 @@ export default function Game() {
             console.log(`clicked ${index}`)
         }
     }
-
+    function resetGame() {
+        setSquares(initialSquares)
+        setBlacksTurn(true)
+        setHeld(false)
+    }
         //NEED TO INTRODUCE PROMPTS TO INDICATE IF COMPULSORY MOVES ARE POSSIBLE? 
 
 
     return (
     <>
     <div className="checkers">
+    <div className="flex-row">
     <h2>Checkers</h2>
-    <div className="status">{turn}'s turn</div>
+    <button className="reset" onClick={(resetGame)}>Reset Game</button>
+    </div>
     <div className="wrapper">
+    <div className="status">{capitalise(turn)}'s turn</div>
     <CheckerBoard squares={squares} onSquareClick={handleClick}/>
     </div>
     </div>

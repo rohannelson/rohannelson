@@ -112,8 +112,10 @@ export default function Game() {
 
     return (
       <div className="tictactoe">
-      <button className="reset" onClick={(resetGame)}>Reset Game</button>
+      <div className="flex-row">
       <h2>TicTacToe</h2>
+      <button className="reset" onClick={(resetGame)}>Reset Game</button>
+      </div>
       <div className="game wrapper">
           <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
       </div>
