@@ -50,6 +50,7 @@ const fullDate =
   h1 {
     color: white;
     margin-left: max(var(--margin-width), 18px);
+    padding-right: 10px;
   }
   div.stickyBorder {
     position: sticky;
@@ -65,6 +66,7 @@ const fullDate =
     margin-left: auto;
     margin-right: 22px;
     color: white;
+    flex-shrink: 0;
   }
   span {
     color: white;
@@ -75,6 +77,11 @@ const fullDate =
       width: 100vw;
       border-radius: 0;
       margin-right: 0;
+    }
+  }
+  @media (max-width: calc(639rem / 16)) {
+    p {
+      flex-shrink: 1;
     }
   }
 </style>
