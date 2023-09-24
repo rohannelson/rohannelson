@@ -73,8 +73,10 @@ const fullDate =
     font-weight: 700;
   }
   @media (max-width: calc(864rem / 16)) {
-    div.titleWrapper, div.stickyBorder {
-      width: 100vw;
+    div.titleWrapper,
+    div.stickyBorder {
+      width: calc(100% + (max(var(--margin-width), 18px) * 2));
+      overflow: hidden;
       border-radius: 0;
       margin-right: 0;
     }

@@ -8,9 +8,9 @@ import { Icon } from "astro-icon";
 const { frontmatter } = Astro.props;
 const allBlogs = await Astro.glob("../pages/blog/*.mdx");
 const currentSeries = frontmatter.series;
-const allSeries = await Astro.glob("../components/series/*.mdx")
-allSeries.reverse()
-const seriesArray = allSeries.map(series => series.frontmatter.series);
+const allSeries = await Astro.glob("../components/series/*.mdx");
+allSeries.reverse();
+const seriesArray = allSeries.map((series) => series.frontmatter.series);
 const filteredBlogs = allBlogs.filter((blog) => {
   return blog.frontmatter.series.includes(currentSeries);
 });
@@ -22,11 +22,15 @@ filteredBlogs.forEach((blog, i) => {
     nextInSeries = filteredBlogs[i + 1];
   }
 });
-const seriesIndex = seriesArray.indexOf(currentSeries)
+const seriesIndex = seriesArray.indexOf(currentSeries);
 const { seriesColour } = allSeries[seriesIndex].frontmatter;
 const seriesColourVar = `var(--light-${seriesColour})`;
 let isNextSeries;
-if (!nextInSeries && seriesIndex + 1 <= seriesArray.length - 1) {isNextSeries = true} else {isNextSeries = false};
+if (!nextInSeries && seriesIndex + 1 <= seriesArray.length - 1) {
+  isNextSeries = true;
+} else {
+  isNextSeries = false;
+}
 ---
 
 <Layout
@@ -35,34 +39,43 @@ if (!nextInSeries && seriesIndex + 1 <= seriesArray.length - 1) {isNextSeries = 
   pubDate={frontmatter.pubDate}
 >
   <Metadata frontmatter={frontmatter} {seriesColour} />
-  <Icon
-    name={frontmatter.image ?? "blog"}
-    fill={`var(--light-${seriesColour})`}
-  />
+  <Icon name={frontmatter.image ?? "blog"} fill={`var(--light-${seriesColour})`} />
   <div class="blog">
     <slot />
   </div>
-    <Grid>
-      <div>
-        {
-          previousInSeries && (
-              <NavCard post={previousInSeries} titlePrefix="Previous in Series: " {seriesColour}/>
-          )
-        }
-        {
-          !previousInSeries && seriesIndex - 1 >= 0 && (
-          <SeriesCard series={allSeries[seriesIndex-1]} titlePrefix="Previous Series:"/>
-          )
-        }
-        </div>
-      <div>
-        {
-          nextInSeries && (<NavCard post={nextInSeries} titlePrefix="Next in Series: " {seriesColour}/>)
-          }
-          { isNextSeries && (<SeriesCard series={allSeries[seriesIndex+1]} titlePrefix="Next Series:"/>)
-          }
+  <Grid>
+    <div>
+      {
+        previousInSeries && (
+          <NavCard
+            post={previousInSeries}
+            titlePrefix="Previous in Series: "
+            {seriesColour}
+          />
+        )
+      }
+      {
+        !previousInSeries && seriesIndex - 1 >= 0 && (
+          <SeriesCard
+            series={allSeries[seriesIndex - 1]}
+            titlePrefix="Previous Series:"
+          />
+        )
+      }
     </div>
-    </Grid>
+    <div>
+      {
+        nextInSeries && (
+          <NavCard post={nextInSeries} titlePrefix="Next in Series: " {seriesColour} />
+        )
+      }
+      {
+        isNextSeries && (
+          <SeriesCard series={allSeries[seriesIndex + 1]} titlePrefix="Next Series:" />
+        )
+      }
+    </div>
+  </Grid>
   <style define:vars={{ seriesColourVar }}>
     [astro-icon] {
       width: 200px;
@@ -88,6 +101,9 @@ if (!nextInSeries && seriesIndex + 1 <= seriesArray.length - 1) {isNextSeries = 
       :global(div.blog > p:first-child:first-letter) {
         padding-top: 8px;
       }
+    }
+    :global(ol) {
+      padding-left: 1rem;
     }
   </style>
 </Layout>
