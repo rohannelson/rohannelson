@@ -10,7 +10,6 @@ const description = "A list of all my blog posts";
 export async function getStaticPaths({ paginate }) {
   const allBlogs = await Astro.glob("../*.mdx");
 allBlogs.reverse();
-console.log(allBlogs);
   return paginate(allBlogs, { pageSize: 10 });
 }
 const series = await Astro.glob(`../../../components/series/*.mdx`);
