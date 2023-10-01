@@ -1,55 +1,15 @@
-# Astro Starter Kit: Basics
+# Welcome to My Site's Repo!
 
-```
-npm create astro@latest -- --template basics
-```
+## Project History
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+This is my first personal website and blog, which I built after securing the domain rohannelson.com.
+It is built with [Astro](https://astro.build), and deployed via [Cloudflare Pages](https://pages.cloudflare.com/).
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Initially I built out the structure and early content of the website with less attention to design/branding, [you can currently view an earlier build here](https://c5f95bf7.rohannelson.pages.dev/).
 
-![basics](https://user-images.githubusercontent.com/4677417/186188965-73453154-fdec-4d6b-9c34-cb35c248ae5b.png)
+After a while, I integrated my site with [Strapi](https://strapi.io/), and deployed Strapi as a webservice through [Render](https://render.com).
+After using this configuration for a little while, I decided to roll back to vanilla Astro.
 
+Then I asked my wife, who is a graphic designer, to mock up a redesign of my website for me. After a few revisions, we arrived at the current design, which I then implemented.
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── Card.astro
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                | Action                                           |
-| :--------------------- | :----------------------------------------------- |
-| `npm install`          | Installs dependencies                            |
-| `npm run dev`          | Starts local dev server at `localhost:3000`      |
-| `npm run build`        | Build your production site to `./dist/`          |
-| `npm run preview`      | Preview your build locally, before deploying     |
-| `npm run astro ...`    | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+At some point I also added a page with some [board games that I have been making with React](https://rohannelson.com/projects/). I have been making them partly to learn React, and partly for fun.
