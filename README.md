@@ -2,7 +2,7 @@
 
 ## Project History
 
-This is my first personal website and blog, which I built after securing the domain rohannelson.com.
+This is my personal website and blog, which I built after securing the domain rohannelson.com.
 It is built with [Astro](https://astro.build), and deployed via [Cloudflare Pages](https://pages.cloudflare.com/).
 
 Initially I built out the structure and early content of the website with less attention to design/branding, [you can currently view an earlier build here](https://c5f95bf7.rohannelson.pages.dev/).
