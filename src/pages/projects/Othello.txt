@@ -1,0 +1,12 @@
+I'm finding it difficult, and wondering if I need to rethink the architecture.
+I'm thinking I want a function that checks a square to see if there's a valid move, 
+and I want it to do it in clear steps to make it easy to debug.
+I'm wanting the function to only enact the resulting move under certain conditions (probably when a certain parameter is provided)
+That way, for checking if there are any valid moves, I could just iterate over the board using this function.
+For the actual move, I can pass in the parameter that says it's an actual move.
+
+WHAT ARE THE STEPS THEN?
+1. Is the square already taken?
+2. Are any pieces adjacent to this square?
+3. If yes, are any of the pieces the opposite colour to the turn?
+4. If yes, do any of the lines from these pieces include a piece of the same colour as the turn?
