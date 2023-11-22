@@ -2,6 +2,7 @@
 import Layout from "../../../../layouts/BaseLayout.astro";
 import NavCard from "../../../../components/NavCard.astro";
 import PageNav from "../../../../components/PageNav.astro";
+import { capitaliseAll } from "../../../../components/utils.js";
 
 export async function getStaticPaths({ paginate }) {
   const allBlogs = await Astro.glob("../../*.mdx");
@@ -20,11 +21,8 @@ export async function getStaticPaths({ paginate }) {
 }
 const { series } = Astro.params;
 const { page } = Astro.props;
-const title = series;
-const description = `The home of my ${series} series.`;
-const capitalise = (str) => {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-};
+const title = capitaliseAll(series);
+const description = `The home of my ${capitaliseAll(series)} series.`;
 const seriesPages = await Astro.glob("../../../../components/series/*.mdx");
 const seriesPage = seriesPages.filter((page) =>
   page.frontmatter.series?.includes(series)
@@ -33,7 +31,7 @@ const SeriesPageContent = seriesPage[0].Content;
 const seriesColour = seriesPage[0].frontmatter.seriesColour;
 ---
 
-<Layout title={capitalise(title)} description={description}>
+<Layout title={capitaliseAll(title)} description={description}>
   <SeriesPageContent />
   <ul>
     {page.data.map((blog) => <NavCard post={blog} {seriesColour} />)}
