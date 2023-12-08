@@ -9,7 +9,7 @@ export async function getStaticPaths({ paginate }) {
   const uniqueSeries = [
     ...new Set(allBlogs.map((blog) => blog.frontmatter.series).flat()),
   ];
-  return uniqueSeries.map((series) => {
+  return uniqueSeries.flatMap((series) => {
     const filteredBlogs = allBlogs.filter((blog) =>
       blog.frontmatter.series?.includes(series)
     );
