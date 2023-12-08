@@ -1,15 +1,15 @@
 ---
-import Icon from 'astro-icon';
 const { post, titlePrefix = "", seriesColour } = Astro.props;
 const seriesColourLight=`var(--light-${seriesColour})`;
 const seriesColourGradient=`var(--${seriesColour}-gradient-diagonal)`
+import { Icon } from 'astro-icon/components';
 ---
 
 <a href={post.url}>
     <li>
         <h3>{titlePrefix}</h3>
         <div>
-            <Icon name={post.frontmatter.image} fill={seriesColourLight}/>
+            <Icon name={post.frontmatter.image} color={seriesColourLight}/>
             <h4>{post.frontmatter.title}</h4>
             <p>{post.frontmatter.description}</p>
         </div>
@@ -42,7 +42,7 @@ const seriesColourGradient=`var(--${seriesColour}-gradient-diagonal)`
         border-radius: var(--border-radius);
         height: 100%;
     }
-    [astro-icon] {
+    [data-icon] {
         height: 60px;
         width: auto;
         float: right;

@@ -4,7 +4,7 @@ import NavCard from "../components/NavCard.astro";
 import Metadata from "../components/Metadata.astro";
 import SeriesCard from "../components/SeriesCard.astro";
 import Grid from "../components/Grid.astro";
-import { Icon } from "astro-icon";
+import { Icon } from 'astro-icon/components';
 const { frontmatter } = Astro.props;
 const allBlogs = await Astro.glob("../pages/blog/*.mdx");
 const currentSeries = frontmatter.series;
@@ -39,7 +39,7 @@ if (!nextInSeries && seriesIndex + 1 <= seriesArray.length - 1) {
   pubDate={frontmatter.pubDate}
 >
   <Metadata frontmatter={frontmatter} {seriesColour} />
-  <Icon name={frontmatter.image ?? "blog"} fill={`var(--light-${seriesColour})`} />
+  <Icon name={frontmatter.image ?? "blog"} color={`var(--light-${seriesColour})`} />
   <div class="blog">
     <slot />
   </div>
@@ -77,7 +77,7 @@ if (!nextInSeries && seriesIndex + 1 <= seriesArray.length - 1) {
     </div>
   </Grid>
   <style define:vars={{ seriesColourVar }}>
-    [astro-icon] {
+    [data-icon] {
       width: 200px;
       max-width: 30vw;
       height: auto;

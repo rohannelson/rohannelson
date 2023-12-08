@@ -1,11 +1,11 @@
 ---
-import { Icon } from "astro-icon";
 import { capitaliseAll } from "./utils";
 const { series, titlePrefix = "" } = Astro.props;
 const seriesColour = series.frontmatter.seriesColour;
 const seriesColourGradient = `var(--${seriesColour}-gradient-diagonal)`;
 const seriesColourLight = `var(--light-${seriesColour})`;
 const link = `/blog/series/${series.frontmatter.series}/1`;
+import { Icon } from 'astro-icon/components';
 ---
 
 <a href={link}>
@@ -19,7 +19,7 @@ const link = `/blog/series/${series.frontmatter.series}/1`;
               {capitaliseAll(series.frontmatter.series)}
             </h3>
             <p>
-              <Icon name={series.frontmatter.icon} fill={seriesColourLight} />
+              <Icon name={series.frontmatter.icon} color={seriesColourLight} />
               <series.Content />
             </p>
           </>
@@ -54,7 +54,7 @@ const link = `/blog/series/${series.frontmatter.series}/1`;
   div.inner:hover {
     transform: scale(102%);
   }
-  [astro-icon] {
+  [data-icon] {
     height: 60px;
     width: auto;
     float: right;

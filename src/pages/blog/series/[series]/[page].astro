@@ -3,7 +3,7 @@ import Layout from "../../../../layouts/BaseLayout.astro";
 import NavCard from "../../../../components/NavCard.astro";
 import PageNav from "../../../../components/PageNav.astro";
 import { capitaliseAll } from "../../../../components/utils.js";
-
+console.log(Astro.props)
 export async function getStaticPaths({ paginate }) {
   const allBlogs = await Astro.glob("../../*.mdx");
   const uniqueSeries = [
@@ -20,6 +20,7 @@ export async function getStaticPaths({ paginate }) {
   });
 }
 const { series } = Astro.params;
+
 const { page } = Astro.props;
 const title = capitaliseAll(series);
 const description = `The home of my ${capitaliseAll(series)} series.`;
@@ -29,6 +30,7 @@ const seriesPage = seriesPages.filter((page) =>
 );
 const SeriesPageContent = seriesPage[0].Content;
 const seriesColour = seriesPage[0].frontmatter.seriesColour;
+
 ---
 
 <Layout title={capitaliseAll(title)} description={description}>
