@@ -1,9 +1,9 @@
 ---
+export const prerender = true;
 import Layout from "../../../../layouts/BaseLayout.astro";
 import NavCard from "../../../../components/NavCard.astro";
 import PageNav from "../../../../components/PageNav.astro";
 import { capitaliseAll } from "../../../../components/utils.js";
-console.log(Astro.props)
 export async function getStaticPaths({ paginate }) {
   const allBlogs = await Astro.glob("../../*.mdx");
   const uniqueSeries = [

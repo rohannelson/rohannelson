@@ -1,4 +1,5 @@
 ---
+export const prerender = true;
 import Layout from "../../../layouts/BaseLayout.astro";
 import NavCard from "../../../components/NavCard.astro";
 import Tags from "../../../components/Tags.astro";
@@ -6,7 +7,6 @@ import PageNav from "../../../components/PageNav.astro";
 import Card from "../../../components/Card.astro";
 const title = "My Blog (Chronologically)";
 const description = "A list of all my blog posts";
-
 export async function getStaticPaths({ paginate }) {
   const allBlogs = await Astro.glob("../*.mdx");
 allBlogs.reverse();
