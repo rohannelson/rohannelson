@@ -7,7 +7,7 @@ const accessToken = cookies.get("sb-access-token");
 const refreshToken = cookies.get("sb-refresh-token");
 
 if (accessToken && refreshToken) {
-  return redirect("/dashboard");
+  return redirect("/projects");
 }
 ---
 
@@ -20,5 +20,6 @@ if (accessToken && refreshToken) {
     <label for="password">Password</label>
     <input type="password" name="password" id="password" />
     <button type="submit">Login</button>
+    <button value="github" name="provider" type="submit">Sign in with GitHub</button>
   </form>
 </Layout>
