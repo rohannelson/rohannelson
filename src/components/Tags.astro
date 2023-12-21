@@ -1,35 +1,35 @@
 ---
-import Card from "./Card.astro";
+import Card from './Card.astro'
 const capitalise = (str) => {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-};
-const series = await Astro.glob("./series/*.mdx");
+	return str.charAt(0).toUpperCase() + str.slice(1)
+}
+const series = await Astro.glob('./series/*.mdx')
 ---
 
 <ul>
-  {
-    series.map((series) => {
-      let seriesURL = `/blog/series/${series.frontmatter.series}/1`;
-      return (
-        <li style={`background: var(--${series.frontmatter.seriesColour}`}>
-          <a class="series" href={seriesURL}>
-            {capitalise(series.frontmatter.series)}
-          </a>
-        </li>
-      );
-    })
-  }
+	{
+		series.map((series) => {
+			let seriesURL = `/blog/series/${series.frontmatter.series}/1`
+			return (
+				<li style={`background: var(--${series.frontmatter.seriesColour}`}>
+					<a class="series" href={seriesURL}>
+						{capitalise(series.frontmatter.series)}
+					</a>
+				</li>
+			)
+		})
+	}
 </ul>
 <style>
-  ul {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 0;
-    row-gap: 10px;
-  }
-  li {
-    list-style: none;
-    margin-right: 0.5rem;
-    background-color: var(--light-grey);
-  }
+	ul {
+		display: flex;
+		flex-wrap: wrap;
+		padding: 0;
+		row-gap: 10px;
+	}
+	li {
+		list-style: none;
+		margin-right: 0.5rem;
+		background-color: var(--light-grey);
+	}
 </style>

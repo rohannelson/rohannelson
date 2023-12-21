@@ -19,8 +19,13 @@
     "@types/react-dom": "^18.2.7",
     "astro": "^4.0.3",
     "astro-icon": "^1.0.0-next.2",
+    "prettier-plugin-astro": "^0.12.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "tailwindcss": "^3.4.0"
+  },
+  "devDependencies": {
+    "prettier": "^3.1.1",
+    "prettier-plugin-tailwindcss": "^0.5.9"
   }
 }

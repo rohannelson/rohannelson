@@ -1,288 +1,250 @@
 ---
+
 ---
 
-<header>
-  <div class="headerContainer">
-    <a class="logoAnchor" href="/">
-      <div class="logoFillOuter">
-        <div class="logoFillInner">RN</div>
-      </div>
-    </a>
-    <nav class="headerNav hidden">
-      <ul>
-        <li><a href="/blog">Blog</a></li>
-        <li><a href="/projects">Projects</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/contact">Contact</a></li>
-      </ul>
-    </nav>
-    <button type="button" class="headerNavToggle hamburger">
-      <div class="wrapper">
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-    </button>
-  </div>
+<header
+	class="fixed top-0 z-10 flex h-[var(--header-height)] w-full justify-center bg-white text-base duration-duration"
+>
+	<div
+		class="headerContainer mx-18 flex h-[var(--header-height)] w-full max-w-[var(--content-width)] items-center justify-end duration-duration"
+	>
+		<a class="logoAnchor rounded-full no-underline" href="/">
+			<div
+				class="logoFillOuter flex h-[5.5rem] w-[5.5rem] items-center justify-center rounded-full border-4 border-solid border-dark-red bg-white text-base text-light-red duration-duration"
+			>
+				<div class="logoFillInner">RN</div>
+			</div>
+		</a>
+		<nav class="headerNav md:hidden">
+			<ul>
+				<li><a href="/blog">Blog</a></li>
+				<li><a href="/projects">Projects</a></li>
+				<li><a href="/about">About</a></li>
+				<li><a href="/contact">Contact</a></li>
+			</ul>
+		</nav>
+		<button type="button" class="headerNavToggle hamburger">
+			<div class="wrapper">
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		</button>
+	</div>
 </header>
-<div class="header-trigger"></div>
+<div
+	class="header-trigger h-[calc(120rem/16)] duration-[var(--transition-speed)] md:h-[calc(100rem/16)]"
+>
+</div>
 <style>
-  :root {
-    --header-height: calc(120rem / 16);
-    --transition-speed: 0.2s;
-    --font-size: 1rem;
-  }
-  @media (max-width: calc(639rem / 16)) {
-    :root {
-      --font-size: 0.85rem;
-      --header-height: calc(100rem / 16);
-    }
-  }
-  header {
-    display: flex;
-    background-color: white;
-    width: 100%;
-    position: fixed;
-    top: 0;
-    height: var(--header-height);
-    justify-content: center;
-    font-size: var(--font-size);
-    transition: var(--transition-speed);
-    z-index: 10;
-  }
-  div.header-trigger {
-    height: calc(120rem / 16);
-    transition: var(--transition-speed);
-  }
-  @media (max-width: calc(639rem / 16)) {
-    div.header-trigger {
-      height: calc(100rem / 16);
-    }
-  }
-  div.headerContainer {
-    max-width: var(--content-width);
-    height: var(--header-height);
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    transition: var(--transition-speed);
-    margin: 0 18px;
-  }
-  /*LOGO STYLES*/
-  .logoAnchor {
-    border-radius: 100%;
-    text-decoration: none;
-  }
-  .logoFillOuter {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: var(--font-size);
-    height: 5.5em;
-    width: 5.5em;
-    border-radius: 100%;
-    background-color: white;
-    border: solid 4px var(--dark-red);
-    transition: var(--transition-speed);
-    color: var(--light-red);
-  }
-  .logoFillOuter:is(:hover, :focus-within) {
-    background: var(--red-gradient);
-    border: 4px solid white;
-    outline: none;
-    color: white;
-    transition: 0s;
-  }
-  .logoFillInner {
-    font-weight: 500;
-    font-size: calc(30em / 16);
-    color: inherit;
-  }
-  nav {
-    width: 100%;
-  }
-  ul {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin: 0;
-    margin-right: -1rem;
-    padding: 0;
-  }
-  li {
-    list-style: none;
-    padding: 0 0.5rem;
-  }
-  li a {
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    border-radius: var(--border-radius);
-    font-size: 1.1rem;
-    font-weight: 700;
-  }
+	:root {
+		--header-height: calc(120rem / 16);
+		--transition-speed: 0.2s;
+		--font-size: 1rem;
+	}
+	@media (max-width: calc(639rem / 16)) {
+		:root {
+			--font-size: 0.85rem;
+			--header-height: calc(100rem / 16);
+		}
+	}
+	/*LOGO STYLES*/
+	.logoFillOuter:is(:hover, :focus-within) {
+		background: var(--red-gradient);
+		border: 4px solid white;
+		outline: none;
+		color: white;
+		transition: 0s;
+	}
+	.logoFillInner {
+		font-weight: 500;
+		font-size: calc(30em / 16);
+		color: inherit;
+	}
+	nav {
+		width: 100%;
+	}
+	ul {
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+		margin: 0;
+		margin-right: -1rem;
+		padding: 0;
+	}
+	li {
+		list-style: none;
+		padding: 0 0.5rem;
+	}
+	li a {
+		text-decoration: none;
+		padding: 0.5rem 1rem;
+		border-radius: var(--border-radius);
+		font-size: 1.1rem;
+		font-weight: 700;
+	}
 
-  nav a {
-    color: var(--dark-grey);
-  }
+	nav a {
+		color: var(--dark-grey);
+	}
 
-  li a:focus,
-  li a:hover {
-    outline: none;
-    background-color: var(--light-red);
-    color: white;
-  }
+	li a:focus,
+	li a:hover {
+		outline: none;
+		background-color: var(--light-red);
+		color: white;
+	}
 
-  @media (max-width: calc(639rem / 16)) {
-    ul {
-      position: absolute;
-      left: 0px;
-      top: var(--header-height);
-      flex-direction: column;
-      width: 100vw;
-      margin: auto;
-      transition: var(--transition-speed);
-    }
-    ul li {
-      margin: 0;
-    }
-    li a {
-      display: block;
-      background: var(--red-gradient);
-      color: white;
-      border-radius: 0;
-      width: 100vw;
-      text-align: center;
-      margin: 0;
-      padding: 5px 0;
-    }
-    li a:hover {
-      outline: none;
-      background: var(--dark-red);
-      border-radius: 0;
-      transform: scale(110%);
-      transition: transform var(--transition-speed);
-    }
-    .hidden {
-      display: none;
-    }
-  }
+	@media (max-width: calc(639rem / 16)) {
+		ul {
+			position: absolute;
+			left: 0px;
+			top: var(--header-height);
+			flex-direction: column;
+			width: 100vw;
+			margin: auto;
+			transition: var(--transition-speed);
+		}
+		ul li {
+			margin: 0;
+		}
+		li a {
+			display: block;
+			background: var(--red-gradient);
+			color: white;
+			border-radius: 0;
+			width: 100vw;
+			text-align: center;
+			margin: 0;
+			padding: 5px 0;
+		}
+		li a:hover {
+			outline: none;
+			background: var(--dark-red);
+			border-radius: 0;
+			transform: scale(110%);
+			transition: transform var(--transition-speed);
+		}
+		.hidden {
+			display: none;
+		}
+	}
 
-  /*hamburger styles*/
-  .headerNavToggle {
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: white;
-    border: 4px solid var(--dark-red);
-    border-radius: 100%;
-    transition: var(--transition-speed);
-    cursor: pointer;
-    font-size: var(--font-size);
-    height: 5.5em;
-    width: 5.5em;
-    align-self: center;
-    justify-self: center;
-  }
+	/*hamburger styles*/
+	.headerNavToggle {
+		display: none;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		background-color: white;
+		border: 4px solid var(--dark-red);
+		border-radius: 100%;
+		transition: var(--transition-speed);
+		cursor: pointer;
+		font-size: var(--font-size);
+		height: 5.5em;
+		width: 5.5em;
+		align-self: center;
+		justify-self: center;
+	}
 
-  .headerNavToggle:hover {
-    background: var(--red-gradient);
-    background-color: white;
-    border: 4px solid white;
-    transition: 0s;
-  }
+	.headerNavToggle:hover {
+		background: var(--red-gradient);
+		background-color: white;
+		border: 4px solid white;
+		transition: 0s;
+	}
 
-  .headerNavToggle .wrapper {
-    border-color: var(--light-red);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-  }
+	.headerNavToggle .wrapper {
+		border-color: var(--light-red);
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+		height: 100%;
+	}
 
-  .headerNavToggle .wrapper:hover {
-    border-color: white;
-    transition: 0s;
-  }
+	.headerNavToggle .wrapper:hover {
+		border-color: white;
+		transition: 0s;
+	}
 
-  .headerNavToggle div:not(.wrapper) {
-    border: solid 2px var(--light-red);
-    border-radius: 100%;
-    border-color: inherit;
-    height: 0px;
-    transition: 0.4s;
-    flex-shrink: 0;
-    flex-grow: 0;
-  }
+	.headerNavToggle div:not(.wrapper) {
+		border: solid 2px var(--light-red);
+		border-radius: 100%;
+		border-color: inherit;
+		height: 0px;
+		transition: 0.4s;
+		flex-shrink: 0;
+		flex-grow: 0;
+	}
 
-  .headerNavToggle.hamburger div:not(.wrapper) {
-    width: 2.8em;
-    margin: 0.25em 0;
-    border-radius: var(--border-radius);
-    font-size: var(--font-size);
-    transition: var(--transition-speed) ease-out;
-  }
+	.headerNavToggle.hamburger div:not(.wrapper) {
+		width: 2.8em;
+		margin: 0.25em 0;
+		border-radius: var(--border-radius);
+		font-size: var(--font-size);
+		transition: var(--transition-speed) ease-out;
+	}
 
-  .toggled div:not(.wrapper):nth-of-type(1) {
-    transform: rotate(45deg);
-    margin: 0;
-    position: relative;
-    top: 4px;
-  }
+	.toggled div:not(.wrapper):nth-of-type(1) {
+		transform: rotate(45deg);
+		margin: 0;
+		position: relative;
+		top: 4px;
+	}
 
-  .toggled div:not(.wrapper):nth-of-type(2) {
-    margin: 0;
-    transform: rotate(405deg);
-    opacity: 0;
-  }
+	.toggled div:not(.wrapper):nth-of-type(2) {
+		margin: 0;
+		transform: rotate(405deg);
+		opacity: 0;
+	}
 
-  .toggled div:not(.wrapper):nth-of-type(3) {
-    transform: rotate(-45deg);
-    margin: 0;
-    position: relative;
-    bottom: 4px;
-  }
-  @media (max-width: calc(639rem / 16)) {
-    .headerNavToggle {
-      display: flex;
-      margin-left: auto;
-      flex-shrink: 0;
-    }
-  }
+	.toggled div:not(.wrapper):nth-of-type(3) {
+		transform: rotate(-45deg);
+		margin: 0;
+		position: relative;
+		bottom: 4px;
+	}
+	@media (max-width: calc(639rem / 16)) {
+		.headerNavToggle {
+			display: flex;
+			margin-left: auto;
+			flex-shrink: 0;
+		}
+	}
 </style>
 <script>
-  const html = document.documentElement;
-  const headerTrigger = document.querySelector(".header-trigger");
-  const headerHeightInit = html.style.getPropertyValue("--header-height");
-  const fontSizeInit = html.style.getPropertyValue("--font-size");
-  let options = {
-    root: null,
-    rootMargin: "-10px",
-    threshold: 0,
-  };
-  const obsCallback = (entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) {
-        html.style.setProperty("--header-height", "4.75rem");
-        html.style.setProperty("--font-size", "0.7rem");
-      } else {
-        html.style.setProperty("--header-height", headerHeightInit);
-        html.style.setProperty("--font-size", fontSizeInit);
-      }
-    });
-  };
+	const html = document.documentElement
+	const headerTrigger = document.querySelector('.header-trigger')
+	const headerHeightInit = html.style.getPropertyValue('--header-height')
+	const fontSizeInit = html.style.getPropertyValue('--font-size')
+	let options = {
+		root: null,
+		rootMargin: '-10px',
+		threshold: 0
+	}
+	const obsCallback = (entries) => {
+		entries.forEach((entry) => {
+			if (!entry.isIntersecting) {
+				html.style.setProperty('--header-height', '4.75rem')
+				html.style.setProperty('--font-size', '0.7rem')
+			} else {
+				html.style.setProperty('--header-height', headerHeightInit)
+				html.style.setProperty('--font-size', fontSizeInit)
+			}
+		})
+	}
 
-  let headerObserver = new IntersectionObserver(obsCallback, options);
-  headerObserver.observe(headerTrigger);
+	let headerObserver = new IntersectionObserver(obsCallback, options)
+	headerObserver.observe(headerTrigger)
 </script>
 <script>
-  const headerNavToggle = document.querySelector(".headerNavToggle");
-  const headerNav = document.querySelector(".headerNav");
-  headerNavToggle.addEventListener("click", () => {
-    headerNav.classList.toggle("hidden");
-    headerNavToggle.classList.toggle("toggled");
-  });
+	const headerNavToggle = document.querySelector('.headerNavToggle')
+	const headerNav = document.querySelector('.headerNav')
+	headerNavToggle.addEventListener('click', () => {
+		headerNav.classList.toggle('md:hidden')
+		headerNavToggle.classList.toggle('toggled')
+	})
 </script>
