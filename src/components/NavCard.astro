@@ -1,65 +1,27 @@
 ---
-const { post, titlePrefix = '', seriesColour } = Astro.props
+const post = Astro.props.post
+const { titlePrefix = '', seriesColour } = Astro.props
 const seriesColourLight = `var(--light-${seriesColour})`
 const seriesColourGradient = `var(--${seriesColour}-gradient-diagonal)`
 import { Icon } from 'astro-icon/components'
 ---
 
-<a href={post.url}>
-	<li>
-		<h3>{titlePrefix}</h3>
-		<div>
-			<Icon name={post.frontmatter.image} color={seriesColourLight} />
-			<h4>{post.frontmatter.title}</h4>
-			<p>{post.frontmatter.description}</p>
+<style define:vars={{ seriesColourGradient, seriesColourLight }}></style>
+<a
+	href={post.url}
+	class="block h-full rounded-[--border-radius] p-[1.2rem] text-dark-grey no-underline [background:--seriesColourGradient]"
+>
+	<li class="flex h-full flex-col no-underline">
+		<h3 class="m-0 p-0 text-white">{titlePrefix}</h3>
+		<div
+			class="h-full rounded-[--border-radius] bg-white p-4 hover:scale-[102%] focus:scale-[102%]"
+		>
+			<Icon
+				name={post.frontmatter.image}
+				class="float-right ml-4 h-[60px] w-auto text-[--seriesColourLight]"
+			/>
+			<h4 class="m-0 p-0 [color:--seriesColourLight]">{post.frontmatter.title}</h4>
+			<p class="m-0 mr-[50px] mt-[10px]">{post.frontmatter.description}</p>
 		</div>
 	</li>
 </a>
-
-<style define:vars={{ seriesColourGradient, seriesColourLight }}>
-	a {
-		text-decoration: none;
-		color: black;
-		display: block;
-		padding: 1.2rem;
-		background: var(--seriesColourGradient);
-		border-radius: var(--border-radius);
-		height: 100%;
-	}
-	li {
-		list-style: none;
-		height: 100%;
-		display: flex;
-		flex-direction: column;
-	}
-	div:hover,
-	div:focus {
-		transform: scale(102%);
-	}
-	div {
-		background: white;
-		padding: 1rem;
-		border-radius: var(--border-radius);
-		height: 100%;
-	}
-	[data-icon] {
-		height: 60px;
-		width: auto;
-		float: right;
-		margin-left: 1rem;
-	}
-	h3,
-	h4 {
-		margin: 0;
-		padding: 0;
-	}
-	h3 {
-		color: white;
-	}
-	h4 {
-		color: var(--seriesColourLight);
-	}
-	p {
-		margin: 10px 50px 0 0;
-	}
-</style>

@@ -7,8 +7,21 @@ let listItems = [
 ]
 ---
 
+<style>
+	:root {
+		--header-height: calc(120rem / 16);
+		--transition-speed: 0.2s;
+		--font-size: 1rem;
+	}
+	@media (max-width: calc(639rem / 16)) {
+		:root {
+			--font-size: 0.85rem;
+			--header-height: calc(100rem / 16);
+		}
+	}
+</style>
 <header
-	class="fixed top-0 z-10 flex h-[--header-height] w-full justify-center bg-white duration-duration [font-size:--font-size]"
+	class="fixed top-0 z-20 flex h-[--header-height] w-full justify-center bg-white text-[length:--font-size] duration-duration"
 >
 	<!--headerContainer-->
 	<div
@@ -17,7 +30,7 @@ let listItems = [
 		<!--logo-->
 		<a class="rounded-full no-underline" href="/">
 			<div
-				class="flex h-[5.5em] w-[5.5em] items-center justify-center rounded-full border-4 border-solid border-dark-red bg-white text-light-red duration-duration [font-size:--font-size] focus-within:border-white focus-within:text-white focus-within:outline-none focus-within:duration-0 focus-within:[background:var(--red-gradient)] hover:border-white hover:text-white hover:outline-none hover:duration-0 hover:[background:--red-gradient]"
+				class="flex h-[5.5em] w-[5.5em] items-center justify-center rounded-full border-4 border-solid border-dark-red bg-white text-[length:--font-size] text-light-red duration-duration focus-within:border-white focus-within:text-white focus-within:outline-none focus-within:duration-0 focus-within:[background:var(--red-gradient)] hover:border-white hover:text-white hover:outline-none hover:duration-0 hover:[background:--red-gradient]"
 			>
 				<div class="text-inherit text-[calc(30em/16)] font-medium">RN</div>
 			</div>
@@ -45,21 +58,21 @@ let listItems = [
 		<!--mobile nav toggle-->
 		<button
 			type="button"
-			class="headerNavToggle hamburger group flex hidden h-[5.5em] w-[5.5em] shrink-0 cursor-pointer flex-col items-center justify-center self-center justify-self-center rounded-full border-4 border-solid border-dark-red bg-white duration-duration [font-size:--font-size] hover:border-white hover:bg-gradient-to-r hover:from-dark-red hover:to-light-red hover:duration-0 md:ml-auto md:flex"
+			class="headerNavToggle hamburger group flex hidden h-[5.5em] w-[5.5em] shrink-0 cursor-pointer flex-col items-center justify-center self-center justify-self-center rounded-full border-4 border-solid border-dark-red bg-white text-[length:--font-size] duration-duration hover:border-white hover:bg-gradient-to-r hover:from-dark-red hover:to-light-red hover:duration-0 md:ml-auto md:flex"
 		>
 			<div
 				class="wrapper flex h-full w-full flex-col items-center justify-center border-light-red hover:border-white hover:duration-0"
 			>
 				<div
-					class="mx-0 my-[0.25em] h-0 w-[2.8em] shrink-0 grow-0 rounded-[border-radius] border-2 border-solid border-light-red duration-[0.4s] ease-out [font-size:--font-size] [border-color:inherit] group-[.toggled]:relative group-[.toggled]:top-1 group-[.toggled]:m-0 group-[.toggled]:rotate-45"
+					class="mx-0 my-[0.25em] h-0 w-[2.8em] shrink-0 grow-0 rounded-[border-radius] border-2 border-solid border-light-red text-[length:--font-size] duration-[0.4s] ease-out [border-color:inherit] group-[.toggled]:relative group-[.toggled]:top-1 group-[.toggled]:m-0 group-[.toggled]:rotate-45"
 				>
 				</div>
 				<div
-					class="mx-0 my-[0.25em] h-0 w-[2.8em] shrink-0 grow-0 rounded-[border-radius] border-2 border-solid border-light-red duration-[0.4s] ease-out [font-size:--font-size] [border-color:inherit] group-[.toggled]:m-0 group-[.toggled]:rotate-[405deg] group-[.toggled]:opacity-0"
+					class="mx-0 my-[0.25em] h-0 w-[2.8em] shrink-0 grow-0 rounded-[border-radius] border-2 border-solid border-light-red text-[length:--font-size] duration-[0.4s] ease-out [border-color:inherit] group-[.toggled]:m-0 group-[.toggled]:rotate-[405deg] group-[.toggled]:opacity-0"
 				>
 				</div>
 				<div
-					class="mx-0 my-[0.25em] h-0 w-[2.8em] shrink-0 grow-0 rounded-[border-radius] border-2 border-solid border-light-red duration-[0.4s] ease-out [font-size:--font-size] [border-color:inherit] group-[.toggled]:relative group-[.toggled]:bottom-1 group-[.toggled]:m-0 group-[.toggled]:-rotate-45"
+					class="mx-0 my-[0.25em] h-0 w-[2.8em] shrink-0 grow-0 rounded-[border-radius] border-2 border-solid border-light-red text-[length:--font-size] duration-[0.4s] ease-out [border-color:inherit] group-[.toggled]:relative group-[.toggled]:bottom-1 group-[.toggled]:m-0 group-[.toggled]:-rotate-45"
 				>
 				</div>
 			</div>
@@ -70,19 +83,6 @@ let listItems = [
 	class="header-trigger h-[calc(120rem/16)] duration-[--transition-speed] md:h-[calc(100rem/16)]"
 >
 </div>
-<style>
-	:root {
-		--header-height: calc(120rem / 16);
-		--transition-speed: 0.2s;
-		--font-size: 1rem;
-	}
-	@media (max-width: calc(639rem / 16)) {
-		:root {
-			--font-size: 0.85rem;
-			--header-height: calc(100rem / 16);
-		}
-	}
-</style>
 <script>
 	const html = document.documentElement
 	const headerTrigger = document.querySelector('.header-trigger')

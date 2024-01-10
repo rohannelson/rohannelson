@@ -8,18 +8,27 @@ const link = `/blog/series/${series.frontmatter.series}/1`
 import { Icon } from 'astro-icon/components'
 ---
 
-<a href={link}>
-	<div class="outer">
-		<h3>{titlePrefix}</h3>
-		<div class="inner">
+<style define:vars={{ seriesColourGradient }}></style>
+<a href={link} class="mt-[0.625rem] rounded-[--border-radius] no-underline">
+	<div
+		class="outer flex h-full w-full flex-col rounded-[--border-radius] p-[1.2rem] [background:--seriesColourGradient]"
+	>
+		<h3 class="m-0 p-0 text-white">{titlePrefix}</h3>
+		<div
+			class="inner inline-block h-full rounded-[--border-radius] bg-white p-[1.2rem] hover:scale-[102%]"
+		>
 			{
 				(
 					<>
-						<h3 style={`color: ${seriesColourLight}`}>
+						<h3 style={`color: ${seriesColourLight}`} class="m-0 p-0">
 							{capitaliseAll(series.frontmatter.series)}
 						</h3>
 						<p>
-							<Icon name={series.frontmatter.icon} color={seriesColourLight} />
+							<Icon
+								name={series.frontmatter.icon}
+								color={seriesColourLight}
+								class="float-right ml-4 h-[60px] w-auto"
+							/>
 							<series.Content />
 						</p>
 					</>
@@ -28,45 +37,3 @@ import { Icon } from 'astro-icon/components'
 		</div>
 	</div>
 </a>
-
-<style define:vars={{ seriesColourGradient }}>
-	a {
-		border-radius: var(--border-radius);
-		text-decoration: none;
-		margin-top: 0.625rem;
-	}
-	div.outer {
-		display: flex;
-		flex-direction: column;
-		background: var(--seriesColourGradient);
-		padding: 1.2rem;
-		border-radius: var(--border-radius);
-		height: 100%;
-		width: 100%;
-	}
-	div.inner {
-		background: white;
-		border-radius: var(--border-radius);
-		padding: 1.2rem;
-		height: 100%;
-		display: inline-block;
-	}
-	div.inner:hover {
-		transform: scale(102%);
-	}
-	[data-icon] {
-		height: 60px;
-		width: auto;
-		float: right;
-		margin-left: 1rem;
-	}
-	h3 {
-		margin: 0;
-		padding: 0;
-	}
-	.outer > h3 {
-		color: white;
-		margin: 0;
-		padding: 0;
-	}
-</style>

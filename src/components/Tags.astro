@@ -1,17 +1,19 @@
 ---
-import Card from './Card.astro'
 const capitalise = (str) => {
 	return str.charAt(0).toUpperCase() + str.slice(1)
 }
 const series = await Astro.glob('./series/*.mdx')
 ---
 
-<ul>
+<ul class="flex flex-wrap gap-y-[10px] p-0">
 	{
 		series.map((series) => {
 			let seriesURL = `/blog/series/${series.frontmatter.series}/1`
 			return (
-				<li style={`background: var(--${series.frontmatter.seriesColour}`}>
+				<li
+					style={`background: var(--${series.frontmatter.seriesColour}`}
+					class="mr-2 bg-light-grey"
+				>
 					<a class="series" href={seriesURL}>
 						{capitalise(series.frontmatter.series)}
 					</a>
@@ -20,16 +22,3 @@ const series = await Astro.glob('./series/*.mdx')
 		})
 	}
 </ul>
-<style>
-	ul {
-		display: flex;
-		flex-wrap: wrap;
-		padding: 0;
-		row-gap: 10px;
-	}
-	li {
-		list-style: none;
-		margin-right: 0.5rem;
-		background-color: var(--light-grey);
-	}
-</style>
