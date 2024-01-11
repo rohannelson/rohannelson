@@ -29,7 +29,7 @@ const seriesColour = seriesPage[0].frontmatter.seriesColour
 <Layout title={capitaliseAll(title)} description={description}>
 	<SeriesPageContent />
 	<ul class="mt-4 grid gap-y-5">
-		{page.data.map((blog) => <NavCard post={blog} {seriesColour} />)}
+		{page.data.map((blog) => <NavCard blogPost={blog} {seriesColour} />)}
 	</ul>
 	<PageNav page={page} />
 </Layout>

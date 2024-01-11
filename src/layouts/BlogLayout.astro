@@ -51,7 +51,7 @@ if (!nextInSeries && seriesIndex + 1 <= seriesArray.length - 1) {
 		<div>
 			{
 				previousInSeries && (
-					<NavCard post={previousInSeries} titlePrefix="Previous in Series: " {seriesColour} />
+					<NavCard blogPost={previousInSeries} titlePrefix="Previous in Series: " {seriesColour} />
 				)
 			}
 			{
@@ -63,7 +63,7 @@ if (!nextInSeries && seriesIndex + 1 <= seriesArray.length - 1) {
 		<div>
 			{
 				nextInSeries && (
-					<NavCard post={nextInSeries} titlePrefix="Next in Series: " {seriesColour} />
+					<NavCard blogPost={nextInSeries} titlePrefix="Next in Series: " {seriesColour} />
 				)
 			}
 			{

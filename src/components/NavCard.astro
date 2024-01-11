@@ -1,14 +1,12 @@
 ---
-const post = Astro.props.post
-const { titlePrefix = '', seriesColour } = Astro.props
+const { blogPost, titlePrefix = '', seriesColour } = Astro.props
 const seriesColourLight = `var(--light-${seriesColour})`
 const seriesColourGradient = `var(--${seriesColour}-gradient-diagonal)`
 import { Icon } from 'astro-icon/components'
 ---
 
-<style define:vars={{ seriesColourGradient, seriesColourLight }}></style>
 <a
-	href={post.url}
+	href={blogPost.url}
 	class="block h-full rounded-[--border-radius] p-[1.2rem] text-dark-grey no-underline [background:--seriesColourGradient]"
 >
 	<li class="flex h-full flex-col no-underline">
@@ -17,11 +15,12 @@ import { Icon } from 'astro-icon/components'
 			class="h-full rounded-[--border-radius] bg-white p-4 hover:scale-[102%] focus:scale-[102%]"
 		>
 			<Icon
-				name={post.frontmatter.image}
+				name={blogPost.frontmatter.image}
 				class="float-right ml-4 h-[60px] w-auto text-[--seriesColourLight]"
 			/>
-			<h4 class="m-0 p-0 [color:--seriesColourLight]">{post.frontmatter.title}</h4>
-			<p class="m-0 !mt-[10px] mr-[50px]">{post.frontmatter.description}</p>
+			<h4 class="m-0 p-0 [color:--seriesColourLight]">{blogPost.frontmatter.title}</h4>
+			<p class="m-0 !mt-[10px] mr-[50px]">{blogPost.frontmatter.description}</p>
 		</div>
 	</li>
 </a>
+<style define:vars={{ seriesColourGradient, seriesColourLight }}></style>
