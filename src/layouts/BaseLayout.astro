@@ -35,175 +35,155 @@ const pageDescription = description ?? frontmatter.description
 	<body>
 		<Header />
 		<main>
-			<div class="container">
+			<div
+				class="mx-[max(var(--margin-width),18px)] min-h-[calc(100vh-var(--header-height))] max-w-[--content-width]"
+			>
 				<Title title={title} pubDate={pubDate} />
 				<slot />
 			</div>
 		</main>
 		<Footer />
-		<style is:global>
-			@tailwind base;
-
-			@layer base {
-				/*SITE-WIDE STYLES*/
-				* {
-					box-sizing: border-box;
-					font-family: 'Bitter', serif;
-					font-size: 16px;
-					line-height: 26px;
-				}
-				p,
-				a,
-				li,
-				h1,
-				h2,
-				h3,
-				h4,
-				h5,
-				h6 {
-					color: var(--dark-grey);
-				}
-			}
-			/*FONT VARIABLES*/
-			:root {
-				--font-size-h1: calc(40rem / 16);
-				--line-height-h1: calc(50rem / 16);
-
-				--font-size-h2: calc(28rem / 16);
-				--line-height-h2: calc(38rem / 16);
-
-				--font-size-h3: calc(24rem / 16);
-				--line-height-h3: calc(34rem / 16);
-
-				--font-size-h4: calc(18rem / 16);
-				--line-height-h4: calc(28rem / 16);
-			}
-
-			/*BASIC COLOUR VARIABLES*/
-			:root {
-				--dark-grey: #484648;
-				--light-grey: #9d9597;
-				--dark-red: #8c1930;
-				--light-red: #ff385c;
-				--dark-pink: #702054;
-				--light-pink: #c54097;
-				--dark-purple: #411d53;
-				--light-purple: #804aa6;
-				--dark-blue: #194653;
-				--light-blue: #2da1b8;
-				--dark-green: #27331d;
-				--light-green: #68925e;
-				--dark-yellow: #8a522b;
-				--light-yellow: #ff9b5e;
-				--dark-orange: #92361a;
-				--light-orange: #ff6c3e;
-			}
-			/*COLOUR GRADIENT VARIABLES*/
-			:root {
-				--grey-gradient: linear-gradient(90deg, var(--light-grey), 43%, var(--dark-grey));
-				--red-gradient: linear-gradient(90deg, var(--dark-red), 43%, var(--light-red));
-				--red-gradient-diagonal: linear-gradient(55deg, var(--dark-red), 43%, var(--light-red));
-				--pink-gradient-diagonal: linear-gradient(55deg, var(--dark-pink), 43%, var(--light-pink));
-				--purple-gradient-diagonal: linear-gradient(
-					55deg,
-					var(--dark-purple),
-					43%,
-					var(--light-purple)
-				);
-				--blue-gradient-diagonal: linear-gradient(55deg, var(--dark-blue), 43%, var(--light-blue));
-				--green-gradient-diagonal: linear-gradient(
-					55deg,
-					var(--dark-green),
-					43%,
-					var(--light-green)
-				);
-				--yellow-gradient-diagonal: linear-gradient(
-					55deg,
-					var(--dark-yellow),
-					43%,
-					var(--light-yellow)
-				);
-				--orange-gradient-diagonal: linear-gradient(
-					55deg,
-					var(--dark-orange),
-					43%,
-					var(--light-orange)
-				);
-			}
-			/*LAYOUT VARIABLES & CLASSES*/
-			:root {
-				--content-width: 700px;
-				--border-radius: 15px;
-				--margin-width: calc((100vw - var(--content-width)) / 2);
-			}
-			/*need to decide on breakpoints and add responsive font-sizing*/
-			@layer base {
-				h1,
-				h2,
-				h3,
-				h4 {
-					font-weight: 700;
-				}
-				h1 {
-					font-size: var(--font-size-h1);
-					line-height: var(--line-height-h1);
-					margin-top: 10px;
-					margin-bottom: 10px;
-				}
-				h2 {
-					font-size: var(--font-size-h2);
-					line-height: var(--line-height-h2);
-				}
-				h3 {
-					font-size: calc(24rem / 16);
-					line-height: calc(34rem / 16);
-				}
-				h4 {
-					font-size: calc(18rem / 16);
-					line-height: calc(28rem / 16);
-				}
-				h2,
-				h3,
-				h4 {
-					margin-bottom: 0.5rem;
-				}
-				h1 + h2,
-				h2 + h3,
-				h3 + h4 {
-					margin-top: 0px;
-				}
-				a {
-					color: var(--light-red);
-				}
-				blockquote {
-					margin-left: 0;
-					padding-left: 40px;
-					border-left: solid 4px var(--seriesColourVar);
-				}
-				@media (max-width: calc(639rem / 16)) {
-					:root {
-						--font-size-h1: calc(30rem / 16);
-						--line-height-h1: calc(40rem / 16);
-
-						--font-size-h2: calc(20rem / 16);
-						--line-height-h2: calc(30rem / 16);
-					}
-				}
-			}
-		</style>
-		<style>
-			@tailwind base;
-			@layer base {
-				div.container {
-					max-width: var(--content-width);
-					justify-content: center;
-					margin: 0 max(var(--margin-width), 18px);
-					min-height: calc(100vh - var(--header-height));
-				}
-				body {
-					margin: 0;
-				}
-			}
-		</style>
 	</body>
 </html>
+<style is:global>
+	/*SITE-WIDE STYLES*/
+	* {
+		box-sizing: border-box;
+		font-family: 'Bitter', serif;
+		font-size: 16px;
+		line-height: 26px;
+	}
+	p,
+	a,
+	li,
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		color: var(--dark-grey);
+	}
+	/*FONT VARIABLES*/
+	:root {
+		--font-size-h1: calc(40rem / 16);
+		--line-height-h1: calc(50rem / 16);
+
+		--font-size-h2: calc(28rem / 16);
+		--line-height-h2: calc(38rem / 16);
+
+		--font-size-h3: calc(24rem / 16);
+		--line-height-h3: calc(34rem / 16);
+
+		--font-size-h4: calc(18rem / 16);
+		--line-height-h4: calc(28rem / 16);
+	}
+
+	/*BASIC COLOUR VARIABLES*/
+	:root {
+		--dark-grey: #484648;
+		--light-grey: #9d9597;
+		--dark-red: #8c1930;
+		--light-red: #ff385c;
+		--dark-pink: #702054;
+		--light-pink: #c54097;
+		--dark-purple: #411d53;
+		--light-purple: #804aa6;
+		--dark-blue: #194653;
+		--light-blue: #2da1b8;
+		--dark-green: #27331d;
+		--light-green: #68925e;
+		--dark-yellow: #8a522b;
+		--light-yellow: #ff9b5e;
+		--dark-orange: #92361a;
+		--light-orange: #ff6c3e;
+	}
+	/*COLOUR GRADIENT VARIABLES*/
+	:root {
+		--grey-gradient: linear-gradient(90deg, var(--light-grey), 43%, var(--dark-grey));
+		--red-gradient: linear-gradient(90deg, var(--dark-red), 43%, var(--light-red));
+		--red-gradient-diagonal: linear-gradient(55deg, var(--dark-red), 43%, var(--light-red));
+		--pink-gradient-diagonal: linear-gradient(55deg, var(--dark-pink), 43%, var(--light-pink));
+		--purple-gradient-diagonal: linear-gradient(
+			55deg,
+			var(--dark-purple),
+			43%,
+			var(--light-purple)
+		);
+		--blue-gradient-diagonal: linear-gradient(55deg, var(--dark-blue), 43%, var(--light-blue));
+		--green-gradient-diagonal: linear-gradient(55deg, var(--dark-green), 43%, var(--light-green));
+		--yellow-gradient-diagonal: linear-gradient(
+			55deg,
+			var(--dark-yellow),
+			43%,
+			var(--light-yellow)
+		);
+		--orange-gradient-diagonal: linear-gradient(
+			55deg,
+			var(--dark-orange),
+			43%,
+			var(--light-orange)
+		);
+	}
+	/*LAYOUT VARIABLES & CLASSES*/
+	:root {
+		--content-width: 700px;
+		--border-radius: 15px;
+		--margin-width: calc((100vw - var(--content-width)) / 2);
+	}
+	/*need to decide on breakpoints and add responsive font-sizing*/
+	h1,
+	h2,
+	h3,
+	h4 {
+		font-weight: 700;
+	}
+	h1 {
+		font-size: var(--font-size-h1);
+		line-height: var(--line-height-h1);
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+	h2 {
+		font-size: var(--font-size-h2);
+		line-height: var(--line-height-h2);
+	}
+	h3 {
+		font-size: calc(24rem / 16);
+		line-height: calc(34rem / 16);
+	}
+	h4 {
+		font-size: calc(18rem / 16);
+		line-height: calc(28rem / 16);
+	}
+	h2,
+	h3,
+	h4 {
+		margin-bottom: 0.5rem;
+	}
+	h1 + h2,
+	h2 + h3,
+	h3 + h4 {
+		margin-top: 0px;
+	}
+	a {
+		color: var(--light-red);
+	}
+	p:not(:first-child) {
+		margin-top: 1rem;
+	}
+	blockquote {
+		margin-left: 0;
+		padding-left: 40px;
+		border-left: solid 4px var(--seriesColourVar);
+	}
+	@media (max-width: calc(639rem / 16)) {
+		:root {
+			--font-size-h1: calc(30rem / 16);
+			--line-height-h1: calc(40rem / 16);
+
+			--font-size-h2: calc(20rem / 16);
+			--line-height-h2: calc(30rem / 16);
+		}
+	}
+</style>

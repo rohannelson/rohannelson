@@ -1,185 +1,89 @@
 ---
-import Layout from "../layouts/BaseLayout.astro";
-import Grid from "../components/Grid.astro";
-import { Icon } from 'astro-icon/components';
-const title = "Welcome!";
-const description = "A description for my home page";
+import Layout from '../layouts/BaseLayout.astro'
+import Grid from '../components/Grid.astro'
+import { Icon } from 'astro-icon/components'
+const title = 'Welcome!'
+const description = 'A description for my home page'
 ---
 
 <Layout title={title} description={description}>
-  <div class="wrapper text-padding">
-    <p class="focus">
-      Hi, I'm <strong>Rohan</strong>, and this is&nbsp;my personal website and&nbsp;blog!
-    </p>
-    <img class="profile" src="/img/portrait.jpg" />
-  </div>
-  <h2 class="text-padding">What's Here?</h2>
-  <Grid>
-    <div class="card-wrapper">
-      <div class="card-header-wrapper">
-        <div class="flex-column">
-          <h2>A Blog</h2>
-          <a href="/blog">Read blog</a>
-        </div>
-        <div class="icon-wrapper">
-          <Icon name="quill" color="white"/>
-        </div>
-      </div>
-      <div class="inner-card">
-        <p>
-          I've been using this space to share and reflect on my own experiences, for
-          example:
-          <ul>
-            <li>
-              <a href="/blog/series/spiritual experiences/1">My Spiritual Experiences</a>
-            </li><li>
-              <a href="/blog/series/reading the bible/1"
-                >My Experiences of Reading The Bible</a
-              >
-            </li>
-          </ul>
-          <p>
-            The posts are organised into series, and each series is intended to be read in
-            order as a&nbsp;series.
-          </p>
-        </p>
-      </div>
-    </div>
-    <div class="card-wrapper">
-      <div class="card-header-wrapper">
-        <div class="flex-column">
-          <h2>Web Experiments</h2>
-          <a href="/projects">View projects</a>
-        </div>
-        <div class="icon-wrapper">
-          <Icon name="code" color="white" />
-        </div>
-      </div>
-      <div class="inner-card">
-        <p>
-          I've also been learning web development for fun since early 2022, so this is an
-          opportunity for me to play around and try some things. I'm hoping to add
-          different features over time (e.g. an RSS feed so you can subscribe to updates
-          if you're so&nbsp;inclined).
-        </p>
-      </div>
-    </div>
-  </Grid>
+	<div class="wrapper flex pl-[10px]">
+		<p
+			class="focus m-0 self-center pr-[25px] text-[calc(40rem/16)] leading-[calc(50rem/16)] sm:pr-0 sm:text-[calc(24rem/16)] sm:leading-[calc(34rem/16)] md:text-[calc(32rem/16)] md:leading-[calc(40rem/16)]"
+		>
+			Hi, I'm <strong
+				class="m-0 self-center text-[calc(40rem/16)] leading-[calc(50rem/16)] sm:pr-0 sm:text-[calc(24rem/16)] sm:leading-[calc(34rem/16)] md:text-[calc(32rem/16)] md:leading-[calc(40rem/16)]"
+				>Rohan</strong
+			>, and this is&nbsp;my personal website and&nbsp;blog!
+		</p>
+		<img
+			class="profile ml-auto h-auto w-full max-w-[29vw] shrink-0 basis-40 self-center rounded"
+			src="/img/portrait.jpg"
+		/>
+	</div>
+	<h2 class="mb-2 mt-6 pl-[10px]">What's Here?</h2>
+	<Grid>
+		<div
+			class="card-wrapper mt-[0.625rem] flex h-full w-full flex-col rounded-[--border-radius] p-5 [background:var(--red-gradient-diagonal)]"
+		>
+			<div class="card-header-wrapper flex items-start">
+				<div class="flex-column flex h-full flex-col">
+					<h2 class="mt-0 text-white">A Blog</h2>
+					<a
+						href="/blog"
+						class="mt-auto self-start rounded-[--border-radius] border-[3px] border-solid border-white bg-white px-[10px] py-[3px] text-[length:--font-size-h4] font-bold leading-[--line-height-h4] no-underline hover:bg-opacity-0 hover:text-white"
+						>Read blog</a
+					>
+				</div>
+				<div class="icon-wrapper ml-auto text-white">
+					<Icon name="quill" class="ml-5 mr-[18px] h-20 w-full text-white" />
+				</div>
+			</div>
+			<div class="inner-card mt-[1.2rem] h-full rounded-[--border-radius] bg-white p-5 pb-[10px]">
+				<p class="mb-3">
+					I've been using this space to share and reflect on my own experiences, for example:
+					<ul class="my-3">
+						<li class="my-3">
+							<a href="/blog/series/spiritual experiences/1" class="my-3 underline"
+								>My Spiritual Experiences</a
+							>
+						</li><li class="my-3">
+							<a href="/blog/series/reading the bible/1" class="my-3 underline"
+								>My Experiences of Reading The Bible</a
+							>
+						</li>
+					</ul>
+					<p class="mt-3">
+						The posts are organised into series, and each series is intended to be read in order as
+						a&nbsp;series.
+					</p>
+				</p>
+			</div>
+		</div>
+		<div
+			class="card-wrapper mt-[0.625rem] flex h-full w-full flex-col rounded-[--border-radius] p-5 [background:var(--red-gradient-diagonal)]"
+		>
+			<div class="card-header-wrapper flex items-start">
+				<div class="flex-column flex h-full flex-col">
+					<h2 class="mt-0 text-white">Web Experiments</h2>
+					<a
+						href="/projects"
+						class="mt-auto self-start rounded-[--border-radius] border-[3px] border-solid border-white bg-white px-[10px] py-[3px] text-[length:--font-size-h4] font-bold leading-[--line-height-h4] no-underline hover:bg-opacity-0 hover:bg-none hover:text-white"
+						>View projects</a
+					>
+				</div>
+				<div class="icon-wrapper ml-auto text-white">
+					<Icon name="code" class="ml-5 mr-[18px] h-20 w-full text-white" />
+				</div>
+			</div>
+			<div class="inner-card mt-[1.2rem] h-full rounded-[--border-radius] bg-white p-5 pb-[10px]">
+				<p>
+					I've also been learning web development for fun since early 2022, so this is an
+					opportunity for me to play around and try some things. I'm hoping to add different
+					features over time (e.g. an RSS feed so you can subscribe to updates if you're
+					so&nbsp;inclined).
+				</p>
+			</div>
+		</div>
+	</Grid>
 </Layout>
-
-<style>
-  div.wrapper {
-    display: flex;
-  }
-  img.profile {
-    flex-basis: 160px;
-    max-width: 29vw;
-    width: 100%;
-    height: auto;
-    margin-left: auto;
-    border-radius: 4px;
-    flex-shrink: 0;
-    align-self: center;
-  }
-  .focus,
-  .focus * {
-    font-size: calc(40rem / 16);
-    line-height: calc(50rem / 16);
-    align-self: center;
-    margin: 0;
-  }
-  .focus {
-    padding-right: 25px;
-  }
-  @media (max-width: calc(639rem / 16)) {
-    .focus,
-    .focus * {
-      font-size: calc(32rem / 16);
-      line-height: calc(40rem / 16);
-    }
-  }
-  @media (max-width: calc(446rem / 16)) {
-    .focus,
-    .focus * {
-      font-size: calc(24rem / 16);
-      line-height: calc(34rem / 16);
-      padding-right: 0;
-    }
-    /*CARD STYLES*/
-  }
-  div.card-wrapper {
-    display: flex;
-    flex-direction: column;
-    background: var(--red-gradient-diagonal);
-    padding: 0 20px 20px 20px;
-    border-radius: var(--border-radius);
-    height: 100%;
-    width: 100%;
-    margin-top: 0.625rem;
-  }
-  div.card-wrapper h2 {
-    color: white;
-  }
-  div.card-header-wrapper {
-    display: flex;
-    align-items: flex-start;
-  }
-  .card-header-wrapper a {
-    background: white;
-    text-decoration: none;
-    border-radius: var(--border-radius);
-    font-size: var(--font-size-h4);
-    line-height: var(--line-height-h4);
-    font-weight: 700;
-    padding: 3px 10px;
-    align-self: flex-start;
-    margin-top: auto;
-    border: 3px solid white;
-  }
-  .card-header-wrapper a:hover {
-    background: none;
-    color: white;
-  }
-  div.flex-column {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
-  div.icon-wrapper {
-    margin-left: auto;
-    color: white;
-  }
-  div.inner-card {
-    background: white;
-    border-radius: var(--border-radius);
-    padding: 20px 20px 10px 20px;
-    height: 100%;
-    margin-top: 1.2rem;
-  }
-  .inner-card p:first-of-type {
-    margin-top: 0px;
-  }
-  .inner-card p:last-of-type {
-    margin-bottom: 0px;
-  }
-  .inner-card ul,
-  .inner-card li,
-  .inner-card p,
-  .inner-card a {
-    margin: 12px 0;
-  }
-  li {
-    list-style: none;
-  }
-  ul {
-    padding-left: 0;
-  }
-  [data-icon] {
-    height: 80px;
-    width: 100%;
-    margin: 20px 18px 0 20px;
-  }
-  .text-padding {
-    padding-left: 10px;
-  }
-</style>

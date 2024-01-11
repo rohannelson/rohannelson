@@ -39,8 +39,12 @@ if (!nextInSeries && seriesIndex + 1 <= seriesArray.length - 1) {
 	pubDate={frontmatter.pubDate}
 >
 	<Metadata frontmatter={frontmatter} {seriesColour} />
-	<Icon name={frontmatter.image ?? 'blog'} color={`var(--light-${seriesColour})`} />
-	<div class="blog">
+	<Icon
+		name={frontmatter.image ?? 'blog'}
+		style=`--seriesColourVar:var(--light-${seriesColour})`
+		class="float-right mt-1 h-auto w-[200px] max-w-[30vw] p-[10px] pb-[5px] text-[--seriesColourVar]"
+	/>
+	<div class="blog mb-10 mt-8">
 		<slot />
 	</div>
 	<Grid>
@@ -70,17 +74,6 @@ if (!nextInSeries && seriesIndex + 1 <= seriesArray.length - 1) {
 		</div>
 	</Grid>
 	<style define:vars={{ seriesColourVar }}>
-		[data-icon] {
-			width: 200px;
-			max-width: 30vw;
-			height: auto;
-			float: right;
-			padding: 10px 10px 5px 10px;
-		}
-		div.blog {
-			margin-top: 2rem;
-			margin-bottom: 2.5rem;
-		}
 		:global(div.blog > p:first-child:first-letter) {
 			color: var(--seriesColourVar);
 			float: left;
@@ -89,6 +82,18 @@ if (!nextInSeries && seriesIndex + 1 <= seriesArray.length - 1) {
 			padding-top: 14px;
 			padding-right: 3px;
 			font-weight: 700;
+		}
+		:global(div.blog a) {
+			text-decoration: underline;
+		}
+		:global(div.blog * + *) {
+			margin-top: 1rem;
+		}
+		:global(div.blog h2) {
+			margin-top: 1.5rem;
+		}
+		:global(div.blog ol li) {
+			list-style: decimal;
 		}
 		@-moz-document url-prefix() {
 			:global(div.blog > p:first-child:first-letter) {

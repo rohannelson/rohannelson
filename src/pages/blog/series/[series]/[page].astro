@@ -1,71 +1,35 @@
 ---
-export const prerender = true;
-import Layout from "../../../../layouts/BaseLayout.astro";
-import NavCard from "../../../../components/NavCard.astro";
-import PageNav from "../../../../components/PageNav.astro";
-import { capitaliseAll } from "../../../../components/utils.js";
+export const prerender = true
+import Layout from '../../../../layouts/BaseLayout.astro'
+import NavCard from '../../../../components/NavCard.astro'
+import PageNav from '../../../../components/PageNav.astro'
+import { capitaliseAll } from '../../../../components/utils.js'
 export async function getStaticPaths({ paginate }) {
-  const allBlogs = await Astro.glob("../../*.mdx");
-  const uniqueSeries = [
-    ...new Set(allBlogs.map((blog) => blog.frontmatter.series).flat()),
-  ];
-  return uniqueSeries.flatMap((series) => {
-    const filteredBlogs = allBlogs.filter((blog) =>
-      blog.frontmatter.series?.includes(series)
-    );
-    return paginate(filteredBlogs, {
-      params: { series },
-      pageSize: 10,
-    });
-  });
+	const allBlogs = await Astro.glob('../../*.mdx')
+	const uniqueSeries = [...new Set(allBlogs.map((blog) => blog.frontmatter.series).flat())]
+	return uniqueSeries.flatMap((series) => {
+		const filteredBlogs = allBlogs.filter((blog) => blog.frontmatter.series?.includes(series))
+		return paginate(filteredBlogs, {
+			params: { series },
+			pageSize: 10
+		})
+	})
 }
-const { series } = Astro.params;
+const { series } = Astro.params
 
-const { page } = Astro.props;
-const title = capitaliseAll(series);
-const description = `The home of my ${capitaliseAll(series)} series.`;
-const seriesPages = await Astro.glob("../../../../components/series/*.mdx");
-const seriesPage = seriesPages.filter((page) =>
-  page.frontmatter.series?.includes(series)
-);
-const SeriesPageContent = seriesPage[0].Content;
-const seriesColour = seriesPage[0].frontmatter.seriesColour;
-
+const { page } = Astro.props
+const title = capitaliseAll(series)
+const description = `The home of my ${capitaliseAll(series)} series.`
+const seriesPages = await Astro.glob('../../../../components/series/*.mdx')
+const seriesPage = seriesPages.filter((page) => page.frontmatter.series?.includes(series))
+const SeriesPageContent = seriesPage[0].Content
+const seriesColour = seriesPage[0].frontmatter.seriesColour
 ---
 
 <Layout title={capitaliseAll(title)} description={description}>
-  <SeriesPageContent />
-  <ul>
-    {page.data.map((blog) => <NavCard post={blog} {seriesColour} />)}
-  </ul>
-  <PageNav page={page} />
+	<SeriesPageContent />
+	<ul class="mt-4 grid gap-y-5">
+		{page.data.map((blog) => <NavCard post={blog} {seriesColour} />)}
+	</ul>
+	<PageNav page={page} />
 </Layout>
-<style>
-  ul {
-    padding: 0;
-    margin: 0;
-    display: grid;
-    row-gap: 20px;
-  }
-  a {
-    text-decoration: none;
-    color: black;
-    display: block;
-    padding: 1rem;
-  }
-  li {
-    list-style: none;
-    border: 1px solid black;
-    border-radius: 4px;
-    margin: 1rem 0;
-  }
-  img {
-    height: 80px;
-    width: auto;
-    float: right;
-    margin-left: 1rem;
-  }
-  h3 {
-    margin-top: 0px;
-  }
-</style>

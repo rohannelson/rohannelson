@@ -18,20 +18,19 @@ const date = new Date(pubDate)
 const fullDate = date.getDate() + ' ' + months[date.getMonth()] + ' ' + date.getFullYear()
 ---
 
-<!--see stylesheet below for complex widths and margins-->
 <div
-	class="titleWrapper relative z-10 -mr-5 ml-[min(calc(var(--margin-width)*-1),-18px)] flex min-h-20 w-[max(calc(var(--content-width)+var(--margin-width)+20px),0px)] items-center rounded-r-[--border-radius] bg-gradient-to-r from-dark-red to-light-red lg:mr-0 lg:w-[calc(100%+max(var(--margin-width),18px)*2)] lg:overflow-hidden lg:rounded-none"
+	class="titleWrapper relative z-20 -mr-5 ml-[min(calc(var(--margin-width)*-1),-18px)] flex min-h-20 w-[max(calc(var(--content-width)+var(--margin-width)+3px),0px)] items-center rounded-r-[--border-radius] bg-gradient-to-r from-dark-red to-light-red lg:mr-0 lg:w-[calc(100%+max(var(--margin-width),18px)*2)] lg:overflow-hidden lg:rounded-none"
 >
 	<h1 class="ml-[max(var(--margin-width),18px)] pr-[10px] text-white">{title}</h1>
 	{
 		pubDate && (
-			<p class=" ml-auto mr-[22px] shrink-0 self-end text-white md:shrink">
-				<span class="font-bold text-white">Published:</span> {fullDate}
+			<p class=" mb-4 ml-auto mr-[22px] shrink-0 self-end text-white md:shrink">
+				<span class=" font-bold text-white">Published:</span> {fullDate}
 			</p>
 		)
 	}
 </div>
 <div
-	class="stickyBorder sticky top-[--header-height] -mt-5 mb-[calc(2rem+20px)] ml-[min(calc(var(--margin-width)*-1),-18px)] mr-[-18px] h-2 w-[max(calc(var(--content-width)+var(--margin-width)+20px),0px)] rounded-r-[--border-radius] bg-gradient-to-r from-dark-red to-light-red duration-duration lg:mr-0 lg:w-[calc(100%+max(var(--margin-width),18px)*2)] lg:overflow-hidden lg:rounded-none"
+	class="stickyBorder sticky top-[--header-height] z-10 -mt-5 mb-[calc(2rem+20px)] ml-[min(calc(var(--margin-width)*-1),-18px)] mr-[-18px] h-2 w-[max(calc(var(--content-width)+var(--margin-width)+3px),0px)] rounded-r-[--border-radius] bg-gradient-to-r from-dark-red to-light-red duration-duration lg:mr-0 lg:w-[calc(100%+max(var(--margin-width),18px)*2)] lg:overflow-hidden lg:rounded-none"
 >
 </div>

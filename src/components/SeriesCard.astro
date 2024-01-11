@@ -11,11 +11,11 @@ import { Icon } from 'astro-icon/components'
 <style define:vars={{ seriesColourGradient }}></style>
 <a href={link} class="mt-[0.625rem] rounded-[--border-radius] no-underline">
 	<div
-		class="outer flex h-full w-full flex-col rounded-[--border-radius] p-[1.2rem] [background:--seriesColourGradient]"
+		class="outer flex h-full w-full flex-col rounded-[--border-radius] p-5 [background:--seriesColourGradient]"
 	>
 		<h3 class="m-0 p-0 text-white">{titlePrefix}</h3>
 		<div
-			class="inner inline-block h-full rounded-[--border-radius] bg-white p-[1.2rem] hover:scale-[102%]"
+			class="inner inline-block h-full rounded-[--border-radius] bg-white p-5 pb-3 hover:scale-[102%]"
 		>
 			{
 				(
@@ -23,7 +23,7 @@ import { Icon } from 'astro-icon/components'
 						<h3 style={`color: ${seriesColourLight}`} class="m-0 p-0">
 							{capitaliseAll(series.frontmatter.series)}
 						</h3>
-						<p>
+						<p class="mt-[0.9rem]">
 							<Icon
 								name={series.frontmatter.icon}
 								color={seriesColourLight}
