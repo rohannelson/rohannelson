@@ -1,0 +1,237 @@
+---
+import Layout from '../../layouts/BaseLayout.astro'
+import TicTacToe from '../../components/games/TicTacToe.jsx'
+import FourInARow from '../../components/games/FourInARow.jsx'
+import Checkers from '../../components/games/Checkers.jsx'
+const title = 'Board Games App'
+const description = 'Learning by doing.'
+
+/*AUTH stuff for later
+const { cookies, redirect } = Astro;
+
+const accessToken = cookies.get("sb-access-token");
+const refreshToken = cookies.get("sb-refresh-token");
+
+if (!accessToken || !refreshToken) {
+  return redirect("/signin");
+}
+
+const { data, error } = await supabase.auth.setSession({
+  refresh_token: refreshToken.value,
+  access_token: accessToken.value,
+});
+
+if (error) {
+  cookies.delete("sb-access-token", {
+    path: "/",
+  });
+  cookies.delete("sb-refresh-token", {
+    path: "/",
+  });
+
+  return redirect("/signin");
+}
+
+const email = data?.user?.email;
+---
+  <h1>Welcome {email}</h1>
+  <p>We are happy to see you here</p>
+  <form action="/api/auth/signout">
+    <button type="submit">Sign out</button>
+  </form>
+*/
+---
+
+<Layout title={title} description={description}>
+	<p>Check out these games that I made with React for fun!</p>
+	<TicTacToe client:load />
+	<div class="breaker"></div>
+	<FourInARow client:load />
+	<div class="breaker"></div>
+	<Checkers client:load />
+</Layout>
+<!-- Games Shared Styling -->
+<style is:global>
+	.breaker {
+		height: 30px;
+	}
+	.reset {
+		padding: 10px;
+		border-radius: var(--border-radius);
+		color: var(--light-red);
+		border: 3px solid var(--light-red);
+		background: white;
+		font-weight: 700;
+		margin-left: auto;
+	}
+	.reset:hover {
+		background: var(--light-red);
+		color: white;
+		cursor: pointer;
+	}
+	.status {
+		margin-bottom: 15px;
+		align-self: center;
+		font-weight: 700;
+	}
+	.flex-row {
+		display: flex;
+		align-items: flex-end;
+	}
+	h2 {
+		margin-top: 10px;
+	}
+</style>
+<!-- Tic Tac Toe Styling -->
+<style is:global>
+	.tictactoe .square {
+		background: #fff;
+		border: 1px solid #999;
+		float: left;
+		font-size: 30px;
+		font-weight: bold;
+		line-height: 34px;
+		height: 50px;
+		margin-right: -1px;
+		margin-top: -1px;
+		padding: 0;
+		text-align: center;
+		width: 50px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.tictactoe .board-row:after {
+		clear: both;
+		content: '';
+		display: table;
+	}
+	.tictactoe .game {
+		display: flex;
+		flex-direction: row;
+	}
+	.tictactoe .wrapper {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+</style>
+
+<!--Four In A Row Styling-->
+<style is:global>
+	.fiar .circle {
+		background: #fff;
+		border: 1px solid #999;
+		height: 32px;
+		padding: 0;
+		margin: 1px;
+		width: 32px;
+		border-radius: 100%;
+		float: left;
+	}
+	.fiar .board {
+		height: 210px;
+		width: 250px;
+		padding: 3px;
+		background: var(--light-red);
+		z-index: -1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 3px;
+	}
+	.fiar .board-column:after {
+		clear: both;
+		content: '';
+		display: table;
+	}
+	.fiar .inputWrapper {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		width: 250px;
+		padding: 5px;
+	}
+	.fiar .input {
+		width: 31px;
+		margin: 1px;
+		font-size: 17px;
+		padding-bottom: 4px;
+	}
+	.fiar .circle.green {
+		background: #9ede8f;
+		border: 2px solid var(--light-green);
+	}
+
+	.fiar .circle.blue {
+		background: #3edfff;
+		border: 2px solid var(--light-blue);
+	}
+	.fiar .wrapper {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+</style>
+<!--Checkers Styling-->
+<style is:global>
+	.checkers .square {
+		background: #fff;
+		border: 1px solid #999;
+		float: left;
+		height: 33px;
+		margin-right: -1px;
+		margin-top: -1px;
+		padding: 0;
+		text-align: center;
+		width: 33px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.checkers .board-row:after {
+		clear: both;
+		content: '';
+		display: table;
+	}
+	.blackChecker {
+		background-color: black;
+		border: 1px solid white;
+		height: 90%;
+		width: 90%;
+		border-radius: 100%;
+	}
+	.blackCheckerKing {
+		border: 3px solid gold;
+	}
+	.whiteChecker {
+		background-color: white;
+		border: 1px solid black;
+		height: 90%;
+		width: 90%;
+		border-radius: 100%;
+	}
+	.whiteCheckerKing {
+		border: 3px solid gold;
+	}
+	.square.black {
+		background: gray;
+	}
+	.placeholder {
+		cursor: url(whiteChecker.svg), default;
+		cursor: url(blackChecker.svg), default;
+	}
+	.blackHeld {
+		cursor: url(blackChecker.svg), default;
+	}
+	.checkers .wrapper {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+</style>
+ ../../components/TicTacToe.jsx../../components/FourInARow.jsx../../components/Checkers.jsx

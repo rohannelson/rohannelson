@@ -2,6 +2,7 @@
 import Layout from '../layouts/BaseLayout.astro'
 import Grid from '../components/Grid.astro'
 import { Icon } from 'astro-icon/components'
+import FeatureCard from '../components/FeatureCard.astro'
 const title = 'Welcome!'
 const description = 'A description for my home page'
 ---
@@ -23,67 +24,37 @@ const description = 'A description for my home page'
 	</div>
 	<h2 class="mb-2 mt-6 pl-[10px]">What's Here?</h2>
 	<Grid>
-		<div
-			class="card-wrapper mt-[0.625rem] flex h-full w-full flex-col rounded-[--border-radius] p-5 [background:var(--red-gradient-diagonal)]"
-		>
-			<div class="card-header-wrapper flex items-start">
-				<div class="flex-column flex h-full flex-col">
-					<h2 class="mt-0 text-white">A Blog</h2>
-					<a
-						href="/blog"
-						class="mt-auto self-start rounded-[--border-radius] border-[3px] border-solid border-white bg-white px-[10px] py-[3px] text-[length:--font-size-h4] font-bold leading-[--line-height-h4] no-underline hover:bg-opacity-0 hover:text-white"
-						>Read blog</a
-					>
-				</div>
-				<div class="icon-wrapper ml-auto text-white">
-					<Icon name="quill" class="ml-5 mr-[18px] h-20 w-full text-white" />
-				</div>
-			</div>
-			<div class="inner-card mt-[1.2rem] h-full rounded-[--border-radius] bg-white p-5 pb-[10px]">
-				<p class="mb-3">
-					I've been using this space to share and reflect on my own experiences, for example:
-					<ul class="my-3">
-						<li class="my-3">
-							<a href="/blog/series/spiritual experiences/1" class="my-3 underline"
-								>My Spiritual Experiences</a
-							>
-						</li><li class="my-3">
-							<a href="/blog/series/reading the bible/1" class="my-3 underline"
-								>My Experiences of Reading The Bible</a
-							>
-						</li>
-					</ul>
-					<p class="mt-3">
-						The posts are organised into series, and each series is intended to be read in order as
-						a&nbsp;series.
-					</p>
+		<FeatureCard heading="A Blog" linkObj={{ label: 'Read blog', href: '/blog' }} icon="quill">
+			<p class="mb-3">
+				I've been using this space to share and reflect on my own experiences, for example:
+				<ul class="my-3">
+					<li class="my-3">
+						<a href="/blog/series/spiritual experiences/1" class="my-3 underline"
+							>My Spiritual Experiences</a
+						>
+					</li><li class="my-3">
+						<a href="/blog/series/reading the bible/1" class="my-3 underline"
+							>My Experiences of Reading The Bible</a
+						>
+					</li>
+				</ul>
+				<p class="mt-3">
+					The posts are organised into series, and each series is intended to be read in order as
+					a&nbsp;series.
 				</p>
-			</div>
-		</div>
-		<div
-			class="card-wrapper mt-[0.625rem] flex h-full w-full flex-col rounded-[--border-radius] p-5 [background:var(--red-gradient-diagonal)]"
+			</p>
+		</FeatureCard>
+		<FeatureCard
+			heading="Web Experiments"
+			linkObj={{ label: 'View Projects', href: '/projects' }}
+			,
+			icon="code"
 		>
-			<div class="card-header-wrapper flex items-start">
-				<div class="flex-column flex h-full flex-col">
-					<h2 class="mt-0 text-white">Web Experiments</h2>
-					<a
-						href="/projects"
-						class="mt-auto self-start rounded-[--border-radius] border-[3px] border-solid border-white bg-white px-[10px] py-[3px] text-[length:--font-size-h4] font-bold leading-[--line-height-h4] no-underline hover:bg-opacity-0 hover:bg-none hover:text-white"
-						>View projects</a
-					>
-				</div>
-				<div class="icon-wrapper ml-auto text-white">
-					<Icon name="code" class="ml-5 mr-[18px] h-20 w-full text-white" />
-				</div>
-			</div>
-			<div class="inner-card mt-[1.2rem] h-full rounded-[--border-radius] bg-white p-5 pb-[10px]">
-				<p>
-					I've also been learning web development for fun since early 2022, so this is an
-					opportunity for me to play around and try some things. I'm hoping to add different
-					features over time (e.g. an RSS feed so you can subscribe to updates if you're
-					so&nbsp;inclined).
-				</p>
-			</div>
-		</div>
+			<p>
+				I've also been learning web development for fun since early 2022, so this is an opportunity
+				for me to play around and try some things. I'm hoping to add different features over time
+				(e.g. an RSS feed so you can subscribe to updates if you're so&nbsp;inclined).
+			</p>
+		</FeatureCard>
 	</Grid>
 </Layout>
