@@ -1,46 +1,41 @@
 ---
-import Layout from "../../layouts/BaseLayout.astro";
-import Grid from "../../components/Grid.astro";
-import NavCard from "../../components/NavCard.astro";
-import SeriesCard from "../../components/SeriesCard.astro";
-const series = await Astro.glob("../../components/series/*.mdx");
-const blogs = await Astro.glob("./*.mdx")
+import Layout from '../../layouts/BaseLayout.astro'
+import Grid from '../../components/Grid.astro'
+import NavCard from '../../components/NavCard.astro'
+import SeriesCard from '../../components/SeriesCard.astro'
+const series = await Astro.glob('../../components/series/*.mdx')
+const blogs = await Astro.glob('./*.mdx')
 const latestPost = blogs.reverse()[0]
-let latestPostColour;
-series.forEach(s => {
-  if (latestPost.frontmatter.series === s.frontmatter.series) {
-    latestPostColour = s.frontmatter.seriesColour
-  }})
+let latestPostColour
+series.forEach((s) => {
+	if (latestPost.frontmatter.series === s.frontmatter.series) {
+		latestPostColour = s.frontmatter.seriesColour
+	}
+})
 ---
 
 <Layout title="My Blog" description="My Blog">
-  <h2>Read by Series</h2>
-  <p>Weclome to my blog! I've been writing posts in series for this site. Each series is intended to be read in order, as a series. That said, if you're just here to see what's new, feel free to scroll&nbsp;down!</p>
-  <Grid>
-    {
-      [...series].slice(0,4).map((s) => {
-        return (
-          <SeriesCard series={s}/>
-        )
-      })
-    }
-  </Grid>
-  <div class="flex">
-  {series.length > 4 && <a href="/blog/series/1">More Series: &gt;&gt;&gt;</a>}
-  </div>
-  <h2>What's New?</h2>
-  <NavCard post={latestPost} seriesColour={latestPostColour}/>
-  <div class="flex">
-    <a href="/blog/chronological/1">More Recent Articles: &gt;&gt;&gt;</a>
-    </div>
+	<h2>Read by Series</h2>
+	<p class="mb-6 mt-3">
+		Weclome to my blog! I've been writing posts in series for this site. Each series is intended to
+		be read in order, as a series. That said, if you're just here to see what's new, feel free to
+		scroll&nbsp;down!
+	</p>
+	<Grid>
+		{
+			[...series].slice(0, 4).map((s) => {
+				return <SeriesCard series={s} />
+			})
+		}
+	</Grid>
+	<div class="my-5 flex">
+		{series.length > 4 && <a href="/blog/series/1">More Series: &gt;&gt;&gt;</a>}
+	</div>
+	<h2>What's New?</h2>
+	<NavCard blogPost={latestPost} seriesColour={latestPostColour} />
+	<div class="flex">
+		<a href="/blog/chronological/1" class="ml-auto mt-5 underline"
+			>More Recent Articles: &gt;&gt;&gt;</a
+		>
+	</div>
 </Layout>
-<style>
-    div.flex {
-      display: flex;
-      margin: 20px 0;
-    }
-    a {
-      margin-left: auto;
-      text-decoration: underline;
-    }
-</style>

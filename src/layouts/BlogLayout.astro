@@ -1,109 +1,107 @@
 ---
-import Layout from "./BaseLayout.astro";
-import NavCard from "../components/NavCard.astro";
-import Metadata from "../components/Metadata.astro";
-import SeriesCard from "../components/SeriesCard.astro";
-import Grid from "../components/Grid.astro";
-import { Icon } from 'astro-icon/components';
-const { frontmatter } = Astro.props;
-const allBlogs = await Astro.glob("../pages/blog/*.mdx");
-const currentSeries = frontmatter.series;
-const allSeries = await Astro.glob("../components/series/*.mdx");
-allSeries.reverse();
-const seriesArray = allSeries.map((series) => series.frontmatter.series);
+import Layout from './BaseLayout.astro'
+import NavCard from '../components/NavCard.astro'
+import Metadata from '../components/Metadata.astro'
+import SeriesCard from '../components/SeriesCard.astro'
+import Grid from '../components/Grid.astro'
+import { Icon } from 'astro-icon/components'
+const { frontmatter } = Astro.props
+const allBlogs = await Astro.glob('../pages/blog/*.mdx')
+const currentSeries = frontmatter.series
+const allSeries = await Astro.glob('../components/series/*.mdx')
+allSeries.reverse()
+const seriesArray = allSeries.map((series) => series.frontmatter.series)
 const filteredBlogs = allBlogs.filter((blog) => {
-  return blog.frontmatter.series.includes(currentSeries);
-});
-let nextInSeries: any = {};
-let previousInSeries: any = {};
+	return blog.frontmatter.series.includes(currentSeries)
+})
+let nextInSeries: any = {}
+let previousInSeries: any = {}
 filteredBlogs.forEach((blog, i) => {
-  if (frontmatter.title === blog.frontmatter.title) {
-    previousInSeries = filteredBlogs[i - 1];
-    nextInSeries = filteredBlogs[i + 1];
-  }
-});
-const seriesIndex = seriesArray.indexOf(currentSeries);
-const { seriesColour } = allSeries[seriesIndex].frontmatter;
-const seriesColourVar = `var(--light-${seriesColour})`;
-let isNextSeries;
+	if (frontmatter.title === blog.frontmatter.title) {
+		previousInSeries = filteredBlogs[i - 1]
+		nextInSeries = filteredBlogs[i + 1]
+	}
+})
+const seriesIndex = seriesArray.indexOf(currentSeries)
+const { seriesColour } = allSeries[seriesIndex].frontmatter
+const seriesColourVar = `var(--light-${seriesColour})`
+let isNextSeries
 if (!nextInSeries && seriesIndex + 1 <= seriesArray.length - 1) {
-  isNextSeries = true;
+	isNextSeries = true
 } else {
-  isNextSeries = false;
+	isNextSeries = false
 }
 ---
 
 <Layout
-  title={frontmatter.title}
-  description={frontmatter.description}
-  pubDate={frontmatter.pubDate}
+	title={frontmatter.title}
+	description={frontmatter.description}
+	pubDate={frontmatter.pubDate}
 >
-  <Metadata frontmatter={frontmatter} {seriesColour} />
-  <Icon name={frontmatter.image ?? "blog"} color={`var(--light-${seriesColour})`} />
-  <div class="blog">
-    <slot />
-  </div>
-  <Grid>
-    <div>
-      {
-        previousInSeries && (
-          <NavCard
-            post={previousInSeries}
-            titlePrefix="Previous in Series: "
-            {seriesColour}
-          />
-        )
-      }
-      {
-        !previousInSeries && seriesIndex - 1 >= 0 && (
-          <SeriesCard
-            series={allSeries[seriesIndex - 1]}
-            titlePrefix="Previous Series:"
-          />
-        )
-      }
-    </div>
-    <div>
-      {
-        nextInSeries && (
-          <NavCard post={nextInSeries} titlePrefix="Next in Series: " {seriesColour} />
-        )
-      }
-      {
-        isNextSeries && (
-          <SeriesCard series={allSeries[seriesIndex + 1]} titlePrefix="Next Series:" />
-        )
-      }
-    </div>
-  </Grid>
-  <style define:vars={{ seriesColourVar }}>
-    [data-icon] {
-      width: 200px;
-      max-width: 30vw;
-      height: auto;
-      float: right;
-      padding: 10px 10px 5px 10px;
-    }
-    div.blog {
-      margin-top: 2rem;
-      margin-bottom: 2.5rem;
-    }
-    :global(div.blog > p:first-child:first-letter) {
-      color: var(--seriesColourVar);
-      float: left;
-      font-size: 92px;
-      line-height: 0.6;
-      padding-top: 14px;
-      padding-right: 3px;
-      font-weight: 700;
-    }
-    @-moz-document url-prefix() {
-      :global(div.blog > p:first-child:first-letter) {
-        padding-top: 8px;
-      }
-    }
-    :global(ol) {
-      padding-left: 1rem;
-    }
-  </style>
+	<Metadata frontmatter={frontmatter} {seriesColour} />
+	<Icon
+		name={frontmatter.image ?? 'blog'}
+		style=`--seriesColourVar:var(--light-${seriesColour})`
+		class="float-right mt-1 h-auto w-[200px] max-w-[30vw] p-[10px] pb-[5px] text-[--seriesColourVar]"
+	/>
+	<div class="blog mb-10 mt-8">
+		<slot />
+	</div>
+	<Grid>
+		<div>
+			{
+				previousInSeries && (
+					<NavCard blogPost={previousInSeries} titlePrefix="Previous in Series: " {seriesColour} />
+				)
+			}
+			{
+				!previousInSeries && seriesIndex - 1 >= 0 && (
+					<SeriesCard series={allSeries[seriesIndex - 1]} titlePrefix="Previous Series:" />
+				)
+			}
+		</div>
+		<div>
+			{
+				nextInSeries && (
+					<NavCard blogPost={nextInSeries} titlePrefix="Next in Series: " {seriesColour} />
+				)
+			}
+			{
+				isNextSeries && (
+					<SeriesCard series={allSeries[seriesIndex + 1]} titlePrefix="Next Series:" />
+				)
+			}
+		</div>
+	</Grid>
+	<style define:vars={{ seriesColourVar }}>
+		:global(div.blog > p:first-child:first-letter) {
+			color: var(--seriesColourVar);
+			float: left;
+			font-size: 92px;
+			line-height: 0.6;
+			padding-top: 14px;
+			padding-right: 3px;
+			font-weight: 700;
+		}
+		:global(div.blog a) {
+			text-decoration: underline;
+		}
+		:global(div.blog * + *) {
+			margin-top: 1rem;
+		}
+		:global(div.blog h2) {
+			margin-top: 1.5rem;
+		}
+		:global(div.blog ol li) {
+			list-style: decimal;
+		}
+		@-moz-document url-prefix() {
+			:global(div.blog > p:first-child:first-letter) {
+				padding-top: 8px;
+			}
+		}
+		:global(ol) {
+			padding-left: 1rem;
+		}
+	</style>
 </Layout>

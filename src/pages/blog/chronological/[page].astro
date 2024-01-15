@@ -1,61 +1,34 @@
 ---
-export const prerender = true;
-import Layout from "../../../layouts/BaseLayout.astro";
-import NavCard from "../../../components/NavCard.astro";
-import Tags from "../../../components/Tags.astro";
-import PageNav from "../../../components/PageNav.astro";
-import Card from "../../../components/Card.astro";
-const title = "My Blog (Chronologically)";
-const description = "A list of all my blog posts";
+export const prerender = true
+import Layout from '../../../layouts/BaseLayout.astro'
+import NavCard from '../../../components/NavCard.astro'
+import PageNav from '../../../components/PageNav.astro'
+const title = 'My Blog (Chronologically)'
+const description = 'A list of all my blog posts'
 export async function getStaticPaths({ paginate }) {
-  const allBlogs = await Astro.glob("../*.mdx");
-allBlogs.reverse();
-  return paginate(allBlogs, { pageSize: 10 });
+	const allBlogs = await Astro.glob('../*.mdx')
+	allBlogs.reverse()
+	return paginate(allBlogs, { pageSize: 10 })
 }
-const series = await Astro.glob(`../../../components/series/*.mdx`);
-const seriesColoursObj = Object.fromEntries(series.map(s => [s.frontmatter.series, s.frontmatter.seriesColour]));
-const { page } = Astro.props;
+const series = await Astro.glob(`../../../components/series/*.mdx`)
+const seriesColoursObj = Object.fromEntries(
+	series.map((s) => [s.frontmatter.series, s.frontmatter.seriesColour])
+)
+const { page } = Astro.props
 ---
 
 <Layout title={title} description={description}>
-  <p>Here are all my posts in chronological order.</p>
-  <ul>
-    {
-      page.data.map((blog) => {
-        return (<>
-          <NavCard post={blog} seriesColour={seriesColoursObj[blog.frontmatter.series]}/>
-        </>)
-      })
-    }
-  </ul>
-  <PageNav page={page} />
+	<p>Here are all my posts in chronological order.</p>
+	<ul class="mt-4 grid gap-y-6">
+		{
+			page.data.map((blog) => {
+				return (
+					<>
+						<NavCard blogPost={blog} seriesColour={seriesColoursObj[blog.frontmatter.series]} />
+					</>
+				)
+			})
+		}
+	</ul>
+	<PageNav page={page} />
 </Layout>
-<style>
-  ul {
-    display: grid;
-    row-gap: 1.5rem;
-    padding: 0;
-    margin: 0;
-  }
-  a {
-    text-decoration: none;
-    color: black;
-    display: block;
-    padding: 1rem;
-  }
-  li {
-    list-style: none;
-    border: 1px solid black;
-    border-radius: 4px;
-    margin: 1rem 0;
-  }
-  img {
-    height: 80px;
-    width: auto;
-    float: right;
-    margin-left: 1rem;
-  }
-  h3 {
-    margin-top: 0px;
-  }
-</style>

@@ -1,89 +1,36 @@
 ---
-const { title, pubDate } = Astro.props;
+const { title, pubDate } = Astro.props
 const months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-const date = new Date(pubDate);
-const fullDate =
-  date.getDate() + " " + months[date.getMonth()] + " " + date.getFullYear();
+	'January',
+	'February',
+	'March',
+	'April',
+	'May',
+	'June',
+	'July',
+	'August',
+	'September',
+	'October',
+	'November',
+	'December'
+]
+const date = new Date(pubDate)
+const fullDate = date.getDate() + ' ' + months[date.getMonth()] + ' ' + date.getFullYear()
 ---
 
-<div class="titleWrapper">
-  <h1>{title}</h1>
-  {
-    pubDate && (
-      <p>
-        <span>Published:</span> {fullDate}
-      </p>
-    )
-  }
+<div
+	class="titleWrapper relative z-20 -mr-5 ml-[min(calc(var(--margin-width)*-1),-18px)] flex min-h-20 w-[max(calc(var(--content-width)+var(--margin-width)+3px),0px)] items-center rounded-r-[--border-radius] bg-gradient-to-r from-dark-red to-light-red lg:mr-0 lg:w-[calc(100%+max(var(--margin-width),18px)*2)] lg:overflow-hidden lg:rounded-none"
+>
+	<h1 class="ml-[max(var(--margin-width),18px)] pr-[10px] text-white">{title}</h1>
+	{
+		pubDate && (
+			<p class=" mb-4 ml-auto mr-[22px] shrink-0 self-end text-white md:shrink">
+				<span class=" font-bold text-white">Published:</span> {fullDate}
+			</p>
+		)
+	}
 </div>
-<div class="stickyBorder"></div>
-<style>
-  :root {
-  }
-  div {
-    width: min(calc(var(--content-width)+var(--margin-width) + 20px), 0px);
-    border-radius: 0 var(--border-radius) var(--border-radius) 0;
-  }
-  div.titleWrapper {
-    position: relative;
-    background: var(--red-gradient);
-    min-height: 80px;
-    margin-left: min(calc(var(--margin-width) * -1), -18px);
-    margin-right: -20px;
-    display: flex;
-    align-items: center;
-    z-index: 5;
-  }
-  h1 {
-    color: white;
-    margin-left: max(var(--margin-width), 18px);
-    padding-right: 10px;
-  }
-  div.stickyBorder {
-    position: sticky;
-    top: var(--header-height);
-    margin: -20px -18px calc(2rem + 20px) min(calc(var(--margin-width) * -1), -18px);
-    height: 8px;
-    background: var(--red-gradient);
-    transition: var(--transition-speed);
-    z-index: 0;
-  }
-  p {
-    align-self: flex-end;
-    margin-left: auto;
-    margin-right: 22px;
-    color: white;
-    flex-shrink: 0;
-  }
-  span {
-    color: white;
-    font-weight: 700;
-  }
-  @media (max-width: calc(864rem / 16)) {
-    div.titleWrapper,
-    div.stickyBorder {
-      width: calc(100% + (max(var(--margin-width), 18px) * 2));
-      overflow: hidden;
-      border-radius: 0;
-      margin-right: 0;
-    }
-  }
-  @media (max-width: calc(639rem / 16)) {
-    p {
-      flex-shrink: 1;
-    }
-  }
-</style>
+<div
+	class="stickyBorder sticky top-[--header-height] z-10 -mt-5 mb-[calc(2rem+20px)] ml-[min(calc(var(--margin-width)*-1),-18px)] mr-[-18px] h-2 w-[max(calc(var(--content-width)+var(--margin-width)+3px),0px)] rounded-r-[--border-radius] bg-gradient-to-r from-dark-red to-light-red duration-duration lg:mr-0 lg:w-[calc(100%+max(var(--margin-width),18px)*2)] lg:overflow-hidden lg:rounded-none"
+>
+</div>

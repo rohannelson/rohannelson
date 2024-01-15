@@ -1,33 +1,9 @@
 ---
+
 ---
 
-<footer><p>© 2023 Rohan Nelson</p></footer>
-<style>
-  footer {
-    background: var(--grey-gradient);
-    height: 40px;
-    margin-left: var(--margin-width);
-    border-radius: var(--border-radius) 0 0 var(--border-radius);
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding-right: max(var(--margin-width), 18px);
-    margin-top: 60px;
-    margin-bottom: 40px;
-  }
-  p {
-    color: white;
-    font-size: var(--font-size-h4);
-    justify-self: flex-end;
-    font-weight: 700;
-  }
-  @media (max-width: calc(864rem / 16)) {
-    footer {
-      width: 100%;
-      border-radius: 0;
-      margin: 45px 0 0 0;
-      height: 50px;
-      padding-bottom: 5px;
-    }
-  }
-</style>
+<footer
+	class="mb-10 ml-[--margin-width] mt-[60px] flex h-10 items-center justify-end rounded-l-[--border-radius] bg-gradient-to-r from-light-grey to-dark-grey pr-[max(var(--margin-width),18px)] lg:m-0 lg:mt-[45px] lg:h-[50px] lg:w-full lg:rounded-none lg:pb-[5px]"
+>
+	<p class="text-[length:--font-size-h4] font-bold text-white">© 2023 Rohan Nelson</p>
+</footer>

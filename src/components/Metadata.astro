@@ -1,36 +1,18 @@
 ---
-const { frontmatter, seriesColour } = Astro.props;
-import { capitalise } from "./utils.js"
-const seriesColourLight = `var(--light-${seriesColour})`;
+const { frontmatter, seriesColour } = Astro.props
+import { capitalise } from './utils.js'
+const seriesColourLight = `var(--light-${seriesColour})`
 ---
 
-<a class="series" href={`/blog/series/${frontmatter.series}/1`}>
-  {capitalise(frontmatter.series)}
+<style define:vars={{ seriesColourLight }}></style>
+<a
+	class="series rounded-[--border-radius] border-[3px] border-solid border-[--seriesColourLight] bg-[--seriesColourLight] px-[10px] py-[6px] text-[length:--font-size-h4] font-bold text-white no-underline hover:bg-white hover:text-[--dark-grey]"
+	href={`/blog/series/${frontmatter.series}/1`}
+>
+	{capitalise(frontmatter.series)}
 </a>
 <p>
-  <b>Context:</b><span style=`color: var(--light-${seriesColour});`
-    >{frontmatter.context}</span
-  >
+	<b>Context:</b><span class="m-0 ml-2 italic text-[--seriesColourLight]"
+		>{frontmatter.context}</span
+	>
 </p>
-<style define:vars={{ seriesColourLight }}>
-  /*See HTML for inline styles*/
-  a.series {
-    padding: 6px 10px;
-    border-radius: var(--border-radius);
-    color: white;
-    font-size: var(--font-size-h4);
-    text-decoration: none;
-    font-weight: 700;
-    background: var(--seriesColourLight);
-    border: solid 3px var(--seriesColourLight);
-  }
-  a.series:hover {
-    background: none !important;
-    color: var(--dark-grey);
-  }
-  span {
-    margin: 0;
-    margin-left: 0.5rem;
-    font-style: italic;
-  }
-</style>

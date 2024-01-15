@@ -1,25 +1,32 @@
 {
-  "name": "rohannelson",
-  "type": "module",
-  "version": "0.0.1",
-  "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
-  },
-  "dependencies": {
-    "@astrojs/cloudflare": "^8.0.0",
-    "@astrojs/mdx": "^2.0.0",
-    "@astrojs/react": "^3.0.7",
-    "@astrojs/rss": "^4.0.1",
-    "@supabase/supabase-js": "^2.39.0",
-    "@types/react": "^18.2.20",
-    "@types/react-dom": "^18.2.7",
-    "astro": "^4.0.3",
-    "astro-icon": "^1.0.0-next.2",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  }
+	"name": "rohannelson",
+	"type": "module",
+	"version": "0.0.1",
+	"scripts": {
+		"dev": "astro dev",
+		"start": "astro dev",
+		"build": "astro build",
+		"preview": "astro preview",
+		"astro": "astro"
+	},
+	"dependencies": {
+		"@astrojs/cloudflare": "^8.0.0",
+		"@astrojs/mdx": "^2.0.0",
+		"@astrojs/react": "^3.0.7",
+		"@astrojs/rss": "^4.0.1",
+		"@supabase/supabase-js": "^2.39.0",
+		"@astrojs/tailwind": "^5.1.0",
+		"@types/react": "^18.2.20",
+		"@types/react-dom": "^18.2.7",
+		"astro": "^4.1.1",
+		"astro-icon": "^1.0.2",
+		"prettier-plugin-astro": "^0.12.2",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"tailwindcss": "^3.4.0"
+	},
+	"devDependencies": {
+		"prettier": "^3.1.1",
+		"prettier-plugin-tailwindcss": "^0.5.9"
+	}
 }
