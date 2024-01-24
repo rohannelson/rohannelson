@@ -8,3 +8,21 @@ export const capitaliseAll = (str) => {
 		.map((word) => capitalise(word))
 		.join(' ')
 }
+
+export const setCookies = (data, cookies) => {
+	const { access_token, refresh_token } = data.session
+	cookies.set('sb-access-token', access_token, {
+		path: '/',
+		maxAge: 60 * 60 /*1 hour*/,
+		httpOnly: true,
+		sameSite: true,
+		secure: true
+	})
+	cookies.set('sb-refresh-token', refresh_token, {
+		path: '/',
+		maxAge: 60 * 60 * 24 * 31 /*1 month*/,
+		httpOnly: true,
+		sameSite: true,
+		secure: true
+	})
+}

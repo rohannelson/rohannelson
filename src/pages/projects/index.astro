@@ -2,8 +2,46 @@
 import Layout from '../../layouts/BaseLayout.astro'
 import Grid from '../../components/Grid.astro'
 import FeatureCard from '../../components/FeatureCard.astro'
+import { supabase } from '../../lib/supabase'
+import { setCookies } from '../../components/utils.js'
 const title = 'My Web Projects'
 const description = 'A home for my web experiments'
+/*
+const { cookies } = Astro
+const accessToken = cookies.get('sb-access-token')
+const refreshToken = cookies.get('sb-refresh-token')
+
+let email
+
+if (accessToken && refreshToken) {
+	const { data, error } = await supabase.auth.setSession({
+		refresh_token: refreshToken.value,
+		access_token: accessToken.value
+	})
+	if (error) {
+		console.log('error')
+	} else {
+		setCookies(data, cookies)
+	}
+	const email = data?.user?.email
+} else {
+	if (refreshToken) {
+		const { data, error } = await supabase.auth.refreshSession({
+			refresh_token: refreshToken.value
+		})
+
+		if (error) {
+			cookies.delete('sb-refresh-token', {
+				path: '/'
+			})
+		} else {
+			setCookies(data, cookies)
+		}
+
+		const email = data?.user?.email
+	}
+}
+*/
 ---
 
 <Layout {title} {description}>

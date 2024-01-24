@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro'
 import { supabase } from '../../../lib/supabase'
+import { setCookies } from '../../../components/utils.js'
 
 export const POST: APIRoute = async ({ request, cookies, redirect }) => {
 	const formData = await request.formData()
@@ -20,7 +21,6 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
 		if (error) {
 			return new Response(error.message, { status: 500 })
 		}
-
 		return redirect(data.url)
 	}
 
@@ -36,13 +36,8 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
 	if (error) {
 		return new Response(error.message, { status: 500 })
 	}
+	setCookies(data, cookies)
 
 	const { access_token, refresh_token } = data.session
-	cookies.set('sb-access-token', access_token, {
-		path: '/'
-	})
-	cookies.set('sb-refresh-token', refresh_token, {
-		path: '/'
-	})
 	return redirect('/projects/games')
 }
