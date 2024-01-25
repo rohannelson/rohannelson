@@ -2,16 +2,16 @@
 import Layout from '../layouts/BaseLayout.astro'
 ---
 
-<Layout title="Sign Up" description="Registration page for my board games app.">
-	<p>Already have an account? <a href="/login">Sign in</a></p>
-	<form action="/api/auth/sign-up" method="post">
+<Layout title="Create Account" description="Registration page for my board games app.">
+	<p>Already have an account? <a href="/sign-in">Sign in</a></p>
+	<form action="/api/auth/create-account" method="post">
 		<label for="email">Email</label>
 		<input type="email" name="email" id="email" />
 		<label for="password">Password</label>
 		<input type="password" name="password" id="password" />
-		<button type="submit">Login</button>
+		<button type="submit">Create Account</button>
 	</form>
-	<form action="/api/auth/login" method="post">
+	<form action="/api/auth/sign-in" method="post">
 		<button value="github" name="provider" type="submit">Sign in with GitHub</button>
 	</form>
 </Layout>

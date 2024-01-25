@@ -1,0 +1,19 @@
+---
+//For use in cards (particularly FeatureCard)
+const { href, label, buttonStyle = 'white' } = Astro.props
+let classes
+if (buttonStyle == 'white') {
+	classes = 'bg-white text-light-red hover:text-white '
+} else if (buttonStyle == 'red') {
+	classes = 'bg-light-red text-white '
+} else if (buttonStyle == 'feature') {
+	classes =
+		'bg-white text-light-red hover:text-white hover:bg-gradient-to-t from-dark-red to-light-red '
+}
+---
+
+<a
+	href={href}
+	class={`mt-auto self-start rounded-[--border-radius] border-[2px] border-solid border-white px-[10px] py-[3px] text-center text-[length:--font-size-h4] font-bold leading-[--line-height-h4] no-underline hover:bg-opacity-0 min-w-24 ${classes}`}
+	>{label}</a
+>

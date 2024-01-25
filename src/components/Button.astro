@@ -1,0 +1,23 @@
+---
+//For use in cards (particularly FeatureCard)
+const { type = 'submit', value = '', name = '', buttonStyle = 'white' } = Astro.props
+console.log(buttonStyle)
+let classes
+if (buttonStyle == 'white') {
+	classes = 'bg-white text-light-red hover:text-white hover:bg-light-red'
+} else if (buttonStyle == 'red') {
+	classes = 'bg-light-red text-white hover:text-light-red hover:bg-white'
+} else if (buttonStyle == 'feature') {
+	classes =
+		'bg-white text-light-red hover:text-white hover:bg-gradient-to-t from-dark-red to-light-red '
+}
+---
+
+<button
+	type={type}
+	value={value}
+	name={name}
+	class={`block mt-auto self-start rounded-[--border-radius] border-[2px] border-solid border-light-red px-[10px] py-[3px] text-center text-[length:--font-size-h4] font-bold leading-[--line-height-h4] no-underline min-w-24 ${classes}`}
+>
+	<slot> Label Slot</slot>
+</button>

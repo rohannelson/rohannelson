@@ -2,6 +2,7 @@
 import Layout from '../../layouts/BaseLayout.astro'
 import Grid from '../../components/Grid.astro'
 import FeatureCard from '../../components/FeatureCard.astro'
+import LinkButton from '../../components/LinkButton.astro'
 import { emailExcerpt } from '../../components/utils'
 const title = 'My Web Projects'
 const description = 'A home for my web experiments'
@@ -14,36 +15,24 @@ const email = Astro.locals.email
 	<Grid>
 		<FeatureCard
 			heading="Board Games App"
-			linkObj={{ label: 'Login', href: '/login' }}
+			linkObj={{ label: 'Sign in', href: '/sign-in' }}
 			icon="puzzle"
 		>
 			{
 				email == 'Guest' && (
 					<div slot="links" class="flex gap-3">
-						<a
-							href="/login"
-							class="mt-auto min-w-24 self-start rounded-[--border-radius] border-[2px] border-solid border-white bg-light-red px-[10px] py-[3px] text-center text-[length:--font-size-h4] font-bold leading-[--line-height-h4] text-white no-underline hover:bg-opacity-0"
-						>
-							Login
-						</a>
-						<a
-							href="/sign-up"
-							class="mt-auto min-w-24 self-start rounded-[--border-radius] border-[2px] border-solid border-white bg-white from-dark-red to-light-red px-[10px] py-[3px] text-center text-[length:--font-size-h4] font-bold leading-[--line-height-h4] no-underline hover:bg-gradient-to-t hover:text-white"
-						>
-							Sign Up
-						</a>
+						<LinkButton href="/sign-in" label="Sign in" buttonStyle="red" />
+						<LinkButton href="/create-account" label="Create Account" buttonStyle="feature" />
 					</div>
 				)
 			}
 			{
 				email != 'Guest' && (
-					<a
+					<LinkButton
 						slot="links"
 						href="/projects/games"
-						class="mt-auto self-start rounded-[--border-radius] border-[3px] border-solid border-white bg-white px-[10px] py-[3px] text-center text-[length:--font-size-h4] font-bold leading-[--line-height-h4] no-underline hover:bg-opacity-0 hover:text-white"
-					>
-						Play as '{emailExcerpt(email, 12)}'
-					</a>
+						label={`Play as '${emailExcerpt(email, 12)}'`}
+					/>
 				)
 			}
 			<p slot="altPath" class="!mt-1 text-white">
@@ -62,11 +51,11 @@ const email = Astro.locals.email
 					email != 'Guest' && (
 						<>
 							Not you?{' '}
-							<a class="font-semibold text-white underline" href="/api/auth/signout">
-								Sign in as another user
+							<a class="font-semibold text-white underline" href="/api/auth/sign-out">
+								Sign in with another account,
 							</a>
-							, or
-							<a class="font-semibold text-white underline" href="api/auth/signout?guest=guest">
+							or
+							<a class="font-semibold text-white underline" href="api/auth/sign-out?guest=guest">
 								play as a guest
 							</a>
 							.

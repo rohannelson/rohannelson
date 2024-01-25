@@ -1,9 +1,10 @@
 ---
 //If wanting multiple links, use slot="links". If wanting alternative pathways under links, use slot="altPath"
 import { Icon } from 'astro-icon/components'
+import LinkButton from './LinkButton.astro'
 const {
 	heading = 'Heading',
-	linkObj = { label: 'link', href: 'link' },
+	linkObj = { label: 'link', href: 'link', buttonStyle: 'white' },
 	icon = 'quill'
 } = Astro.props
 ---
@@ -18,11 +19,7 @@ const {
 		</div>
 	</div>
 	<slot name="links">
-		<a
-			href={linkObj.href}
-			class="mt-auto self-start rounded-[--border-radius] border-[3px] border-solid border-white bg-white px-[10px] py-[3px] text-center text-[length:--font-size-h4] font-bold leading-[--line-height-h4] no-underline hover:bg-opacity-0 hover:text-white"
-			>{linkObj.label}</a
-		>
+		<LinkButton href={linkObj.href} label={linkObj.label} buttonStyle={linkObj.buttonStyle} />
 	</slot>
 	<slot name="altPath" />
 	<div class="inner-card mt-[1.2rem] h-full rounded-[--border-radius] bg-white p-5 pb-[10px]">

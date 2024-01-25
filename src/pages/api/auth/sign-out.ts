@@ -7,5 +7,5 @@ export const GET: APIRoute = async ({ cookies, redirect, request }) => {
 	if (guest) {
 		return redirect('/projects/games')
 	}
-	return redirect('/login')
+	return redirect('/sign-in')
 }

@@ -1,0 +1,41 @@
+---
+import Layout from '../layouts/BaseLayout.astro'
+import Button from '../components/Button.astro'
+
+const { cookies, redirect } = Astro
+
+const accessToken = cookies.get('sb-access-token')
+const refreshToken = cookies.get('sb-refresh-token')
+
+if (accessToken && refreshToken) {
+	return redirect('/projects/games')
+}
+---
+
+<Layout title="Sign In" description="Login page for my board games app.">
+	<p>New here? <a href="/create-account">Create an account</a></p>
+	<form class="space-y-4" action="/api/auth/sign-in" method="post">
+		<div>
+			<label for="email" for="email">Email</label>
+			<input
+				type="email"
+				name="email"
+				id="email"
+				class="block border-2 border-solid border-light-grey"
+			/>
+		</div>
+		<div>
+			<label for="password">Password</label>
+			<input
+				type="password"
+				name="password"
+				id="password"
+				class="block border-2 border-solid border-light-grey"
+			/>
+		</div>
+		<Button type="submit">Sign In</Button>
+		<Button type="submit" value="github" name="provider" buttonStyle="red">
+			Sign in with Github
+		</Button>
+	</form>
+</Layout>
