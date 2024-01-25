@@ -26,3 +26,9 @@ export const setCookies = (data, cookies) => {
 		secure: true
 	})
 }
+
+export const emailExcerpt = (email, maxLength = 6) => {
+	let user = email.substring(0, email.indexOf('@'))
+	let output = user.length > maxLength ? user.substring(0, maxLength) + '...' : user
+	return output
+}

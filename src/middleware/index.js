@@ -7,14 +7,12 @@ export const onRequest = defineMiddleware(async (context, next) => {
 	const handleSession = async (redirectPath = '') => {
 		const accessToken = context.cookies.get('sb-access-token')
 		const refreshToken = context.cookies.get('sb-refresh-token')
-		let email
 		if (accessToken && refreshToken) {
 			const { data, error } = await supabase.auth.setSession({
 				refresh_token: refreshToken.value,
 				access_token: accessToken.value
 			})
 			if (error) {
-				console.log('error')
 				context.cookies.delete('sb-refresh-token', {
 					path: '/'
 				})
@@ -42,7 +40,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
 			}
 		} else {
 			redirectpath = redirectPath ? redirectPath : ''
-			context.locals.email = 'guest'
+			context.locals.email = 'Guest'
 		}
 	}
 	context.url.pathname == '/projects' && (await handleSession(''))

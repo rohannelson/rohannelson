@@ -2,46 +2,11 @@
 import Layout from '../../layouts/BaseLayout.astro'
 import Grid from '../../components/Grid.astro'
 import FeatureCard from '../../components/FeatureCard.astro'
-import { supabase } from '../../lib/supabase'
-import { setCookies } from '../../components/utils.js'
+import { emailExcerpt } from '../../components/utils'
 const title = 'My Web Projects'
 const description = 'A home for my web experiments'
-/*
-const { cookies } = Astro
-const accessToken = cookies.get('sb-access-token')
-const refreshToken = cookies.get('sb-refresh-token')
-
-let email
-
-if (accessToken && refreshToken) {
-	const { data, error } = await supabase.auth.setSession({
-		refresh_token: refreshToken.value,
-		access_token: accessToken.value
-	})
-	if (error) {
-		console.log('error')
-	} else {
-		setCookies(data, cookies)
-	}
-	const email = data?.user?.email
-} else {
-	if (refreshToken) {
-		const { data, error } = await supabase.auth.refreshSession({
-			refresh_token: refreshToken.value
-		})
-
-		if (error) {
-			cookies.delete('sb-refresh-token', {
-				path: '/'
-			})
-		} else {
-			setCookies(data, cookies)
-		}
-
-		const email = data?.user?.email
-	}
-}
-*/
+//Auth handled in middleware/index.js
+const email = Astro.locals.email
 ---
 
 <Layout {title} {description}>
@@ -49,11 +14,65 @@ if (accessToken && refreshToken) {
 	<Grid>
 		<FeatureCard
 			heading="Board Games App"
-			linkObj={{ label: 'Sign In', href: '/signin' }}
+			linkObj={{ label: 'Login', href: '/login' }}
 			icon="puzzle"
 		>
-			<p slot="altPath" class="!mt-0 text-white">
-				Or <a href="/projects/games" class="text-white underline">play as guest</a>.
+			{
+				email == 'Guest' && (
+					<div slot="links" class="flex gap-3">
+						<a
+							href="/login"
+							class="mt-auto min-w-24 self-start rounded-[--border-radius] border-[2px] border-solid border-white bg-light-red px-[10px] py-[3px] text-center text-[length:--font-size-h4] font-bold leading-[--line-height-h4] text-white no-underline hover:bg-opacity-0"
+						>
+							Login
+						</a>
+						<a
+							href="/sign-up"
+							class="mt-auto min-w-24 self-start rounded-[--border-radius] border-[2px] border-solid border-white bg-white from-dark-red to-light-red px-[10px] py-[3px] text-center text-[length:--font-size-h4] font-bold leading-[--line-height-h4] no-underline hover:bg-gradient-to-t hover:text-white"
+						>
+							Sign Up
+						</a>
+					</div>
+				)
+			}
+			{
+				email != 'Guest' && (
+					<a
+						slot="links"
+						href="/projects/games"
+						class="mt-auto self-start rounded-[--border-radius] border-[3px] border-solid border-white bg-white px-[10px] py-[3px] text-center text-[length:--font-size-h4] font-bold leading-[--line-height-h4] no-underline hover:bg-opacity-0 hover:text-white"
+					>
+						Play as '{emailExcerpt(email, 12)}'
+					</a>
+				)
+			}
+			<p slot="altPath" class="!mt-1 text-white">
+				{
+					email == 'Guest' && (
+						<>
+							Or
+							<a href="/projects/games" class="font-semibold text-white underline">
+								play as a guest
+							</a>
+							.
+						</>
+					)
+				}
+				{
+					email != 'Guest' && (
+						<>
+							Not you?{' '}
+							<a class="font-semibold text-white underline" href="/api/auth/signout">
+								Sign in as another user
+							</a>
+							, or
+							<a class="font-semibold text-white underline" href="api/auth/signout?guest=guest">
+								play as a guest
+							</a>
+							.
+						</>
+					)
+				}
 			</p>
 			<p class="mb-3">
 				I made some board games in React, partly for fun, but partly to learn React. Check them out!
