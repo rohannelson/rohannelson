@@ -7,8 +7,7 @@ const {
 	linkObj = { label: 'link', href: 'link', buttonStyle: 'white' },
 	icon = 'quill'
 } = Astro.props
-let rotate = icon == 'puzzle' ? 'pb-1' : ''
-console.log(rotate)
+let padding = icon == 'puzzle' ? 'pb-1' : ''
 ---
 
 <div
@@ -17,7 +16,7 @@ console.log(rotate)
 	<div class="card-header-wrapper mb-2 flex items-center">
 		<h2 class="mt-0 text-2xl text-white md:text-3xl">{heading}</h2>
 		<div class="icon-wrapper ml-auto text-white">
-			<Icon name={icon} class={`ml-5 h-20 w-auto text-white ${rotate}`} />
+			<Icon name={icon} class={`ml-5 h-20 w-auto text-white ${padding}`} />
 		</div>
 	</div>
 	<slot name="links">
