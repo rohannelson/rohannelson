@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/BaseLayout.astro'
 import Button from '../components/Button.astro'
+import { Icon } from 'astro-icon/components'
 
 const { cookies, redirect } = Astro
 
@@ -21,21 +22,51 @@ if (accessToken && refreshToken) {
 				type="email"
 				name="email"
 				id="email"
-				class="block border-2 border-solid border-light-grey"
+				oninvalid="this.setCustomValidity('Please enter valid email')"
+				oninput="setCustomValidity('')"
+				required
+				class="block border-2 border-solid border-light-grey
+				px-2 py-1"
 			/>
 		</div>
 		<div>
-			<label for="password">Password</label>
+			<div class="flex w-56">
+				<label for="password">Password</label>
+				<button type="button" class="show-password ml-auto text-sm text-light-red"
+					>Show Password</button
+				>
+			</div>
 			<input
 				type="password"
 				name="password"
 				id="password"
-				class="block border-2 border-solid border-light-grey"
+				required
+				oninvalid="this.setCustomValidity('Please enter your password')"
+				oninput="setCustomValidity('')"
+				autocomplete="current-password"
+				id="current-password"
+				class="password-input block border-2 border-solid border-light-grey
+				px-2 py-0.5 after:bg-light-pink"
 			/>
 		</div>
 		<Button type="submit">Sign In</Button>
-		<Button type="submit" value="github" name="provider" buttonStyle="red">
-			Sign in with Github
+		<Button type="submit" value="github" name="provider">
+			<Icon
+				name="github"
+				class="hover: mb-0.5 mr-2 inline h-6 w-6 text-light-red group-hover:text-white"
+			/>Sign in with Github
 		</Button>
 	</form>
+	<script>
+		const show = document.querySelector('.show-password')
+		const passwordInput = document.querySelector('.password-input')
+		show.addEventListener('click', () => {
+			console.log('click')
+			if (passwordInput.getAttribute('type') === 'password') {
+				passwordInput.setAttribute('type', 'text')
+			} else {
+				passwordInput.setAttribute('type', 'password')
+			}
+		})
+	</script>
 </Layout>
