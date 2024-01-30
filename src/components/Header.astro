@@ -83,7 +83,7 @@ import User from './User.astro'
 			</button>
 		</div>
 	</div>
-	<div class="absolute right-0 top-0 mr-4 flex h-full items-center md:hidden lg:relative lg:ml-2">
+	<div class="absolute right-0 top-0 flex h-full items-center pr-4 md:hidden lg:relative lg:pl-2">
 		<User />
 	</div>
 </header>
@@ -116,11 +116,16 @@ import User from './User.astro'
 	let headerObserver = new IntersectionObserver(obsCallback, options)
 	headerObserver.observe(headerTrigger)
 </script>
-<script>
+<script is:inline>
+	//Note that this interacts with userMenu from the User component (and is interacted with by it)
 	const headerNavToggle = document.querySelector('.headerNavToggle')
 	const headerNav = document.querySelector('.headerNav')
+	const userMenu = document.querySelectorAll('.user-menu')
 	headerNavToggle.addEventListener('click', () => {
 		headerNav.classList.toggle('md:hidden')
 		headerNavToggle.classList.toggle('toggled')
+		userMenu.forEach((menu) => {
+			menu.classList.add('hidden')
+		})
 	})
 </script>

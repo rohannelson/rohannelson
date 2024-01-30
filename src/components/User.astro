@@ -8,9 +8,49 @@ const email = Astro?.locals?.email ?? ''
 		<button
 			type="button"
 			title={`Signed in as ${email}`}
-			class="group flex h-14 w-14 items-center rounded-full border-[3px] border-solid border-dark-red hover:border-white hover:bg-gradient-to-r hover:from-dark-red hover:to-light-red"
+			class="user-button group flex h-14 w-14 items-center rounded-full border-[3px] border-solid border-dark-red hover:border-white hover:bg-gradient-to-r hover:from-dark-red hover:to-light-red"
 		>
 			<Icon name="user" class="mx-auto mb-1 h-8 w-8 text-light-red group-hover:text-white" />
 		</button>
 	)
 }
+<ul
+	class="user-menu absolute right-0 top-[--header-height] flex hidden w-40 flex-col rounded-l-[--border-radius] border-2
+	border-r-0 border-solid border-white bg-gradient-to-r from-light-red to-dark-red py-3"
+>
+	<li
+		class="w-full border-l-2 border-solid border-l-light-red py-2 text-center font-medium text-white hover:bg-white hover:text-light-red"
+	>
+		Player Colours
+	</li>
+	<li
+		class="w-full border-l-2 border-solid border-l-light-red py-2 text-center font-medium text-white hover:bg-white hover:text-light-red"
+	>
+		Statistics
+	</li>
+	<li
+		class="group w-full border-l-2 border-solid border-l-light-red py-2 text-center hover:bg-white"
+	>
+		<a
+			href="api/auth/sign-out"
+			class="block h-full w-full font-medium text-white group-hover:text-light-red">Sign Out</a
+		>
+	</li>
+</ul>
+<script>
+	//Note that this interacts with HeaderNav and HeaderNavToggle from the Header component (and is interacted with by them)
+	const userButton = document.querySelectorAll('.user-button')
+	const userMenu = document.querySelectorAll('.user-menu')
+	const headerNav = document.querySelector('.headerNav')
+	const headerNavToggle = document.querySelector('.headerNavToggle')
+	userButton.forEach((button) => {
+		button.addEventListener('click', () => {
+			console.log('click')
+			userMenu.forEach((menu) => {
+				menu.classList.toggle('hidden')
+			})
+			headerNav.classList.add('md:hidden')
+			headerNavToggle.classList.remove('toggled')
+		})
+	})
+</script>
