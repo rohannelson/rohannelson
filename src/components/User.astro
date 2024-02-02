@@ -1,9 +1,11 @@
 ---
 import { Icon } from 'astro-icon/components'
+import { fetchColours, capitalise } from './utils'
 const email = Astro?.locals?.email ?? ''
+const colours = await fetchColours()
 ---
 
-{
+<!--User Menu Button-->{
 	email && email != 'Guest' && (
 		<button
 			type="button"
@@ -14,6 +16,7 @@ const email = Astro?.locals?.email ?? ''
 		</button>
 	)
 }
+<!--User Menu-->
 <ul
 	class="user-menu absolute right-0 top-[--header-height] flex hidden w-40 flex-col rounded-l-[--border-radius] border-2
 	border-r-0 border-solid border-white bg-gradient-to-r from-light-red to-dark-red py-3"
@@ -37,8 +40,31 @@ const email = Astro?.locals?.email ?? ''
 		>
 	</li>
 </ul>
+<!--Colour Selection Menu-->
+<div
+	class="absolute right-40 top-[--header-height] rounded-[--border-radius] border-2 border-solid border-light-grey p-4 shadow-lg bg-white"
+>
+	<form class="space-y-4" action="/api/player-colours" method="post">
+		{["player-1", "player-2"].map((player) => {
+		return (<label for={`${player}-colours`}>{capitalise(player.split("-").join(" "))}</label>
+		<select name={`${player}-colours`} id={`${player}-colours`}>
+			{
+				colours.map((colour) => {
+					return <option  value={`{"name":"${colour.name}", "id":"${colour.id}"}`}>{capitalise(colour.name)}</option>
+				})
+			}
+		</select>
+		<div class="flex gap-2">
+			<div class={`${player}-preview-light bg-light-red h-8 w-8`}></div>
+			<div class={`${player}-preview-dark bg-dark-red h-8 w-8`}></div>
+		</div>)
+		})}
+		<button type="submit" class="">Save</button>
+	</form>
+</div>
 <script>
 	//Note that this interacts with HeaderNav and HeaderNavToggle from the Header component (and is interacted with by them)
+	//Toggle User Menu
 	const userButton = document.querySelectorAll('.user-button')
 	const userMenu = document.querySelectorAll('.user-menu')
 	const headerNav = document.querySelector('.headerNav')
@@ -53,4 +79,23 @@ const email = Astro?.locals?.email ?? ''
 			headerNavToggle.classList.remove('toggled')
 		})
 	})
+	const playerOneSelects = document.querySelectorAll("#player-1-colours")
+	const playerTwoSelects = document.querySelectorAll("#player-2-colours")
+	const playerOnePreviews = {light: document.querySelectorAll(`.player-1-preview-light`), dark: document.querySelectorAll(`.player-1-preview-dark`)}
+	const playerTwoPreviews = {light: document.querySelectorAll(`.player-2-preview-light`), dark: document.querySelectorAll(`.player-2-preview-dark`)}
+	const dynamicSelects = (selects, previews) => {
+		selects.forEach((select) => {
+			const regex = /(bg-(light|dark)-)[a-z]+/;
+			select.addEventListener('change', (e) => {
+			selects.forEach(select => {select.value = e.currentTarget.value})
+			previews.light.forEach(preview => {
+				preview.className = preview.className.replace(regex, `bg-light-${JSON.parse(e.currentTarget.value).name}`)
+			})
+			previews.dark.forEach(preview => {
+				preview.className = preview.className.replace(regex, `bg-dark-${JSON.parse(e.currentTarget.value).name}`)
+			})
+	})
+	})}
+	dynamicSelects(playerOneSelects, playerOnePreviews)
+	dynamicSelects(playerTwoSelects, playerTwoPreviews)
 </script>

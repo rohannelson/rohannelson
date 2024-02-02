@@ -1,0 +1,41 @@
+---
+import { fetchColours, capitalise } from './utils'
+const colours = await fetchColours()
+---
+<!--Colour Selection Menu-->
+<div
+	class="absolute right-40 top-[--header-height] rounded-[--border-radius] border-2 border-solid border-light-grey p-4 shadow-lg"
+>
+	<form class="space-y-4" {/*action="/api/player-colours"*/} method="post" class="">
+		{["player-1", "player-2"].map((player) => {
+		return (<label for={`${player}-colours`}>{capitalise(player.split("-").join(" "))}</label>
+		<select name={`${player}-colours`} id={`${player}-colours`} class={`${player}-select`}>
+			{
+				colours.map((colour) => {
+					return <option value={colour.name}>{capitalise(colour.name)}</option>
+				})
+			}
+		</select>
+		<div class="flex gap-2">
+			<div class={`${player}-preview-light h-8 w-8`}></div>
+			<div class={`${player}-preview-dark h-8 w-8`}></div>
+		</div>)
+		})}
+		<button type="submit" class="">Save</button>
+	</form>
+</div>
+<script>
+    	const colourSelect = ["player-1-select", "player-2-select"].map((playerSelect) => {
+		return (document.querySelector(`.${playerSelect}`))
+	})
+	const colourPreviews = ["player-1-preview", "player-2-preview"].map((playerPreview) => {
+		return ({light: document.querySelector(`.${playerPreview}-light`), dark: document.querySelector(`.${playerPreview}-dark`)})
+	})
+	colourSelect.forEach((select, i) => {
+		console.log(select)
+		select.addEventListener('change', (e) => {
+			console.log("hello")
+		})
+		console.log("event should be added...")
+	})
+</script>

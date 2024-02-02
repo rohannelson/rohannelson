@@ -1,3 +1,5 @@
+import { supabase } from '../lib/supabase'
+
 export const capitalise = (str) => {
 	return str.charAt(0).toUpperCase() + str.slice(1)
 }
@@ -31,4 +33,13 @@ export const emailExcerpt = (email, maxLength = 6) => {
 	let user = email.substring(0, email.indexOf('@'))
 	let output = user.length > maxLength ? user.substring(0, maxLength) + '...' : user
 	return output
+}
+
+export const fetchColours = async () => {
+	const { data, error } = await supabase.from('colours').select('*')
+	if (error) {
+		console.log(error)
+	} else {
+		return data
+	}
 }
