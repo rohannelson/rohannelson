@@ -1,0 +1,17 @@
+---
+layout: '../../layouts/BlogLayout.astro'
+title: 'Hyphenation in CSS'
+description: 'Who knew you could automate hyphenation on the web?'
+image: 'text'
+pubDate: '2024-02-11'
+context: ''
+series: 'today I learned...'
+---
+
+So I've recently been reading [Practical Typography](https://practicaltypography.com/) by Matthew Butterick, and I've been reading it on my phone (so with a fairly small viewport). As I've been reading, one of the things that I noticed (aside from the generous margins) was the hyphenation. Hyphenation on the web felt new to me - more like reading a book than reading on my phone. I liked it.
+
+As it turns out, CSS actually has the capacity to automate hyphenation. It's as simple as `hyphens: auto;` (although you need to have specified the language using the HTML `lang` attribute first). If you only want certain words to be hyphenated, you can use the value `manual` and insert the html escape code `&shy;` (soft hyphen) into the relevant words. While there are some other nifty properties like [hyphenate-limit-chars](https://developer.mozilla.org/en-US/docs/Web/CSS/hyphenate-limit-chars) they don't have full browser support yet, so they might not be worth the effort. The other catch I found was that it doesn't take effect for capitalised words, which is a real bummer in the context of headings.
+
+Aside from the above caveats, it seems to work well enough. But then again, my wife who is a graphic designer and an avid reader says she prefers ragged edges over having words broken apart, so she may convince me to change my mind.
+
+I have it enabled on my website for now at least 🙂

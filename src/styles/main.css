@@ -132,6 +132,7 @@
 	p {
 		hyphens: auto;
 		font-size: calc(17rem / 16);
+		line-height: calc(27rem / 16);
 	}
 	@media (max-width: calc(639rem / 16)) {
 		:root {
