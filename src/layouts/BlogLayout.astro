@@ -38,85 +38,91 @@ if (!nextInSeries && seriesIndex + 1 <= seriesArray.length - 1) {
 	description={frontmatter.description}
 	pubDate={frontmatter.pubDate}
 >
-	<Metadata frontmatter={frontmatter} {seriesColour} />
-	<Icon
-		name={frontmatter.image ?? 'blog'}
-		style=`--seriesColourVar:var(--light-${seriesColour})`
-		class="float-right mt-1 h-auto w-[200px] max-w-[30vw] p-[10px] pb-[5px] text-[--seriesColourVar]"
-	/>
-	<div class="blog mb-10 mt-8">
-		<slot />
+	<div>
+		<Metadata frontmatter={frontmatter} {seriesColour} />
+		<Icon
+			name={frontmatter.image ?? 'blog'}
+			style=`--seriesColourVar:var(--light-${seriesColour})`
+			class="float-right mt-1 h-auto w-[200px] max-w-[30vw] p-[10px] pb-[5px] text-[--seriesColourVar]"
+		/>
+		<div class="blog mb-10 mt-8">
+			<slot />
+		</div>
+		<Grid>
+			<div>
+				{
+					previousInSeries && (
+						<NavCard
+							blogPost={previousInSeries}
+							titlePrefix="Previous in Series: "
+							{seriesColour}
+						/>
+					)
+				}
+				{
+					!previousInSeries && seriesIndex - 1 >= 0 && (
+						<SeriesCard series={allSeries[seriesIndex - 1]} titlePrefix="Previous Series:" />
+					)
+				}
+			</div>
+			<div>
+				{
+					nextInSeries && (
+						<NavCard blogPost={nextInSeries} titlePrefix="Next in Series: " {seriesColour} />
+					)
+				}
+				{
+					isNextSeries && (
+						<SeriesCard series={allSeries[seriesIndex + 1]} titlePrefix="Next Series:" />
+					)
+				}
+			</div>
+		</Grid>
 	</div>
-	<Grid>
-		<div>
-			{
-				previousInSeries && (
-					<NavCard blogPost={previousInSeries} titlePrefix="Previous in Series: " {seriesColour} />
-				)
-			}
-			{
-				!previousInSeries && seriesIndex - 1 >= 0 && (
-					<SeriesCard series={allSeries[seriesIndex - 1]} titlePrefix="Previous Series:" />
-				)
-			}
-		</div>
-		<div>
-			{
-				nextInSeries && (
-					<NavCard blogPost={nextInSeries} titlePrefix="Next in Series: " {seriesColour} />
-				)
-			}
-			{
-				isNextSeries && (
-					<SeriesCard series={allSeries[seriesIndex + 1]} titlePrefix="Next Series:" />
-				)
-			}
-		</div>
-	</Grid>
-	<style define:vars={{ seriesColourVar }}>
-		:global(div.blog > p:first-child:first-letter) {
-			color: var(--seriesColourVar);
-			float: left;
-			font-size: 92px;
-			line-height: 0.6;
-			padding-top: 14px;
-			padding-right: 3px;
-			font-weight: 700;
-		}
-		:global(div.blog a) {
-			text-decoration: underline;
-		}
-		:global(div.blog * + *) {
-			margin-top: 1rem;
-		}
-		:global(div.blog h2) {
-			margin-top: 1.5rem;
-		}
-		:global(div.blog ol li) {
-			list-style: decimal;
-		}
-		:global(div.blog li) {
-			list-style: circle;
-			margin-left: 1rem;
-			padding-left: 1rem;
-			font-size: calc(17rem / 16);
-		}
-		@-moz-document url-prefix() {
-			:global(div.blog > p:first-child:first-letter) {
-				padding-top: 8px;
-			}
-		}
-		:global(ol) {
-			padding-left: 1rem;
-		}
-		:global(blockquote) {
-			margin-left: 0;
-			padding-left: 40px;
-			border-left: solid 4px var(--seriesColourVar);
-			font-size: calc(17rem / 16);
-		}
-		:global(blockquote *) {
-			font-size: calc(17rem / 16);
-		}
-	</style>
 </Layout>
+<style define:vars={{ seriesColourVar }}>
+	:global(div.blog > p:first-child:first-letter) {
+		color: var(--seriesColourVar);
+		float: left;
+		font-size: 92px;
+		line-height: 0.6;
+		padding-top: 14px;
+		padding-right: 3px;
+		font-weight: 700;
+	}
+	:global(div.blog a) {
+		text-decoration: underline;
+	}
+	:global(div.blog * + *) {
+		margin-top: 1rem;
+	}
+	:global(div.blog h2) {
+		margin-top: 1.5rem;
+	}
+	:global(div.blog ol li) {
+		list-style: decimal;
+	}
+	:global(div.blog li) {
+		list-style: circle;
+		margin-left: 1rem;
+		padding-left: 1rem;
+		font-size: calc(17rem / 16);
+	}
+	@-moz-document url-prefix() {
+		:global(div.blog > p:first-child:first-letter) {
+			padding-top: 8px;
+		}
+	}
+	:global(ol) {
+		padding-left: 1rem;
+	}
+	:global(blockquote) {
+		margin-left: 0;
+		padding-left: 40px;
+		border-left: solid 4px var(--seriesColourVar);
+		font-size: calc(17rem / 16);
+	}
+	:global(blockquote *) {
+		font-size: calc(17rem / 16);
+	}
+</style>

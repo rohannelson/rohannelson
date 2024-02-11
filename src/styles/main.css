@@ -86,7 +86,7 @@
 		--content-width: 700px;
 		--border-radius: 15px;
 		--margin-width: calc((100vw - var(--content-width)) / 2);
-		--margin-min: 22px;
+		--margin-min: 36px;
 	}
 	/*need to decide on breakpoints and add responsive font-sizing*/
 	h1,
