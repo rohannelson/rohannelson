@@ -86,6 +86,7 @@
 		--content-width: 700px;
 		--border-radius: 15px;
 		--margin-width: calc((100vw - var(--content-width)) / 2);
+		--margin-min: 22px;
 	}
 	/*need to decide on breakpoints and add responsive font-sizing*/
 	h1,
@@ -128,10 +129,9 @@
 	p:not(:first-child) {
 		margin-top: 1rem;
 	}
-	blockquote {
-		margin-left: 0;
-		padding-left: 40px;
-		border-left: solid 4px var(--seriesColourVar);
+	p {
+		hyphens: auto;
+		font-size: calc(17rem / 16);
 	}
 	@media (max-width: calc(639rem / 16)) {
 		:root {
