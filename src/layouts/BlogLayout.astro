@@ -9,7 +9,6 @@ const { frontmatter } = Astro.props
 const allBlogs = await Astro.glob('../pages/blog/*.mdx')
 const currentSeries = frontmatter.series
 const allSeries = await Astro.glob('../components/series/*.mdx')
-allSeries.reverse()
 const seriesArray = allSeries.map((series) => series.frontmatter.series)
 const filteredBlogs = allBlogs.filter((blog) => {
 	return blog.frontmatter.series.includes(currentSeries)
