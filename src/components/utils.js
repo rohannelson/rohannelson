@@ -45,10 +45,12 @@ export const fetchColours = async () => {
 }
 
 export const fetchPlayerColours = async () => {
-	const { data, error } = await supabase.from('profiles').select('player_1_colour,player_2_colour')
+	const { data, error } = await supabase.from('profiles').select(`player_1_colour,
+	player_2_colour`)
 	if (error) {
 		console.log(error)
 	} else {
+		console.log(data)
 		return data
 	}
 }

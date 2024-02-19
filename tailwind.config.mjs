@@ -17,7 +17,23 @@ export default {
 		'bg-dark-blue',
 		'bg-dark-green',
 		'bg-dark-yellow',
-		'bg-dark-orange'
+		'bg-dark-orange',
+		'text-light-grey',
+		'text-light-red',
+		'text-light-pink',
+		'text-light-purple',
+		'text-light-blue',
+		'text-light-green',
+		'text-light-yellow',
+		'text-light-orange',
+		'border-dark-grey',
+		'border-dark-red',
+		'border-dark-pink',
+		'border-dark-purple',
+		'border-dark-blue',
+		'border-dark-green',
+		'border-dark-yellow',
+		'border-dark-orange'
 	],
 	theme: {
 		screens: {

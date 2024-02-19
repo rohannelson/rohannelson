@@ -23,9 +23,9 @@ console.log(Astro?.locals)
 		<button
 			type="button"
 			title={`Signed in as ${email}`}
-			class="user-button group flex h-14 w-14 items-center rounded-full border-[3px] border-solid border-dark-red hover:border-white hover:bg-gradient-to-r hover:from-dark-red hover:to-light-red"
+			class={`user-button group flex h-14 w-14 items-center rounded-full border-[3px] border-solid border-dark-${p1c} hover:border-white hover:bg-gradient-to-r hover:from-dark-red hover:to-light-red`}
 		>
-			<Icon name="user" class="mx-auto mb-1 h-8 w-8 text-light-red group-hover:text-white" />
+			<Icon name="user" class={`mx-auto mb-1 h-8 w-8 text-light-${p1c} group-hover:text-white`} />
 		</button>
 	)
 }
