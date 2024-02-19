@@ -3,7 +3,7 @@ import { Icon } from 'astro-icon/components'
 import { fetchColours, fetchPlayerColours, capitalise } from './utils'
 const email = Astro?.locals?.email ?? ''
 const colours = await fetchColours()
-const [playerColours] = (email && email!= 'Guest') ? await fetchPlayerColours() : [{player_1_colour: null, player_2_colour: null}]
+const [playerColours] = Astro?.locals?.colours ?? [{player_1_colour: null, player_2_colour: null}]
 let p1c = "red";
 let p2c = "green";
 colours.forEach(colour => {
@@ -15,6 +15,7 @@ colours.forEach(colour => {
 	}
 })
 console.log(playerColours)
+console.log(Astro?.locals)
 ---
 
 <!--User Menu Button-->{
@@ -34,9 +35,11 @@ console.log(playerColours)
 	border-r-0 border-solid border-white bg-gradient-to-r from-light-red to-dark-red py-3"
 >
 	<li
-		class="w-full border-l-2 border-solid border-l-light-red py-2 text-center font-medium text-white hover:bg-white hover:text-light-red"
+		class="w-full border-l-2 border-solid border-l-light-red text-center font-medium text-white hover:bg-white hover:text-light-red"
 	>
+	<button type="button" title="Colour selection menu" class="colour-menu-button w-full h-full py-2">
 		Player Colours
+	</button>
 	</li>
 	<li
 		class="w-full border-l-2 border-solid border-l-light-red py-2 text-center font-medium text-white hover:bg-white hover:text-light-red"
@@ -54,9 +57,9 @@ console.log(playerColours)
 </ul>
 <!--Colour Selection Menu-->
 	{email && email != 'Guest' && (<div
-	class="absolute right-40 top-[--header-height] rounded-[--border-radius] border-2 border-solid border-light-grey p-4 shadow-lg bg-white"
+	class="user-menu colour-menu hidden absolute right-40 top-[--header-height] rounded-[--border-radius] border-2 border-solid border-light-grey p-4 shadow-lg bg-white"
 >
-	<form class="space-y-4" action="/api/player-colours" method="post">
+	<form class="space-y-4 flex flex-col" action="/api/player-colours" method="post">
 		{["1", "2"].map((player) => {
 			let playerColour = (player == "1") ? p1c : p2c
 		return (<label for={`player-${player}-colours`}>Player {player}</label>
@@ -81,9 +84,11 @@ console.log(playerColours)
 	//Note that this interacts with HeaderNav and HeaderNavToggle from the Header component (and is interacted with by them)
 	//Toggle User Menu
 	const userButton = document.querySelectorAll('.user-button')
-	const userMenu = document.querySelectorAll('.user-menu')
+	const userMenu = document.querySelectorAll('.user-menu') 
 	const headerNav = document.querySelector('.headerNav')
 	const headerNavToggle = document.querySelector('.headerNavToggle')
+	const colourMenu = document.querySelectorAll(".colour-menu")
+	const colourMenuButton = document.querySelectorAll(".colour-menu-button")
 	userButton.forEach((button) => {
 		button.addEventListener('click', () => {
 			console.log('click')
@@ -92,6 +97,15 @@ console.log(playerColours)
 			})
 			headerNav.classList.add('md:hidden')
 			headerNavToggle.classList.remove('toggled')
+			colourMenu.forEach(menu => menu.classList.add('hidden'))
+		})
+	})
+	//Colour Menu
+	colourMenuButton.forEach(button => {
+		button.addEventListener("click", () => {
+			colourMenu.forEach(menu => {
+				menu.classList.toggle("hidden")
+			})
 		})
 	})
 	const playerOneSelects = document.querySelectorAll("#player-1-colours")
