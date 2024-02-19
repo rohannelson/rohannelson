@@ -1,8 +1,20 @@
 ---
 import { Icon } from 'astro-icon/components'
-import { fetchColours, capitalise } from './utils'
+import { fetchColours, fetchPlayerColours, capitalise } from './utils'
 const email = Astro?.locals?.email ?? ''
 const colours = await fetchColours()
+const [playerColours] = (email && email!= 'Guest') ? await fetchPlayerColours() : [{player_1_colour: null, player_2_colour: null}]
+let p1c = "red";
+let p2c = "green";
+colours.forEach(colour => {
+	if (colour.id==playerColours?.player_1_colour) {
+		p1c = colour.name
+	}
+	if (colour.id==playerColours?.player_2_colour) {
+		p2c = colour.name
+	}
+})
+console.log(playerColours)
 ---
 
 <!--User Menu Button-->{
@@ -35,33 +47,36 @@ const colours = await fetchColours()
 		class="group w-full border-l-2 border-solid border-l-light-red py-2 text-center hover:bg-white"
 	>
 		<a
-			href="api/auth/sign-out"
+			href="/api/auth/sign-out"
 			class="block h-full w-full font-medium text-white group-hover:text-light-red">Sign Out</a
 		>
 	</li>
 </ul>
 <!--Colour Selection Menu-->
-<div
+	{email && email != 'Guest' && (<div
 	class="absolute right-40 top-[--header-height] rounded-[--border-radius] border-2 border-solid border-light-grey p-4 shadow-lg bg-white"
 >
 	<form class="space-y-4" action="/api/player-colours" method="post">
-		{["player-1", "player-2"].map((player) => {
-		return (<label for={`${player}-colours`}>{capitalise(player.split("-").join(" "))}</label>
-		<select name={`${player}-colours`} id={`${player}-colours`}>
+		{["1", "2"].map((player) => {
+			let playerColour = (player == "1") ? p1c : p2c
+		return (<label for={`player-${player}-colours`}>Player {player}</label>
+		<select name={`player-${player}-colours`} id={`player-${player}-colours`}>
 			{
 				colours.map((colour) => {
-					return <option  value={`{"name":"${colour.name}", "id":"${colour.id}"}`}>{capitalise(colour.name)}</option>
+					let selected = colour.name == playerColour ? "selected" : false
+					return <option value={`{"name":"${colour.name}", "id":"${colour.id}"}`} {selected}>{capitalise(colour.name)}</option>
 				})
 			}
 		</select>
 		<div class="flex gap-2">
-			<div class={`${player}-preview-light bg-light-red h-8 w-8`}></div>
-			<div class={`${player}-preview-dark bg-dark-red h-8 w-8`}></div>
+			<div class={`player-${player}-preview-light bg-light-${playerColour} h-8 w-8`}></div>
+			<div class={`player-${player}-preview-dark bg-dark-${playerColour} h-8 w-8`}></div>
 		</div>)
 		})}
 		<button type="submit" class="">Save</button>
 	</form>
-</div>
+</div>)}
+
 <script>
 	//Note that this interacts with HeaderNav and HeaderNavToggle from the Header component (and is interacted with by them)
 	//Toggle User Menu
