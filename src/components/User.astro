@@ -1,5 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components'
+import { supabase } from '../lib/supabase'
 import { fetchColours, fetchPlayerColours, capitalise } from './utils'
 const email = Astro?.locals?.email ?? ''
 const colours = await fetchColours()
@@ -33,7 +34,9 @@ console.log(Astro?.locals)
 <ul
 	class="user-menu absolute right-0 top-[--header-height] flex hidden w-40 flex-col rounded-l-[--border-radius] border-2
 	border-r-0 border-solid border-white bg-gradient-to-r from-light-red to-dark-red py-3"
->
+>	<li class="w-full border-l-2 border-solid border-l-light-red py-2 text-center font-medium text-white text-xs">
+	Alpha: in progress
+</li>
 	<li
 		class="w-full border-l-2 border-solid border-l-light-red text-center font-medium text-white hover:bg-white hover:text-light-red"
 	>

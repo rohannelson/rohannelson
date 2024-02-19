@@ -46,7 +46,9 @@ export const fetchColours = async () => {
 
 export const fetchPlayerColours = async () => {
 	const { data, error } = await supabase.from('profiles').select(`player_1_colour,
-	player_2_colour`)
+	player_2_colour,
+	colours!profiles_player_2_colour_fkey(name)`)
+	//Perhaps need to split the colours fetching into player 1 and player 2? (Or make a separate table for player 2??)
 	if (error) {
 		console.log(error)
 	} else {
