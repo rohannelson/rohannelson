@@ -1,6 +1,40 @@
 /** @type {import('tailwindcss').Config} */
 export default {
 	content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
+	safelist: [
+		'bg-light-grey',
+		'bg-light-red',
+		'bg-light-pink',
+		'bg-light-purple',
+		'bg-light-blue',
+		'bg-light-green',
+		'bg-light-yellow',
+		'bg-light-orange',
+		'bg-dark-grey',
+		'bg-dark-red',
+		'bg-dark-pink',
+		'bg-dark-purple',
+		'bg-dark-blue',
+		'bg-dark-green',
+		'bg-dark-yellow',
+		'bg-dark-orange',
+		'text-light-grey',
+		'text-light-red',
+		'text-light-pink',
+		'text-light-purple',
+		'text-light-blue',
+		'text-light-green',
+		'text-light-yellow',
+		'text-light-orange',
+		'border-dark-grey',
+		'border-dark-red',
+		'border-dark-pink',
+		'border-dark-purple',
+		'border-dark-blue',
+		'border-dark-green',
+		'border-dark-yellow',
+		'border-dark-orange'
+	],
 	theme: {
 		screens: {
 			sm: { max: 'calc(446rem/16)' },
@@ -34,3 +68,4 @@ export default {
 	},
 	plugins: []
 }
+;('bg-dark-')

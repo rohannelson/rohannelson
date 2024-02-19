@@ -1,10 +1,5 @@
 ---
-let listItems = [
-	{ title: 'Blog', href: '/blog' },
-	{ title: 'Projects', href: '/projects' },
-	{ title: 'About', href: '/about' },
-	{ title: 'Contact', href: '/contact' }
-]
+import User from './User.astro'
 ---
 
 <style>
@@ -40,7 +35,12 @@ let listItems = [
 				class="m-0 -mr-4 flex items-center justify-end p-0 md:absolute md:left-0 md:top-[--header-height] md:m-auto md:w-screen md:flex-col md:duration-duration"
 			>
 				{
-					listItems.map((item) => {
+					[
+						{ title: 'Blog', href: '/blog' },
+						{ title: 'Projects', href: '/projects' },
+						{ title: 'About', href: '/about' },
+						{ title: 'Contact', href: '/contact' }
+					].map((item) => {
 						return (
 							<li class="list-none px-2 md:m-0">
 								<a
@@ -55,28 +55,36 @@ let listItems = [
 				}
 			</ul>
 		</nav>
-		<!--mobile nav toggle-->
-		<button
-			type="button"
-			class="headerNavToggle hamburger group flex hidden h-[5.5em] w-[5.5em] shrink-0 cursor-pointer flex-col items-center justify-center self-center justify-self-center rounded-full border-4 border-solid border-dark-red bg-white text-[length:--font-size] duration-duration hover:border-white hover:bg-gradient-to-r hover:from-dark-red hover:to-light-red hover:duration-0 md:ml-auto md:flex"
-		>
-			<div
-				class="wrapper flex h-full w-full flex-col items-center justify-center border-light-red hover:border-white hover:duration-0"
+		<div class="flex items-center md:ml-auto">
+			<div class="mr-2 hidden h-full items-center md:flex">
+				<User />
+			</div>
+			<!--mobile nav toggle-->
+			<button
+				type="button"
+				class="headerNavToggle hamburger group flex hidden h-[5.5em] w-[5.5em] shrink-0 cursor-pointer flex-col items-center justify-center self-center justify-self-center rounded-full border-4 border-solid border-dark-red bg-white text-[length:--font-size] duration-duration hover:border-white hover:bg-gradient-to-r hover:from-dark-red hover:to-light-red hover:duration-0 md:ml-auto md:flex"
 			>
 				<div
-					class="mx-0 my-[0.25em] h-0 w-[2.8em] shrink-0 grow-0 rounded-[border-radius] border-2 border-solid border-light-red text-[length:--font-size] duration-[0.4s] ease-out [border-color:inherit] group-[.toggled]:relative group-[.toggled]:top-1 group-[.toggled]:m-0 group-[.toggled]:rotate-45"
+					class="wrapper flex h-full w-full flex-col items-center justify-center border-light-red hover:border-white hover:duration-0"
 				>
+					<div
+						class="mx-0 my-[0.25em] h-0 w-[2.8em] shrink-0 grow-0 rounded-[border-radius] border-2 border-solid border-light-red text-[length:--font-size] duration-[0.4s] ease-out [border-color:inherit] group-[.toggled]:relative group-[.toggled]:top-1 group-[.toggled]:m-0 group-[.toggled]:rotate-45"
+					>
+					</div>
+					<div
+						class="mx-0 my-[0.25em] h-0 w-[2.8em] shrink-0 grow-0 rounded-[border-radius] border-2 border-solid border-light-red text-[length:--font-size] duration-[0.4s] ease-out [border-color:inherit] group-[.toggled]:m-0 group-[.toggled]:rotate-[405deg] group-[.toggled]:opacity-0"
+					>
+					</div>
+					<div
+						class="mx-0 my-[0.25em] h-0 w-[2.8em] shrink-0 grow-0 rounded-[border-radius] border-2 border-solid border-light-red text-[length:--font-size] duration-[0.4s] ease-out [border-color:inherit] group-[.toggled]:relative group-[.toggled]:bottom-1 group-[.toggled]:m-0 group-[.toggled]:-rotate-45"
+					>
+					</div>
 				</div>
-				<div
-					class="mx-0 my-[0.25em] h-0 w-[2.8em] shrink-0 grow-0 rounded-[border-radius] border-2 border-solid border-light-red text-[length:--font-size] duration-[0.4s] ease-out [border-color:inherit] group-[.toggled]:m-0 group-[.toggled]:rotate-[405deg] group-[.toggled]:opacity-0"
-				>
-				</div>
-				<div
-					class="mx-0 my-[0.25em] h-0 w-[2.8em] shrink-0 grow-0 rounded-[border-radius] border-2 border-solid border-light-red text-[length:--font-size] duration-[0.4s] ease-out [border-color:inherit] group-[.toggled]:relative group-[.toggled]:bottom-1 group-[.toggled]:m-0 group-[.toggled]:-rotate-45"
-				>
-				</div>
-			</div>
-		</button>
+			</button>
+		</div>
+	</div>
+	<div class="absolute right-0 top-0 flex h-full items-center pr-4 md:hidden lg:relative lg:pl-2">
+		<User />
 	</div>
 </header>
 <div
@@ -108,11 +116,16 @@ let listItems = [
 	let headerObserver = new IntersectionObserver(obsCallback, options)
 	headerObserver.observe(headerTrigger)
 </script>
-<script>
+<script is:inline>
+	//Note that this interacts with userMenu from the User component (and is interacted with by it)
 	const headerNavToggle = document.querySelector('.headerNavToggle')
 	const headerNav = document.querySelector('.headerNav')
+	const userMenu = document.querySelectorAll('.user-menu')
 	headerNavToggle.addEventListener('click', () => {
 		headerNav.classList.toggle('md:hidden')
 		headerNavToggle.classList.toggle('toggled')
+		userMenu.forEach((menu) => {
+			menu.classList.add('hidden')
+		})
 	})
 </script>

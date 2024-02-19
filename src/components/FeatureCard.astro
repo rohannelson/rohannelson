@@ -1,0 +1,31 @@
+---
+//If wanting multiple links, use slot="links". If wanting alternative pathways under links, use slot="altPath"
+import { Icon } from 'astro-icon/components'
+import LinkButton from './LinkButton.astro'
+const {
+	heading = 'Heading',
+	linkObj = { label: 'link', href: 'link', buttonStyle: 'white' },
+	icon = 'quill'
+} = Astro.props
+let padding = icon == 'puzzle' ? 'pb-1' : ''
+---
+
+<div
+	class="card-wrapper mt-[0.625rem] flex h-full w-full flex-col rounded-[--border-radius] p-5 [background:var(--red-gradient-diagonal)]"
+>
+	<div class="card-header-wrapper mb-2 flex items-center">
+		<h2 class="mt-0 text-2xl text-white md:text-3xl">{heading}</h2>
+		<div class="icon-wrapper ml-auto text-white">
+			<Icon name={icon} class={`ml-5 h-20 w-auto text-white ${padding}`} />
+		</div>
+	</div>
+	<slot name="links">
+		<LinkButton href={linkObj.href} label={linkObj.label} buttonStyle={linkObj.buttonStyle} />
+	</slot>
+	<slot name="altPath" />
+	<div class="inner-card mt-[1.2rem] h-full rounded-[--border-radius] bg-white p-5 pb-[10px]">
+		<slot>
+			<p>Slot content goes here</p>
+		</slot>
+	</div>
+</div>
