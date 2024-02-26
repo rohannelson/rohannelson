@@ -13,13 +13,14 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
 		const { data, error } = await supabase.auth.signInWithOAuth({
 			provider,
 			options: {
-				redirectTo: 'http://localhost:4321/api/auth/callback'
+				redirectTo: `${import.meta.env.THIS_SITE}/api/auth/callback`
 			}
 		})
 
 		if (error) {
 			return new Response(error.message, { status: 500 })
 		}
+		console.log('oAuth data', data)
 		return redirect(data.url)
 	}
 

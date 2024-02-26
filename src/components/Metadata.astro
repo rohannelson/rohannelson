@@ -7,7 +7,7 @@ const seriesColourLight = `var(--light-${seriesColour})`
 <style define:vars={{ seriesColourLight }}></style>
 <a
 	class="series block w-fit rounded-[--border-radius] border-[3px] border-solid border-[--seriesColourLight] bg-[--seriesColourLight] px-[10px] py-[6px] text-[length:--font-size-h4] font-bold text-white no-underline hover:bg-white hover:text-[--dark-grey]"
-	href={`/blog/series/${frontmatter.series}/1`}
+	href={`/blog/series/${frontmatter.series}`}
 >
 	{capitalise(frontmatter.series)}
 </a>

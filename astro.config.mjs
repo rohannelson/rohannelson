@@ -8,7 +8,7 @@ import tailwind from '@astrojs/tailwind'
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://rohannelson.com',
+	site: 'https://rohan.nelson.com',
 	integrations: [mdx(), react(), icon(), tailwind({ applyBaseStyles: false })],
 	output: 'server',
 	adapter: cloudflare()
