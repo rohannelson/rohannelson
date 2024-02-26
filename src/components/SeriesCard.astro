@@ -4,7 +4,7 @@ const { series, titlePrefix = '' } = Astro.props
 const seriesColour = series.frontmatter.seriesColour
 const seriesColourGradient = `var(--${seriesColour}-gradient-diagonal)`
 const seriesColourLight = `var(--light-${seriesColour})`
-const link = `/blog/series/${series.frontmatter.series}/1`
+const link = `/blog/series/${series.frontmatter.series}`
 import { Icon } from 'astro-icon/components'
 ---
 
