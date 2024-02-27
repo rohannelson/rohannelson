@@ -3,7 +3,7 @@ import { Icon } from 'astro-icon/components'
 import { supabase } from '../lib/supabase'
 import { fetchColours, fetchPlayerColours, capitalise } from './utils'
 const email = Astro?.locals?.email ?? ''
-const colours = await fetchColours()
+const colours = await fetchColours() ?? []
 const [playerColours] = Astro?.locals?.colours ?? [{player_1_colour: null, player_2_colour: null}]
 let p1c = "red";
 let p2c = "green";
@@ -15,8 +15,6 @@ colours.forEach(colour => {
 		p2c = colour.name
 	}
 })
-console.log(playerColours)
-console.log(Astro?.locals)
 ---
 
 <!--User Menu Button-->{

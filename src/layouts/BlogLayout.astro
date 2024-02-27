@@ -129,6 +129,16 @@ if (!nextInSeries && seriesIndex + 1 <= seriesArray.length - 1) {
 		padding: 2px;
 		font-size: 1rem;
 	}
+	:global(pre code, pre span) {
+		background-color: inherit;
+		font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+			'Courier New', monospace;
+	}
+	:global(pre) {
+		padding: 1rem;
+		border-radius: var(--border-radius);
+		white-space: pre-wrap;
+	}
 	:global(div.blog img) {
 		border: solid 2px var(--dark-red);
 		border-radius: var(--border-radius);

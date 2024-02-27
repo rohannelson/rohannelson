@@ -1,0 +1,42 @@
+---
+layout: '../../layouts/BlogLayout.astro'
+title: 'Pull The Trigger...'
+description: 'What I learned about triggers in Postgres.'
+image: 'sql'
+pubDate: '2024-02-27'
+context: ''
+series: 'today I learned...'
+---
+
+Today I did some work on my [board games app](/projects) (a learning project). Lately I've been working on hooking it up to a Postgres database as a way of learning SQL. I've been using [Supabase](https://supabase.com/) to do this, and while Supabase's client-side library makes things pretty easy, I'd previously run into a a bit of an issue.
+
+I'd been building a colour selection menu so users could choose custom colours for player 1 and player 2. I had one table setup for user profiles, and another setup for possible colours (I did it this way because I'd been reading about [database normalisation](https://en.wikipedia.org/wiki/Database_normalization), and was trying to achieve third normal form). The users' choices for player colours were columns in the profiles table, and they were foreign keys pointing to the colours table. Unfortunately, when I tried to use Supabase's elegant join syntax to get (a) the players' colour ids from the profiles table and (b) the corresponding colour names from the colours table, it wasn't working.
+
+Eventually I figured out that I could only fetch one player's colour at a time because `player_1_colour_id` and `player_2_colour_id` were in the same row&mdash;it wasn't automatically clear which foreign key Postgres should be following.
+
+This got me thinking. Perhaps having information about multiple players in each profile's row was bad practice? Maybe it would be better to have a separate players table and have a column for each player in the users' profiles that pointed to the relevant row in the players table? As far as I could tell, this seemed like better normalisation, and I also thought it would be more scalable if I wanted to add a third or fourth player down the track, so I decided to go ahead with it.
+
+First I created the players table and reworked the columns in the profiles table. Then I started working on a function and trigger so that when a new profile was created, corresponding players were created and linked to the relevant profile using foreign keys. I didn't have much trouble getting it to create two new rows when a profile was created, but for some reason it wasn't adding the foreign keys to the profiles table? The code looked like it should work...
+
+```
+DECLARE
+    player1_id INTEGER;
+    player2_id INTEGER;
+BEGIN
+    INSERT INTO public.players DEFAULT VALUES RETURNING id INTO player1_id;
+    INSERT INTO public.players DEFAULT VALUES RETURNING id INTO player2_id;
+
+    NEW.player_1_id := player1_id;
+    NEW.player_2_id := player2_id;
+
+    RETURN NEW;
+END;
+```
+
+So what was wrong?
+
+As it turned out, the function's code was fine. The problem was that I had setup the trigger to run _after_ a row was added to the profiles table, when it had to run _before_ for the changes to the variable `NEW` to make it into the new row.
+
+So... now I know a bit more about using the variable `NEW` in triggers 🙂
+
+As for whether or not reworking the tables like this was the right decision&mdash;it's hard to say now, but I sure am learning a lot! And hey, better to play around and make mistakes on my dummy project than play it safe now and make these mistakes later down the track when I'm working on something more consequential.
