@@ -304,7 +304,7 @@ export default function Game() {
 		<>
 			<div className="checkers">
 				<div className="flex-row">
-					<h2>Checkers</h2>
+					<h2>Checkers - under maintenance</h2>
 					<button className="reset" onClick={resetGame}>
 						Reset Game
 					</button>
