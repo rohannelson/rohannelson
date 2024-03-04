@@ -29,7 +29,13 @@ content:
         label: Context
       - name: series
         label: Series
+      - name: body
+        label: Body
+        type: rich-text
+        options:
+          format: markdown
     extension: mdx
+    filename: '{year}-{month}-{day}-{primary}.mdx'
     view:
       fields: [ layout, title, description, image, pubDate, context, series ]
       primary: title
