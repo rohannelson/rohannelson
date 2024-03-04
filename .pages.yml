@@ -37,9 +37,9 @@ content:
     extension: mdx
     filename: '{year}-{month}-{day}-{primary}.mdx'
     view:
-      fields: [ layout, title, description, image, pubDate, context, series ]
+      fields: [ title, pubDate, series ]
       primary: title
-      sort: [ title, date ]
+      sort: [ title, pubDate ]
       default:
         search: ''
         sort: title
