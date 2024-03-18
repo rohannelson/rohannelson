@@ -55,7 +55,6 @@ export const fetchPlayerColours = async () => {
 		colour_id,
 		colour_name:colours(name)
 		)`)
-	//Perhaps need to split the colours fetching into player 1 and player 2? (Or make a separate table for player 2??)
 	if (error) {
 		console.log(error)
 	} else {
