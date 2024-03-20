@@ -11,13 +11,13 @@ import { capitalise } from './utils'
 export default function User({ email, colours }) {
 	/*Set email/logged-in store*/
 	console.log('React email prop', email)
+	console.log('React colours prop', colours)
 	const $email = useStore(emailStore)
 	useEffect(() => {
 		console.log('useEffect email', email)
 		emailStore.set(email)
-		console.log('Post useEffect $email 1', $email)
 	}, [email])
-	console.log('Post useEffect $email 2', $email)
+	console.log('Post useEffect $email', $email)
 
 	/*Set playerColours stores*/
 	const $player1Colours = useStore(player1Colours)
@@ -26,7 +26,7 @@ export default function User({ email, colours }) {
 		async function fetchPlayerColours() {
 			const response = await fetch('/api/player-colours')
 			const data = await response.json()
-			console.log('GET data on clientside', data)
+			console.log('GET playercolours data on clientside', data)
 			player1Colours.set(data.player_1)
 			player2Colours.set(data.player_2)
 		}
@@ -35,10 +35,9 @@ export default function User({ email, colours }) {
 
 	//const p1c = $player1Colours?.colour_name ?? 'red'
 	//const p2c = $player2Colours?.colour_name ?? 'green'
-	let p1c = 'purple'
 	console.log('player1Colours', $player1Colours)
-	//console.log('player2Colours', $player2Colours)
-
+	//console.log('player2Colours', $player2Colours)*/
+	let p1c = 'purple'
 	function UserMenuButton() {
 		return (
 			<button
@@ -97,7 +96,7 @@ export default function User({ email, colours }) {
 					<label for={`player-${playerNumber}-colours`}>Player {playerNumber}</label>
 					<select
 						name={`player-${playerNumber}-colours`}
-						defaultOption={playerProps.colour_name}
+						defaultValue={playerProps.colour_name}
 						id={`player-${playerNumber}-colours`}
 					>
 						{colours.map((colour, i) => {

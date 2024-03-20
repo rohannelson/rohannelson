@@ -1,9 +1,8 @@
 ---
 import { Icon } from 'astro-icon/components'
-import { supabase } from '../lib/supabase'
-import { fetchColours, fetchPlayerColours, capitalise } from './utils'
+import { capitalise } from './utils'
 const email = Astro?.locals?.email ?? ''
-const colours = await fetchColours() ?? []
+const colours = Astro?.locals?.colours ?? []
 const [playerColours] = Astro?.locals?.colours ?? [{player_1_colour: null, player_2_colour: null}]
 let p1c = playerColours?.player_1_colour?.colour_name?.name ?? "red";
 let p2c = playerColours?.player_2_colour?.colour_name?.name ?? "green";
