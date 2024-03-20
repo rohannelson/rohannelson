@@ -1,7 +1,6 @@
 import { defineMiddleware } from 'astro:middleware'
 import { supabase } from '../lib/supabase'
 import { setCookies } from '../components/utils.js'
-import { supabase } from '../lib/supabase'
 
 const fetchColours = async () => {
 	const { data, error } = await supabase.from('colours').select('*')
