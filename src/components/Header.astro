@@ -3,6 +3,7 @@ import User from './User.astro'
 import User2 from './User.jsx'
 import { fetchColours } from './utils'
 const email = Astro?.locals?.email ?? ''
+console.log('Header email', email)
 const colours = (await fetchColours()) ?? []
 ---
 
@@ -61,7 +62,7 @@ const colours = (await fetchColours()) ?? []
 		</nav>
 		<div class="flex items-center md:ml-auto">
 			<div class="mr-2 hidden h-full items-center md:flex">
-				<User />
+				{/*<User />*/}
 			</div>
 			<!--mobile nav toggle-->
 			<button
@@ -88,7 +89,7 @@ const colours = (await fetchColours()) ?? []
 		</div>
 	</div>
 	<div class="absolute right-0 top-0 flex h-full items-center pr-4 md:hidden lg:relative lg:pl-2">
-		<User />
+		{/*<User />*/}
 		<User2 email={email} colours={colours} client:load />
 	</div>
 </header>

@@ -23,6 +23,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
 			} else {
 				setCookies(data, context.cookies)
 				context.locals.email = data?.user?.email ?? data?.user?.user_metadata?.email
+				console.log('Middleware email', data?.user?.email)
 				context.locals.colours = await fetchPlayerColours()
 			}
 		} else if (refreshToken) {
@@ -38,6 +39,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
 			} else {
 				setCookies(data, context.cookies)
 				context.locals.email = data?.user?.email ?? data?.user?.user_metadata?.email
+				console.log('Middleware email', data?.user?.email)
 				context.locals.colours = await fetchPlayerColours()
 			}
 		} else {
