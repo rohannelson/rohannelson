@@ -1,5 +1,8 @@
 ---
-import User from './User.astro'
+import User from './User.jsx'
+const email = Astro?.locals?.email ?? ''
+console.log('Header email', email)
+const colours = Astro?.locals?.colours ?? []
 ---
 
 <style>
@@ -57,7 +60,7 @@ import User from './User.astro'
 		</nav>
 		<div class="flex items-center md:ml-auto">
 			<div class="mr-2 hidden h-full items-center md:flex">
-				<User />
+				<User email={email} colours={colours} client:load />
 			</div>
 			<!--mobile nav toggle-->
 			<button
@@ -84,7 +87,7 @@ import User from './User.astro'
 		</div>
 	</div>
 	<div class="absolute right-0 top-0 flex h-full items-center pr-4 md:hidden lg:relative lg:pl-2">
-		<User />
+		<User email={email} colours={colours} client:load />
 	</div>
 </header>
 <div

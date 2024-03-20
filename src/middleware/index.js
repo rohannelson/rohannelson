@@ -1,6 +1,15 @@
 import { defineMiddleware } from 'astro:middleware'
 import { supabase } from '../lib/supabase'
-import { setCookies, fetchPlayerColours } from '../components/utils.js'
+import { setCookies } from '../components/utils.js'
+
+const fetchColours = async () => {
+	const { data, error } = await supabase.from('colours').select('*')
+	if (error) {
+		console.log(error)
+	} else {
+		return data
+	}
+}
 
 export const onRequest = defineMiddleware(async (context, next) => {
 	let redirectpath = ''
@@ -23,7 +32,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
 			} else {
 				setCookies(data, context.cookies)
 				context.locals.email = data?.user?.email ?? data?.user?.user_metadata?.email
-				context.locals.colours = await fetchPlayerColours()
+				context.locals.colours = (await fetchColours()) ?? []
 			}
 		} else if (refreshToken) {
 			const { data, error } = await supabase.auth.refreshSession({
@@ -38,7 +47,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
 			} else {
 				setCookies(data, context.cookies)
 				context.locals.email = data?.user?.email ?? data?.user?.user_metadata?.email
-				context.locals.colours = await fetchPlayerColours()
+				context.locals.colours = (await fetchColours()) ?? []
 			}
 		} else {
 			redirectpath = redirectPath ? redirectPath : ''
