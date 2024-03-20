@@ -1,0 +1,22 @@
+---
+layout: '../../layouts/BlogLayout.astro'
+title: 'Astro Imports - A Tale of Caution'
+description: 'Today I learned a finer detail about imports in Astro.'
+image: 'astro'
+pubDate: '2024-03-20'
+series: 'today I learned...'
+---
+
+Recently I've been building a board games app with [Astro](https://astro.build/), [React](https://react.dev/), and [Supabase](https://supabase.com/) as a learning project.
+
+During the process, I've had two React components that were previously working fail to hydrate (they were rendered as static HTML with no client-side JavaScript, and therefore no React). Unfortunately, I didn't notice the exact change that caused this regression, so instead of a quick fix, I got to work on my debugging skills...
+
+At some point I noticed that the Supabase client was throwing an error on the client side. Perhaps this could be blocking React from loading? I tried to confine Supabase to the serverside but it was still showing up, and I couldn't figure out why...
+
+Eventually I tried to strip one of the components right back until it started working again &ndash; first removing some child components, and then removing some import statements associated with said child components. To my surprise, removing a few imports fixed it. I went through them one by one and lo and behold it was my `capitalise` helper function that was the culprit...
+
+But why!?
+
+As it turned out, `utils.js` included an import of the Supabase client for another function. I moved the function that required said import, and viola, all was as it should be. So (a) I was right, it was the Supabase client that was causing the problem, and (b) I learned something new &ndash; apparently in Astro if you import a function from a JavaScript file all that file's imports get to come along for the ride...
+
+The moral of the story is be careful how you group your helper functions in Astro, particularly if they require any imports. I know _I'm_ going to have to rethink storing everything together in `utils.js`.
