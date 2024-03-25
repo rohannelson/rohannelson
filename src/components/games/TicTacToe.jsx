@@ -19,7 +19,7 @@ function Square({ value, onSquareClick, p1c, p2c, winner, i, xIsNext }) {
 	let winningStyles = winner?.includes(i) ? `bg-light-${winningColour} text-white` : 'bg-white'
 	return (
 		<button
-			className={`square flex h-12 w-12 items-center justify-center p-0 text-center text-3xl font-bold leading-8 hover:after:text-opacity-50 ${winningStyles} ${staticColour} ${hoverContent} ${hoverColour}`}
+			className={`square flex h-24 w-24 items-center justify-center p-0 text-center text-6xl font-bold leading-8 hover:after:text-opacity-50 md:h-14 md:w-14 md:text-4xl ${winningStyles} ${staticColour} ${hoverContent} ${hoverColour}`}
 			onClick={onSquareClick}
 		>
 			{value}
@@ -84,18 +84,18 @@ function Board({ xIsNext, squares, onPlay, p1c, p2c }) {
 	return (
 		<>
 			<div className="status mb-4 self-center text-dark-grey">
-				<span className="font-bold">{status}</span>
+				<span className="text-xl font-bold md:text-base">{status}</span>
 				{!winner && (
 					<span>
-						&nbsp;(<span className={`${colour} text-xl font-bold`}>{piece}</span>)
+						&nbsp;(<span className={`${colour} text-2xl font-bold md:text-xl`}>{piece}</span>)
 					</span>
 				)}
 				{
 					//To prevent layout-shift on winning
-					winner && <span className="text-xl">&nbsp;</span>
+					winner && <span className="text-2xl md:text-xl">&nbsp;</span>
 				}
 			</div>
-			<div className="grid grid-cols-3 gap-[5px] bg-dark-grey">
+			<div className="grid grid-cols-3 gap-[5px] overflow-hidden rounded-[--border-radius] [background:radial-gradient(var(--light-grey)_70%,white_100%)]">
 				{[0, 3, 6].map(function (i) {
 					return [i, i + 1, i + 2].map((x) => (
 						<Square
