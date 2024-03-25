@@ -41,7 +41,15 @@ export default {
 		'border-dark-blue',
 		'border-dark-green',
 		'border-dark-yellow',
-		'border-dark-orange'
+		'border-dark-orange',
+		'hover:after:text-light-grey',
+		'hover:after:text-light-red',
+		'hover:after:text-light-pink',
+		'hover:after:text-light-purple',
+		'hover:after:text-light-blue',
+		'hover:after:text-light-green',
+		'hover:after:text-light-yellow',
+		'hover:after:text-light-orange'
 	],
 	theme: {
 		screens: {

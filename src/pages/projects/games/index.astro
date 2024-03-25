@@ -1,23 +1,28 @@
 ---
-import Layout from '../../layouts/BaseLayout.astro'
-import TicTacToe from '../../components/games/TicTacToe.jsx'
-import FourInARow from '../../components/games/FourInARow.jsx'
-import Checkers from '../../components/games/Checkers.jsx'
+import Layout from '../../../layouts/BaseLayout.astro'
+import Grid from '../../../components/Grid.astro'
+import FourInARow from '../../../components/games/FourInARow.jsx'
+import Checkers from '../../../components/games/Checkers.jsx'
+import FeatureCard from '../../../components/FeatureCard.astro'
 const title = 'Board Games App'
 const description = 'Learning by doing.'
-/*
----
-  <h1>Welcome {email}</h1>
-  <p>We are happy to see you here</p>
-  <form action="/api/auth/sign-out">
-    <button type="submit">Sign out</button>
-  </form>
-*/
 ---
 
 <Layout title={title} description={description}>
-	<p>Check out these games that I made with React for fun!</p>
-	<TicTacToe client:load />
+	<p>Check out these games that I made for fun!</p>
+	<Grid>
+		<FeatureCard
+			heading="TicTacToe"
+			linkObj={{ label: 'Play now', href: '/projects/games/tictactoe' }}
+			icon="tictactoe"
+		>
+			<div class="space-y-3">
+				<p>The classic game of noughts and crosses &ndash; made with React.</p>
+				<p><strong>Players:</strong> 2</p>
+				<p><strong>Difficulty:</strong> easy</p>
+			</div>
+		</FeatureCard>
+	</Grid>
 	<div class="breaker"></div>
 	<FourInARow client:load />
 	<div class="breaker"></div>

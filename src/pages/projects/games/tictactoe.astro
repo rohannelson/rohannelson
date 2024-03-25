@@ -1,0 +1,12 @@
+---
+import Layout from '../../../layouts/BaseLayout.astro'
+import TicTacToe from '../../../components/games/TicTacToe'
+const title = 'TicTacToe'
+const description = 'The classic game of noughts and crosses, made with React'
+---
+
+<Layout title={title} description={description}>
+	<div>
+		<TicTacToe client:load />
+	</div>
+</Layout>
