@@ -1,0 +1,12 @@
+---
+import Layout from '../../../layouts/GamesLayout.astro'
+import FourInARow from '../../../components/games/FourInARow'
+const title = 'Four in a Row'
+const description = 'Can you get four in a row?'
+---
+
+<Layout title={title} description={description}>
+	<div>
+		<FourInARow client:load />
+	</div>
+</Layout>

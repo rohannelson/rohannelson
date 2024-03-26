@@ -1,0 +1,48 @@
+---
+const {
+	name,
+	slug,
+	description = '',
+	players = '',
+	difficulty = '',
+	colour = 'red',
+	icon = 'tictactoe'
+} = Astro.props
+const colourLight = `var(--light-${colour})`
+const colourGradient = `var(--${colour}-gradient-diagonal)`
+import { Icon } from 'astro-icon/components'
+---
+
+<a
+	href={'/projects/games/' + slug}
+	class="block h-full rounded-[--border-radius] p-[1.2rem] text-dark-grey no-underline [background:--colourGradient]"
+>
+	<li class="flex h-full flex-col no-underline">
+		<div
+			class="container-type h-full rounded-[--border-radius] bg-white p-4 hover:scale-[102%] focus:scale-[102%]"
+		>
+			<Icon name={icon} class="float-right ml-4 h-20 w-auto text-[--colourLight] sm:h-14" />
+			<h3 class="m-0 p-0 [color:--colourLight]">{name}</h3>
+			{description && <p class="m-0 !mt-[10px] mr-5">{description}</p>}
+			<dl class="flex w-full gap-2 space-x-2">
+				{
+					players && (
+						<div class="flex items-center gap-1 [color:--colourLight]">
+							<dt class="text-sm">Players:</dt>
+							<dd class="font-bold">{players}</dd>
+						</div>
+					)
+				}
+				{
+					difficulty && (
+						<div class="flex items-center gap-1 [color:--colourLight]">
+							<dt class="text-sm">Difficulty:</dt>
+							<dd class="font-bold">{difficulty}</dd>
+						</div>
+					)
+				}
+			</dl>
+		</div>
+	</li>
+</a>
+<style define:vars={{ colourGradient, colourLight }}></style>

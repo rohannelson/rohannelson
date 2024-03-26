@@ -148,14 +148,19 @@ export default function Game() {
 
 	return (
 		<div className="tictactoe">
-			<div className="flex items-end">
-				<h2 className="mt-3">TicTacToe</h2>
+			<div className="flex items-end md:-mt-3.5 md:mb-3">
 				<button
-					className="reset ml-auto rounded-[--border-radius] border-[3px] border-solid border-light-red bg-white p-2 font-bold text-light-red hover:cursor-pointer hover:bg-light-red hover:text-white"
+					className="reset rounded-[--border-radius] border-[3px] border-solid border-light-red bg-white p-2 font-bold text-light-red hover:cursor-pointer hover:bg-light-red hover:text-white md:p-1.5"
 					onClick={resetGame}
 				>
 					Reset Game
 				</button>
+				<a
+					href="/projects/games"
+					class="ml-auto inline-block rounded-[--border-radius] border-[3px] border-solid border-light-red bg-white p-2 font-bold text-light-red hover:cursor-pointer hover:bg-light-red hover:text-white md:p-1.5"
+				>
+					Other Games
+				</a>
 			</div>
 			<div className="game wrapper flex flex-row flex-col items-center justify-center">
 				<Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} p1c={p1c} p2c={p2c} />

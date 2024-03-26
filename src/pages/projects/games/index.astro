@@ -4,29 +4,52 @@ import Grid from '../../../components/Grid.astro'
 import FourInARow from '../../../components/games/FourInARow.jsx'
 import Checkers from '../../../components/games/Checkers.jsx'
 import FeatureCard from '../../../components/FeatureCard.astro'
+import GameCard from '../../../components/GameCard.astro'
 const title = 'Board Games App'
 const description = 'Learning by doing.'
+console.log('locals', Astro.locals)
+const { email } = Astro.locals
 ---
 
 <Layout title={title} description={description}>
-	<p>Check out these games that I made for fun!</p>
-	<Grid>
-		<FeatureCard
-			heading="TicTacToe"
-			linkObj={{ label: 'Play now', href: '/projects/games/tictactoe' }}
+	{
+		(
+			<p class="mb-4">
+				Check out these games that I made for fun!{' '}
+				{email == 'Guest' && (
+					<>
+						If you <a href="/sign-in">sign in</a> you can change the player&nbsp;colours.
+					</>
+				)}
+			</p>
+		)
+	}
+	<div class="space-y-10">
+		<GameCard
+			name="TicTacToe"
+			slug="tictactoe"
 			icon="tictactoe"
-		>
-			<div class="space-y-3">
-				<p>The classic game of noughts and crosses &ndash; made with React.</p>
-				<p><strong>Players:</strong> 2</p>
-				<p><strong>Difficulty:</strong> easy</p>
-			</div>
-		</FeatureCard>
-	</Grid>
-	<div class="breaker"></div>
-	<FourInARow client:load />
-	<div class="breaker"></div>
-	<Checkers client:load />
+			description="The classic game of noughts and crosses – made with React."
+			players="2"
+			difficulty="easy"
+		/>
+		<GameCard
+			name="Four in a Row"
+			slug="four-in-a-row"
+			description="Can you get four in a row? Made with React."
+			players="2"
+			difficulty="easy"
+			colour="green"
+		/>
+		<GameCard
+			name="Checkers"
+			slug="checkers"
+			description="An oldy but a goody. Made with React."
+			players="2"
+			difficulty="medium"
+			colour="blue"
+		/>
+	</div>
 </Layout>
 <!-- Games Shared Styling -->
 <style is:global>

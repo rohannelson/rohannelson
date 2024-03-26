@@ -1,0 +1,12 @@
+---
+import Layout from '../../../layouts/GamesLayout.astro'
+import Checkers from '../../../components/games/Checkers'
+const title = 'Checkers'
+const description = 'An oldy but a goody'
+---
+
+<Layout title={title} description={description}>
+	<div>
+		<Checkers client:load />
+	</div>
+</Layout>
