@@ -1,15 +1,24 @@
 import { useState } from 'react'
+import Menu from './Menu'
 
 function Circle({ value }) {
-	return <div className={`circle ${value}`}></div>
+	let classList
+	if (value == 'green') {
+		classList = 'bg-tint-green border-[2px] border-light-green'
+	} else if (value == 'blue') {
+		classList = 'bg-tint-blue border-[2px] border-light-blue'
+	} else {
+		classList = 'bg-white border border-light-grey'
+	}
+	return <div className={`circle h-8 w-8 rounded-full border-solid ${classList}`}></div>
 }
 
 function Board({ circles }) {
 	return (
-		<div className="board">
+		<div className="board -z-10 grid h-52 grid-cols-7 items-center justify-center gap-1 rounded-sm bg-light-red p-1">
 			{[0, 6, 12, 18, 24, 30, 36].map(function (i) {
 				return (
-					<div className="board-column">
+					<div className="board-column after:clear-both after:table after:content-['']">
 						{[i, i + 1, i + 2, i + 3, i + 4, i + 5].map((x) => (
 							<Circle value={circles[x]} key={'c' + x} />
 						))}
@@ -22,7 +31,7 @@ function Board({ circles }) {
 
 function Input({ onInputClick }) {
 	return (
-		<button className="input" onClick={onInputClick}>
+		<button className="input m-0.5 w-8 pb-1" onClick={onInputClick}>
 			&darr;
 		</button>
 	)
@@ -60,21 +69,20 @@ export default function Game() {
 	return (
 		<>
 			<div className="fiar">
-				<div className="flex-row">
-					<h2>Four in a Row</h2>
-					<button className="reset" onClick={resetGame}>
-						Reset Game
-					</button>
-				</div>
-				<div className="wrapper">
-					<div className="status">{gameStatus}</div>
-					<div className="inputWrapper">
-						{[0, 6, 12, 18, 24, 30, 36].map((i) => (
-							<Input key={'i' + i} onInputClick={() => onPlay(i)} />
-						))}
-					</div>
-					<div>
-						<Board circles={circles}></Board>
+				<Menu resetGame={resetGame} />
+				<div className="wrapper flex flex-col items-center justify-center">
+					<div className="w-74">
+						<div className="status mb-4 w-full text-center text-xl font-bold text-dark-grey md:text-base">
+							{gameStatus}
+						</div>
+						<div className="inputWrapper flex items-center justify-between p-1">
+							{[0, 6, 12, 18, 24, 30, 36].map((i) => (
+								<Input key={'i' + i} onInputClick={() => onPlay(i)} />
+							))}
+						</div>
+						<div>
+							<Board circles={circles}></Board>
+						</div>
 					</div>
 				</div>
 			</div>

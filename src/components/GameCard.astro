@@ -9,6 +9,7 @@ const {
 	icon = 'tictactoe'
 } = Astro.props
 const colourLight = `var(--light-${colour})`
+const colourDark = `var(--dark-${colour})`
 const colourGradient = `var(--${colour}-gradient-diagonal)`
 import { Icon } from 'astro-icon/components'
 ---
@@ -28,7 +29,7 @@ import { Icon } from 'astro-icon/components'
 				{
 					players && (
 						<div class="flex items-center gap-1 [color:--colourLight]">
-							<dt class="text-sm">Players:</dt>
+							<dt class="text-sm font-medium">Players:</dt>
 							<dd class="font-bold">{players}</dd>
 						</div>
 					)
@@ -36,7 +37,7 @@ import { Icon } from 'astro-icon/components'
 				{
 					difficulty && (
 						<div class="flex items-center gap-1 [color:--colourLight]">
-							<dt class="text-sm">Difficulty:</dt>
+							<dt class="text-sm font-medium">Difficulty:</dt>
 							<dd class="font-bold">{difficulty}</dd>
 						</div>
 					)
@@ -45,4 +46,4 @@ import { Icon } from 'astro-icon/components'
 		</div>
 	</li>
 </a>
-<style define:vars={{ colourGradient, colourLight }}></style>
+<style define:vars={{ colourGradient, colourLight, colourDark }}></style>

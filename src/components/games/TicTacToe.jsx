@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { player1Colours, player2Colours } from '../../stores/playerColours'
 import { useStore } from '@nanostores/react'
 import Fireworks from 'react-canvas-confetti/dist/presets/fireworks'
+import Menu from './Menu'
 
 function Square({ value, onSquareClick, p1c, p2c, winner, i, xIsNext }) {
 	/*props from Board:
@@ -148,20 +149,7 @@ export default function Game() {
 
 	return (
 		<div className="tictactoe">
-			<div className="flex items-end md:-mt-3.5 md:mb-3">
-				<button
-					className="reset rounded-[--border-radius] border-[3px] border-solid border-light-red bg-white p-2 font-bold text-light-red hover:cursor-pointer hover:bg-light-red hover:text-white md:p-1.5"
-					onClick={resetGame}
-				>
-					Reset Game
-				</button>
-				<a
-					href="/projects/games"
-					class="ml-auto inline-block rounded-[--border-radius] border-[3px] border-solid border-light-red bg-white p-2 font-bold text-light-red hover:cursor-pointer hover:bg-light-red hover:text-white md:p-1.5"
-				>
-					Other Games
-				</a>
-			</div>
+			<Menu resetGame={resetGame} />
 			<div className="game wrapper flex flex-row flex-col items-center justify-center">
 				<Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} p1c={p1c} p2c={p2c} />
 			</div>
