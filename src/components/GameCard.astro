@@ -23,7 +23,7 @@ import { Icon } from 'astro-icon/components'
 			class="container-type h-full rounded-[--border-radius] bg-white p-4 hover:scale-[102%] focus:scale-[102%]"
 		>
 			<Icon name={icon} class="float-right ml-4 h-20 w-auto text-[--colourLight] sm:h-14" />
-			<h3 class="m-0 p-0 [color:--colourLight]">{name}</h3>
+			<h3 class="m-0 p-0 [color:--colourLight]" set:html={name} />
 			{description && <p class="m-0 !mt-[10px] mr-5">{description}</p>}
 			<dl class="flex w-full gap-2 space-x-2">
 				{

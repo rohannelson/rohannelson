@@ -26,7 +26,7 @@ const { email } = Astro.locals
 	}
 	<div class="space-y-10">
 		<GameCard
-			name="TicTacToe"
+			name="TicTac­Toe"
 			slug="tictactoe"
 			icon="tictactoe"
 			description="The classic game of noughts and crosses – made with React."
@@ -36,13 +36,14 @@ const { email } = Astro.locals
 		<GameCard
 			name="Four in a Row"
 			slug="four-in-a-row"
+			icon="four-in-a-row"
 			description="Can you get four in a row? Made with React."
 			players="2"
 			difficulty="easy"
 			colour="green"
 		/>
 		<GameCard
-			name="Checkers"
+			name="Checkers (under construction)"
 			slug="checkers"
 			description="An oldy but a goody. Made with React."
 			players="2"
@@ -51,88 +52,3 @@ const { email } = Astro.locals
 		/>
 	</div>
 </Layout>
-<!-- Games Shared Styling -->
-<style is:global>
-	.status {
-		margin-bottom: 15px;
-		align-self: center;
-		font-weight: 700;
-	}
-	.flex-row {
-		display: flex;
-		align-items: flex-end;
-	}
-	h2 {
-		margin-top: 10px;
-	}
-</style>
-<!--Four In A Row Styling-->
-<style is:global>
-	.fiar .circle.green {
-		background: #9ede8f;
-		border: 2px solid var(--light-green);
-	}
-
-	.fiar .circle.blue {
-		background: #3edfff;
-		border: 2px solid var(--light-blue);
-	}
-</style>
-<!--Checkers Styling-->
-<style is:global>
-	.checkers .square {
-		background: #fff;
-		border: 1px solid #999;
-		float: left;
-		height: 33px;
-		margin-right: -1px;
-		margin-top: -1px;
-		padding: 0;
-		text-align: center;
-		width: 33px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-	.checkers .board-row:after {
-		clear: both;
-		content: '';
-		display: table;
-	}
-	.blackChecker {
-		background-color: black;
-		border: 1px solid white;
-		height: 90%;
-		width: 90%;
-		border-radius: 100%;
-	}
-	.blackCheckerKing {
-		border: 3px solid gold;
-	}
-	.whiteChecker {
-		background-color: white;
-		border: 1px solid black;
-		height: 90%;
-		width: 90%;
-		border-radius: 100%;
-	}
-	.whiteCheckerKing {
-		border: 3px solid gold;
-	}
-	.square.black {
-		background: gray;
-	}
-	.placeholder {
-		cursor: url(whiteChecker.svg), default;
-		cursor: url(blackChecker.svg), default;
-	}
-	.blackHeld {
-		cursor: url(blackChecker.svg), default;
-	}
-	.checkers .wrapper {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-	}
-</style>

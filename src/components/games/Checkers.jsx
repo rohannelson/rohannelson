@@ -1,20 +1,50 @@
 import { useState } from 'react'
 import { capitalise } from '../utils'
+import Menu from './Menu'
+
+//Checkers is still bug-ridden. I really need to fix this...
+
+/*Some ideas for styling. I don't currently have the svgs:
+	.placeholder {
+		cursor: url(whiteChecker.svg), default;
+		cursor: url(blackChecker.svg), default;
+	}
+	.blackHeld {
+		cursor: url(blackChecker.svg), default;
+	}
+*/
 
 function CheckerSquare({ className, value, onSquareClick }) {
 	return (
-		<button onClick={onSquareClick} className={`square ${className}`}>
+		<button
+			onClick={onSquareClick}
+			className={`square float-left flex h-8 w-8 items-center justify-center border border-solid border-light-grey p-0 text-center ${
+				className == 'white' ? 'bg-white' : 'bg-light-grey'
+			}`}
+		>
 			{value}
 		</button>
 	)
 }
 
 function Black({ king }) {
-	return <div className={`blackChecker ${king}`}></div>
+	let kingStyle =
+		king == 'blackCheckerKing' ? 'border-[3px] border-tint-yellow' : 'border border-white'
+	return (
+		<div
+			className={`blackChecker bg-black h-[90%] w-[90%] rounded-full border-solid ${kingStyle}`}
+		></div>
+	)
 }
 
 function White({ king }) {
-	return <div className={`whiteChecker ${king}`}></div>
+	let kingStyle =
+		king == 'whiteCheckerKing' ? 'border-[3px] border-tint-yellow' : 'border border-black'
+	return (
+		<div
+			className={`whiteChecker h-[90%] w-[90%] rounded-full border-solid bg-white ${kingStyle}`}
+		></div>
+	)
 }
 
 function CheckerRow({ iRow, squares, onSquareClick }) {
@@ -48,7 +78,7 @@ function CheckerRow({ iRow, squares, onSquareClick }) {
 			/>
 		)
 	})
-	return <div className="board-row">{checkerRow}</div>
+	return <div className="board-row clear-both table after:content-['']">{checkerRow}</div>
 }
 
 function CheckerBoard({ squares, onSquareClick }) {
@@ -303,14 +333,11 @@ export default function Game() {
 	return (
 		<>
 			<div className="checkers">
-				<div className="flex-row">
-					<h2>Checkers</h2>
-					<button className="reset" onClick={resetGame}>
-						Reset Game
-					</button>
-				</div>
-				<div className="wrapper">
-					<div className="status">{capitalise(turn)}'s turn</div>
+				<Menu resetGame={resetGame} />
+				<div className="wrapper flex flex-col items-center justify-center">
+					<div className="status mb-4 w-full text-center text-xl font-bold text-dark-grey md:text-base">
+						{capitalise(turn)}'s turn
+					</div>
 					<CheckerBoard squares={squares} onSquareClick={handleClick} />
 				</div>
 			</div>

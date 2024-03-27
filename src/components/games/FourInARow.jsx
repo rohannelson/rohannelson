@@ -1,37 +1,45 @@
 import { useState } from 'react'
+import { player1Colours, player2Colours } from '../../stores/playerColours'
+import { useStore } from '@nanostores/react'
+import Fireworks from 'react-canvas-confetti/dist/presets/fireworks'
 import Menu from './Menu'
 
 function Circle({ value }) {
 	let classList
-	if (value == 'green') {
-		classList = 'bg-tint-green border-[2px] border-light-green'
-	} else if (value == 'blue') {
-		classList = 'bg-tint-blue border-[2px] border-light-blue'
+	if (value) {
+		classList = `bg-tint-${value} border-light-${value}`
 	} else {
-		classList = 'bg-white border border-light-grey'
+		classList = 'bg-white border-white'
 	}
-	return <div className={`circle h-8 w-8 rounded-full border-solid ${classList}`}></div>
+	return <div className={`circle my-1 h-8 w-8 rounded-full border border-solid ${classList}`}></div>
 }
 
 function Board({ circles }) {
 	return (
-		<div className="board -z-10 grid h-52 grid-cols-7 items-center justify-center gap-1 rounded-sm bg-light-red p-1">
+		<div
+			className="board relative m-2 grid
+		grid-cols-7 items-center justify-center gap-1 rounded-[--border-radius] bg-gradient-to-t from-dark-grey from-5% to-light-grey p-2 pb-9"
+		>
 			{[0, 6, 12, 18, 24, 30, 36].map(function (i) {
 				return (
-					<div className="board-column after:clear-both after:table after:content-['']">
+					<div className="board-column">
 						{[i, i + 1, i + 2, i + 3, i + 4, i + 5].map((x) => (
 							<Circle value={circles[x]} key={'c' + x} />
 						))}
 					</div>
 				)
 			})}
+			<div className="absolute -left-6 bottom-0 h-7 w-80 rounded-[--border-radius] bg-dark-grey"></div>
 		</div>
 	)
 }
 
 function Input({ onInputClick }) {
 	return (
-		<button className="input m-0.5 w-8 pb-1" onClick={onInputClick}>
+		<button
+			className="input color-dark-grey w-8 p-1 font-bold duration-duration hover:translate-y-1"
+			onClick={onInputClick}
+		>
 			&darr;
 		</button>
 	)
@@ -39,23 +47,27 @@ function Input({ onInputClick }) {
 
 export default function Game() {
 	const [circles, setCircles] = useState(Array(42).fill(null))
-	const [blueIsNext, setBlueIsNext] = useState(true)
-	let gameStatus = 'Next Player: ' + (blueIsNext ? 'Blue' : 'Green')
+	const [playerOneIsNext, setplayerOneIsNext] = useState(true)
+	let gameStatus = 'Next Player: ' + (playerOneIsNext ? 'Blue' : 'Green')
 	const thisWinner = calculateThisWinner(circles)
 	thisWinner ? (gameStatus = `Winner: ${thisWinner}`) : null
 	console.log(thisWinner)
+	const $player1Colours = useStore(player1Colours)
+	const $player2Colours = useStore(player2Colours)
+	const p1c = $player1Colours?.colour_name ?? 'blue'
+	const p2c = $player2Colours?.colour_name ?? 'green'
 
 	function onPlay(i) {
 		if (thisWinner) {
 			return
 		} else {
-			setBlueIsNext(!blueIsNext)
+			setplayerOneIsNext(!playerOneIsNext)
 			let nextCircles = [...circles]
 			for (let x = i + 5; x >= i; x--) {
 				if (nextCircles[x]) {
 					null
 				} else {
-					nextCircles[x] = blueIsNext ? 'blue' : 'green'
+					nextCircles[x] = playerOneIsNext ? p1c : p2c
 					setCircles(nextCircles)
 					return
 				}
@@ -66,16 +78,33 @@ export default function Game() {
 		setCircles(Array(42).fill(null))
 	}
 
+	let colour = playerOneIsNext ? p1c : p2c
+	let player = playerOneIsNext ? '1' : '2'
+	let status = thisWinner ? `Player ${player == 1 ? 2 : 1} Wins!` : `Player ${player}'s Turn`
+
 	return (
 		<>
 			<div className="fiar">
 				<Menu resetGame={resetGame} />
 				<div className="wrapper flex flex-col items-center justify-center">
-					<div className="w-74">
-						<div className="status mb-4 w-full text-center text-xl font-bold text-dark-grey md:text-base">
-							{gameStatus}
+					<div className="w-72">
+						<div className="mb-4 w-full text-center text-dark-grey">
+							<span className="text-xl font-bold md:text-base">{status}</span>
+							{!thisWinner && (
+								<span>
+									&nbsp;(
+									<div
+										className={`bg-tint-${colour} border-light-${colour} relative top-[1.5px] m-[1px] inline-block h-4 w-4 rounded-full border border-solid`}
+									></div>
+									)
+								</span>
+							)}
+							{
+								//To prevent layout-shift on winning
+								thisWinner && <span className="text-2xl md:text-xl">&nbsp;</span>
+							}
 						</div>
-						<div className="inputWrapper flex items-center justify-between p-1">
+						<div className="inputWrapper flex items-center justify-between px-4">
 							{[0, 6, 12, 18, 24, 30, 36].map((i) => (
 								<Input key={'i' + i} onInputClick={() => onPlay(i)} />
 							))}
@@ -85,6 +114,7 @@ export default function Game() {
 						</div>
 					</div>
 				</div>
+				{thisWinner && <Fireworks autorun={{ speed: 2, duration: 1500 }} />}
 			</div>
 		</>
 	)
