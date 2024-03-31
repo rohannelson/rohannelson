@@ -15,7 +15,7 @@ const seriesColourLight = `var(--light-${seriesColour})`
 	frontmatter.context && (
 		<p>
 			<b>Context:</b>
-			<span class="m-0 ml-2 italic text-[--seriesColourLight]">{frontmatter.context}</span>
+			<span class="m-0 ml-2 italic text-[--seriesColourLight]" set:html={frontmatter.context} />
 		</p>
 	)
 }
