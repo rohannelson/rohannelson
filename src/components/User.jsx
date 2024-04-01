@@ -58,7 +58,6 @@ export default function User({ email, colours }) {
 	}
 
 	function UserMenu() {
-		const [colourMenu, setColourMenu] = useState(false)
 		return (
 			<>
 				<ul
@@ -97,7 +96,10 @@ export default function User({ email, colours }) {
 		)
 	}
 
-	function ColourSelectionMenu({ menuActive }) {
+	//Loading State for playerColours form
+	const [loading, setLoading] = useState('Save')
+
+	function ColourSelectionMenu() {
 		function PlayerColourSelection({ playerNumber, playerProps }) {
 			const [colourProps, setColourProps] = useState({
 				id: playerProps.colour_id,
@@ -115,6 +117,7 @@ export default function User({ email, colours }) {
 								let id = JSON.parse(e.target.value).id
 								let nextProps = { id: id, name: colour }
 								setColourProps(nextProps)
+								setLoading('Save')
 							}}
 							id={`player-${playerNumber}-colours`}
 						>
@@ -143,9 +146,23 @@ export default function User({ email, colours }) {
 		}
 		function handleSubmit(e) {
 			e.preventDefault()
+			setLoading('Saving...')
 			const form = e.target
 			const formData = new FormData(form)
-			fetch('/api/player-colours/', { method: form.method, body: formData })
+			const fetchData = async () => {
+				const response = await fetch('/api/player-colours/', {
+					method: form.method,
+					body: formData
+				})
+				console.log(response)
+				if (response.ok) {
+					setLoading('Saved')
+				} else {
+					setLoading('Error')
+					console.error(response.status)
+				}
+			}
+			fetchData()
 			let formObject = Object.fromEntries(formData.entries())
 			let p1 = JSON.parse(formObject.player_1_colours)
 			let p2 = JSON.parse(formObject.player_2_colours)
@@ -155,7 +172,6 @@ export default function User({ email, colours }) {
 			player2Colours.setKey('colour_name', p2.name)
 			player2Colours.setKey('colour_id', p2.id)
 		}
-
 		return (
 			<>
 				<div
@@ -167,7 +183,7 @@ export default function User({ email, colours }) {
 						<PlayerColourSelection playerNumber="1" playerProps={$player1Colours} />
 						<PlayerColourSelection playerNumber="2" playerProps={$player2Colours} />
 						<button type="submit" className="">
-							Save
+							{loading}
 						</button>
 					</form>
 				</div>

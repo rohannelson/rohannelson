@@ -130,7 +130,6 @@ const colours = Astro?.locals?.colours ?? []
 		$activeMenus.setKey('siteMenu', !siteMenu)
 	})
 	$activeMenus.subscribe((current, old, changed) => {
-		console.log('vanilla subscribe', current, changed)
 		if (changed == 'siteMenu') {
 			siteMenu = current.siteMenu
 			otherMenus = Object.keys(current).filter((key) => key != 'siteMenu')
