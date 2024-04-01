@@ -5,7 +5,8 @@
 import { useState, useEffect } from 'react'
 import { useStore } from '@nanostores/react'
 import { email as emailStore } from '../stores/email'
-import { player1Colours, player2Colours, activeMenus } from '../stores/playerColours'
+import { player1Colours, player2Colours } from '../stores/playerColours'
+import { activeMenus } from '../stores/activeMenus'
 import { capitalise } from './utils'
 
 export default function User({ email, colours }) {
@@ -40,6 +41,7 @@ export default function User({ email, colours }) {
 				onClick={() => {
 					activeMenus.setKey('userMenu', !$activeMenus.userMenu)
 					activeMenus.setKey('colourMenu', false)
+					activeMenus.setKey('siteMenu', false)
 				}}
 				title={`Signed in as ${$email}`}
 				className={`user-button group flex h-14 w-14 items-center rounded-full border-[3px] border-solid border-dark-${p1c} hover:border-white hover:bg-gradient-to-r hover:from-dark-red hover:to-light-red`}

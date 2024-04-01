@@ -119,16 +119,32 @@ const colours = Astro?.locals?.colours ?? []
 	let headerObserver = new IntersectionObserver(obsCallback, options)
 	headerObserver.observe(headerTrigger)
 </script>
-<script is:inline>
-	//Note that this interacts with userMenu from the User component (and is interacted with by it)
+<script>
+	import { activeMenus as $activeMenus } from '../stores/activeMenus'
+	//Note that this can be collapsed by User.jsx - they share the activeMenus state.
 	const headerNavToggle = document.querySelector('.headerNavToggle')
 	const headerNav = document.querySelector('.headerNav')
-	const userMenu = document.querySelectorAll('.user-menu')
+	let siteMenu
+	let otherMenus
 	headerNavToggle.addEventListener('click', () => {
-		headerNav.classList.toggle('md:hidden')
-		headerNavToggle.classList.toggle('toggled')
-		userMenu.forEach((menu) => {
-			menu.classList.add('hidden')
-		})
+		$activeMenus.setKey('siteMenu', !siteMenu)
+	})
+	$activeMenus.subscribe((current, old, changed) => {
+		console.log('vanilla subscribe', current, changed)
+		if (changed == 'siteMenu') {
+			siteMenu = current.siteMenu
+			otherMenus = Object.keys(current).filter((key) => key != 'siteMenu')
+			if (siteMenu == false) {
+				headerNav.classList.add('md:hidden')
+				headerNavToggle.classList.remove('toggled')
+			}
+			if (siteMenu == true) {
+				headerNav.classList.remove('md:hidden')
+				headerNavToggle.classList.add('toggled')
+				otherMenus.forEach((menu) => {
+					$activeMenus.setKey(menu, false)
+				})
+			}
+		}
 	})
 </script>

@@ -9,7 +9,7 @@ export default function Menu({ resetGame }) {
 			</button>
 			<a
 				href="/projects/games"
-				class="ml-auto inline-block rounded-[--border-radius] border-[3px] border-solid border-light-red bg-white p-2 font-bold text-light-red hover:cursor-pointer hover:bg-light-red hover:text-white md:p-1.5"
+				className="ml-auto inline-block rounded-[--border-radius] border-[3px] border-solid border-light-red bg-white p-2 font-bold text-light-red hover:cursor-pointer hover:bg-light-red hover:text-white md:p-1.5"
 			>
 				Other Games
 			</a>
