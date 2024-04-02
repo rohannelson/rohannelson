@@ -154,7 +154,6 @@ export default function User({ email, colours }) {
 					method: form.method,
 					body: formData
 				})
-				console.log(response)
 				if (response.ok) {
 					setLoading('Saved')
 				} else {
@@ -166,7 +165,6 @@ export default function User({ email, colours }) {
 			let formObject = Object.fromEntries(formData.entries())
 			let p1 = JSON.parse(formObject.player_1_colours)
 			let p2 = JSON.parse(formObject.player_2_colours)
-			console.log(formObject, p1, p2)
 			player1Colours.setKey('colour_name', p1.name)
 			player1Colours.setKey('colour_id', p1.id)
 			player2Colours.setKey('colour_name', p2.name)

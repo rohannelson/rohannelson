@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { player1Colours, player2Colours } from '../../stores/playerColours'
 import { useStore } from '@nanostores/react'
 import Fireworks from 'react-canvas-confetti/dist/presets/fireworks'
 import Menu from './Menu'
+import { player1wins, player2wins } from '../../stores/playerWins'
 
 function Square({ value, onSquareClick, p1c, p2c, winner, i, xIsNext }) {
 	/*props from Board:
@@ -41,6 +42,8 @@ function Board({ xIsNext, squares, onPlay, p1c, p2c }) {
           currently sets movesArray... not so sure about this.
       }
       */
+	const $player1wins = useStore(player1wins)
+	const $player2wins = useStore(player2wins)
 
 	function handleClick(i) {
 		if (calculateWinner(squares) || squares[i]) {
@@ -81,6 +84,13 @@ function Board({ xIsNext, squares, onPlay, p1c, p2c }) {
 	let player = xIsNext ? '1' : '2'
 	let piece = xIsNext ? 'X' : 'O'
 	let status = winner ? `Player ${player == 1 ? 2 : 1} Wins!` : `Player ${player}'s Turn`
+	useEffect(() => {
+		if (winner && player == 1) {
+			player2wins.setKey('tictactoe', $player2wins.tictactoe + 1)
+		} else if (winner && player == 2) {
+			player1wins.setKey('tictactoe', $player1wins.tictactoe + 1)
+		}
+	}, [player])
 
 	return (
 		<>
@@ -149,7 +159,7 @@ export default function Game() {
 
 	return (
 		<div className="tictactoe">
-			<Menu resetGame={resetGame} />
+			<Menu resetGame={resetGame} game="tictactoe" />
 			<div className="game wrapper flex flex-row flex-col items-center justify-center">
 				<Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} p1c={p1c} p2c={p2c} />
 			</div>
