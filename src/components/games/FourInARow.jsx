@@ -8,7 +8,7 @@ import { $player1wins, $player2wins } from '../../stores/playerWins'
 function classList(value, winner, index) {
 	const player1Colours = useStore($player1Colours)
 	const player2Colours = useStore($player2Colours)
-	const p1c = player1Colours?.colour_name ?? 'blue'
+	const p1c = player1Colours?.colour_name ?? 'red'
 	const p2c = player2Colours?.colour_name ?? 'green'
 	if (winner?.includes(index) && value == 1) {
 		return `bg-tint-${p1c} border-white border-2`
@@ -72,7 +72,7 @@ export default function Game() {
 	const thisWinner = calculateThisWinner(circles)
 	const player1Colours = useStore($player1Colours)
 	const player2Colours = useStore($player2Colours)
-	const p1c = player1Colours?.colour_name ?? 'blue'
+	const p1c = player1Colours?.colour_name ?? 'red'
 	const p2c = player2Colours?.colour_name ?? 'green'
 	const player1wins = useStore($player1wins)
 	const player2wins = useStore($player2wins)

@@ -1,29 +1,16 @@
 ---
 import Layout from '../../../layouts/BaseLayout.astro'
-import Grid from '../../../components/Grid.astro'
-import FourInARow from '../../../components/games/FourInARow.jsx'
-import Checkers from '../../../components/games/Checkers.jsx'
-import FeatureCard from '../../../components/FeatureCard.astro'
 import GameCard from '../../../components/GameCard.astro'
 const title = 'Board Games App'
 const description = 'Learning by doing.'
-console.log('locals', Astro.locals)
-const { email } = Astro.locals
 ---
 
 <Layout title={title} description={description}>
-	{
-		(
-			<p class="mb-4">
-				Check out these games that I made for fun!{' '}
-				{email == 'Guest' && (
-					<>
-						If you <a href="/sign-in">sign in</a> you can change the player&nbsp;colours.
-					</>
-				)}
-			</p>
-		)
-	}
+	<p class="mb-4">
+		Check out these games that I made for fun! If you are <a href="/sign-in">signed in</a> you can
+		change the player colours, and stats of how many times you've won will persist and sync
+		across&nbsp;devices.
+	</p>
 	<div class="space-y-10">
 		<GameCard
 			name="TicTac­Toe"
