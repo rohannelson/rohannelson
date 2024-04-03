@@ -1,15 +1,15 @@
 import { useState, useEffect, useCallback } from 'react'
-import { player1Colours, player2Colours } from '../../stores/playerColours'
+import { $player1Colours, $player2Colours } from '../../stores/playerColours'
 import { useStore } from '@nanostores/react'
 import Fireworks from 'react-canvas-confetti/dist/presets/fireworks'
 import Menu from './Menu'
-import { player1wins, player2wins } from '../../stores/playerWins'
+import { $player1wins, $player2wins } from '../../stores/playerWins'
 
 function classList(value, winner, index) {
-	const $player1Colours = useStore(player1Colours)
-	const $player2Colours = useStore(player2Colours)
-	const p1c = $player1Colours?.colour_name ?? 'blue'
-	const p2c = $player2Colours?.colour_name ?? 'green'
+	const player1Colours = useStore($player1Colours)
+	const player2Colours = useStore($player2Colours)
+	const p1c = player1Colours?.colour_name ?? 'blue'
+	const p2c = player2Colours?.colour_name ?? 'green'
 	if (winner?.includes(index) && value == 1) {
 		return `bg-tint-${p1c} border-white border-2`
 	} else if (winner?.includes(index) && value == 2) {
@@ -70,12 +70,12 @@ export default function Game() {
 	const [circles, setCircles] = useState(Array(42).fill(null))
 	const [playerOneIsNext, setplayerOneIsNext] = useState(true)
 	const thisWinner = calculateThisWinner(circles)
-	const $player1Colours = useStore(player1Colours)
-	const $player2Colours = useStore(player2Colours)
-	const p1c = $player1Colours?.colour_name ?? 'blue'
-	const p2c = $player2Colours?.colour_name ?? 'green'
-	const $player1wins = useStore(player1wins)
-	const $player2wins = useStore(player2wins)
+	const player1Colours = useStore($player1Colours)
+	const player2Colours = useStore($player2Colours)
+	const p1c = player1Colours?.colour_name ?? 'blue'
+	const p2c = player2Colours?.colour_name ?? 'green'
+	const player1wins = useStore($player1wins)
+	const player2wins = useStore($player2wins)
 
 	function onPlay(i) {
 		if (thisWinner) {
@@ -104,9 +104,9 @@ export default function Game() {
 	let status = thisWinner ? `Player ${player == 1 ? 2 : 1} Wins!` : `Player ${player}'s Turn`
 	useEffect(() => {
 		if (thisWinner && player == 1) {
-			player2wins.setKey('fiar', $player2wins.fiar + 1)
+			$player2wins.setKey('fiar', player2wins.fiar + 1)
 		} else if (thisWinner && player == 2) {
-			player1wins.setKey('fiar', $player1wins.fiar + 1)
+			$player1wins.setKey('fiar', player1wins.fiar + 1)
 		}
 	}, [player])
 

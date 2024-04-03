@@ -1,22 +1,22 @@
 import { useEffect } from 'react'
-import { player1wins, player2wins } from '../../stores/playerWins'
+import { $player1wins, $player2wins } from '../../stores/playerWins'
 import { useStore } from '@nanostores/react'
 
 export default function Menu({ resetGame, game }) {
-	const $player1wins = useStore(player1wins)
-	const $player2wins = useStore(player2wins)
+	const player1wins = useStore($player1wins)
+	const player2wins = useStore($player2wins)
 	const fetchWins = async () => {
 		const response = await fetch(`/api/player-wins/`)
 		const data = await response.json()
 		console.log('player wins', data)
-		player1wins.set(data.player_1_wins)
-		player2wins.set(data.player_2_wins)
+		$player1wins.set(data.player_1_wins)
+		$player2wins.set(data.player_2_wins)
 	}
 	useEffect(() => {
 		fetchWins()
 	}, [])
 	useEffect(() => {
-		player1wins.subscribe((current, old, changed) => {
+		$player1wins.subscribe((current, old, changed) => {
 			if (changed) {
 				const body = JSON.stringify({ current, changed })
 				fetch('/api/player-wins', {
@@ -28,7 +28,7 @@ export default function Menu({ resetGame, game }) {
 				})
 			}
 		})
-		player2wins.subscribe((current, old, changed) => {
+		$player2wins.subscribe((current, old, changed) => {
 			if (changed) {
 				const body = JSON.stringify({ current, changed })
 				fetch('/api/player-wins', {
@@ -48,11 +48,11 @@ export default function Menu({ resetGame, game }) {
 				<h2 className="-mr-2 mb-auto text-lg">Score:</h2>
 				<div className="flex items-center space-x-1">
 					<dd className="text-sm">Player 1:</dd>
-					<dt className="font-bold">{$player1wins[game]}</dt>
+					<dt className="font-bold">{player1wins[game]}</dt>
 				</div>
 				<div className="flex items-center space-x-1">
 					<dd className="text-sm">Player 2:</dd>
-					<dt className="font-bold">{$player2wins[game]}</dt>
+					<dt className="font-bold">{player2wins[game]}</dt>
 				</div>
 			</dl>
 		)
