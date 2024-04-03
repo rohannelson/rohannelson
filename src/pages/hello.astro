@@ -1,17 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
-import Counter from '../components/Counter.jsx'
 const title = 'Hello!'
 const description = 'Troubleshooting and testing.'
 ---
 
 <BaseLayout {title} {description}>
-	<div class="test-wrapper">
-		<Counter client:load />
-	</div>
-	<div class="test-wrapper">
-		<Counter client:load />
-	</div>
 	<h2>Old Colours</h2>
 	<div class="grid2">
 		<div style="background: var(--dark-grey)">Hello!</div>

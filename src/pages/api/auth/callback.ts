@@ -14,7 +14,6 @@ export const GET: APIRoute = async ({ url, cookies, redirect }) => {
 	if (error) {
 		return new Response(error.message, { status: 500 })
 	}
-	console.log('callback data', data)
 	setCookies(data, cookies)
 	return redirect(`${import.meta.env.THIS_SITE}/projects/games`)
 }

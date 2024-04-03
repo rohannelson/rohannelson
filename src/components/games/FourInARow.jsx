@@ -1,20 +1,41 @@
-import { useState } from 'react'
-import { player1Colours, player2Colours } from '../../stores/playerColours'
+import { useState, useEffect, useCallback } from 'react'
+import { $player1Colours, $player2Colours } from '../../stores/playerColours'
 import { useStore } from '@nanostores/react'
 import Fireworks from 'react-canvas-confetti/dist/presets/fireworks'
 import Menu from './Menu'
+import { $player1wins, $player2wins } from '../../stores/playerWins'
 
-function Circle({ value }) {
-	let classList
-	if (value) {
-		classList = `bg-tint-${value} border-light-${value}`
+function classList(value, winner, index) {
+	const player1Colours = useStore($player1Colours)
+	const player2Colours = useStore($player2Colours)
+	const p1c = player1Colours?.colour_name ?? 'blue'
+	const p2c = player2Colours?.colour_name ?? 'green'
+	if (winner?.includes(index) && value == 1) {
+		return `bg-tint-${p1c} border-white border-2`
+	} else if (winner?.includes(index) && value == 2) {
+		return `bg-tint-${p2c} border-white border-2`
+	} else if (value == 1) {
+		return `bg-tint-${p1c} border-light-${p1c}`
+	} else if (value == 2) {
+		return `bg-tint-${p2c} border-light-${p2c}`
 	} else {
-		classList = 'bg-white border-white'
+		return 'bg-white border-white'
 	}
-	return <div className={`circle my-1 h-8 w-8 rounded-full border border-solid ${classList}`}></div>
 }
 
-function Board({ circles }) {
+function Circle({ value, winner, index }) {
+	return (
+		<div
+			className={`circle my-1 h-8 w-8 rounded-full border border-solid ${classList(
+				value,
+				winner,
+				index
+			)}`}
+		></div>
+	)
+}
+
+function Board({ circles, winner }) {
 	return (
 		<div
 			className="board relative m-2 grid
@@ -24,7 +45,7 @@ function Board({ circles }) {
 				return (
 					<div className="board-column">
 						{[i, i + 1, i + 2, i + 3, i + 4, i + 5].map((x) => (
-							<Circle value={circles[x]} key={'c' + x} />
+							<Circle value={circles[x]} winner={winner} index={x} key={'c' + x} />
 						))}
 					</div>
 				)
@@ -48,14 +69,13 @@ function Input({ onInputClick }) {
 export default function Game() {
 	const [circles, setCircles] = useState(Array(42).fill(null))
 	const [playerOneIsNext, setplayerOneIsNext] = useState(true)
-	let gameStatus = 'Next Player: ' + (playerOneIsNext ? 'Blue' : 'Green')
 	const thisWinner = calculateThisWinner(circles)
-	thisWinner ? (gameStatus = `Winner: ${thisWinner}`) : null
-	console.log(thisWinner)
-	const $player1Colours = useStore(player1Colours)
-	const $player2Colours = useStore(player2Colours)
-	const p1c = $player1Colours?.colour_name ?? 'blue'
-	const p2c = $player2Colours?.colour_name ?? 'green'
+	const player1Colours = useStore($player1Colours)
+	const player2Colours = useStore($player2Colours)
+	const p1c = player1Colours?.colour_name ?? 'blue'
+	const p2c = player2Colours?.colour_name ?? 'green'
+	const player1wins = useStore($player1wins)
+	const player2wins = useStore($player2wins)
 
 	function onPlay(i) {
 		if (thisWinner) {
@@ -67,7 +87,7 @@ export default function Game() {
 				if (nextCircles[x]) {
 					null
 				} else {
-					nextCircles[x] = playerOneIsNext ? p1c : p2c
+					nextCircles[x] = playerOneIsNext ? 1 : 2
 					setCircles(nextCircles)
 					return
 				}
@@ -76,16 +96,24 @@ export default function Game() {
 	}
 	function resetGame() {
 		setCircles(Array(42).fill(null))
+		setplayerOneIsNext(true)
 	}
 
 	let colour = playerOneIsNext ? p1c : p2c
 	let player = playerOneIsNext ? '1' : '2'
 	let status = thisWinner ? `Player ${player == 1 ? 2 : 1} Wins!` : `Player ${player}'s Turn`
+	useEffect(() => {
+		if (thisWinner && player == 1) {
+			$player2wins.setKey('fiar', player2wins.fiar + 1)
+		} else if (thisWinner && player == 2) {
+			$player1wins.setKey('fiar', player1wins.fiar + 1)
+		}
+	}, [player])
 
 	return (
 		<>
 			<div className="fiar">
-				<Menu resetGame={resetGame} />
+				<Menu resetGame={resetGame} game="fiar" />
 				<div className="wrapper flex flex-col items-center justify-center">
 					<div className="w-72">
 						<div className="mb-4 w-full text-center text-dark-grey">
@@ -99,10 +127,6 @@ export default function Game() {
 									)
 								</span>
 							)}
-							{
-								//To prevent layout-shift on winning
-								thisWinner && <span className="text-2xl md:text-xl">&nbsp;</span>
-							}
 						</div>
 						<div className="inputWrapper flex items-center justify-between px-4">
 							{[0, 6, 12, 18, 24, 30, 36].map((i) => (
@@ -110,7 +134,7 @@ export default function Game() {
 							))}
 						</div>
 						<div>
-							<Board circles={circles}></Board>
+							<Board circles={circles} winner={thisWinner}></Board>
 						</div>
 					</div>
 				</div>
@@ -152,34 +176,37 @@ function calculateThisWinner(circles) {
 		[24, 19, 14, 9],
 		[18, 13, 8, 3]
 	]
+	let wins = []
 	for (let i = 0; i < possibleWins.length; i++) {
 		let [a, b, c, d] = possibleWins[i]
-		console.log(a)
 		if (
 			circles[a] &&
 			circles[a] === circles[b] &&
 			circles[a] === circles[c] &&
 			circles[a] === circles[d]
 		) {
-			console.log('win')
-			return circles[a]
+			console.log('win 0')
+			wins.push(possibleWins[i])
 		} else if (
 			circles[a + 1] &&
 			circles[a + 1] === circles[b + 1] &&
 			circles[a + 1] === circles[c + 1] &&
 			circles[a + 1] === circles[d + 1]
 		) {
-			console.log('win')
-			return circles[a + 1]
+			console.log('win 1')
+			wins.push(possibleWins[i].map((num) => num + 1))
 		} else if (
 			circles[a + 2] &&
 			circles[a + 2] === circles[b + 2] &&
 			circles[a + 2] === circles[c + 2] &&
 			circles[a + 2] === circles[d + 2]
 		) {
-			console.log('win')
-			return circles[a + 2]
+			console.log('win 2')
+			wins.push(possibleWins[i].map((num) => num + 2))
 		}
+	}
+	if (wins[0]) {
+		return wins.flat()
 	}
 	return null
 }

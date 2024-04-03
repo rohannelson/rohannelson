@@ -29,7 +29,7 @@ export const GET: APIRoute = async ({ request }) => {
 				colour_name: data[0]?.player_2_colour?.colour_name?.name ?? 'green'
 			}
 		}
-		console.log('PlayerColours GET response', response)
+		//console.log('PlayerColours GET response', response)
 		return new Response(JSON.stringify(response))
 	}
 }
