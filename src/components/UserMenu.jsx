@@ -33,9 +33,6 @@ export default function UserMenu({ email, colours }) {
 					} user-menu absolute right-0 top-[--header-height] flex w-40 flex-col rounded-l-[--border-radius] border-2
 	border-r-0 border-solid border-white bg-gradient-to-r from-light-red to-dark-red py-3`}
 				>
-					<li className="w-full border-l-2 border-solid border-l-light-red py-2 text-center text-xs font-medium text-white">
-						Alpha: in progress
-					</li>
 					<li className="w-full border-l-2 border-solid border-l-light-red text-center font-medium text-white hover:bg-white hover:text-light-red">
 						<button
 							type="button"
@@ -46,9 +43,9 @@ export default function UserMenu({ email, colours }) {
 							Player Colours
 						</button>
 					</li>
-					<li className="w-full border-l-2 border-solid border-l-light-red py-2 text-center font-medium text-white hover:bg-white hover:text-light-red">
+					{/*<li className="w-full border-l-2 border-solid border-l-light-red py-2 text-center font-medium text-white hover:bg-white hover:text-light-red">
 						Statistics
-					</li>
+				</li>*/}
 					<li className="group w-full border-l-2 border-solid border-l-light-red py-2 text-center hover:bg-white">
 						<a
 							href="/api/auth/sign-out"
@@ -63,6 +60,7 @@ export default function UserMenu({ email, colours }) {
 					colours={colours}
 					player1Colours={player1Colours}
 					player2Colours={player2Colours}
+					p1c={p1c}
 				/>
 			</>
 		)
@@ -92,7 +90,7 @@ function UserMenuButton({ p1c, email, activeMenus }) {
 	)
 }
 
-function ColourSelectionMenu({ activeMenus, player1Colours, player2Colours, colours }) {
+function ColourSelectionMenu({ activeMenus, player1Colours, player2Colours, colours, p1c }) {
 	//Loading State for playerColours form
 	const [loading, setLoading] = useState('Save')
 	function handleSubmit(e) {
@@ -141,7 +139,10 @@ function ColourSelectionMenu({ activeMenus, player1Colours, player2Colours, colo
 						colours={colours}
 						setLoading={setLoading}
 					/>
-					<button type="submit" className="">
+					<button
+						type="submit"
+						className={`min-w-24 rounded-[--border-radius] border-[2px] border-solid border-light-red bg-white px-2.5 py-1 text-center text-[length:--font-size-h4] font-medium leading-[--line-height-h4] text-light-red no-underline hover:bg-light-red hover:text-white`}
+					>
 						{loading}
 					</button>
 				</form>
@@ -164,8 +165,8 @@ function PlayerColourSelection({ playerNumber, playerProps, colours, setLoading 
 	}, [playerProps])
 	return (
 		<>
-			<label className="flex flex-col">
-				Player {playerNumber}
+			<label className="flex flex-col font-bold text-dark-grey">
+				<span className="mb-0.5 ml-1.5">Player {playerNumber}</span>
 				<select
 					name={`player_${playerNumber}_colours`}
 					value={`{"player_id":"${playerProps.id}", "name":"${colourProps.name}", "id":"${colourProps.id}"}`}
@@ -177,6 +178,7 @@ function PlayerColourSelection({ playerNumber, playerProps, colours, setLoading 
 						setLoading('Save')
 					}}
 					id={`player-${playerNumber}-colours`}
+					className="rounded rounded-[--border-radius] px-2.5 py-1 font-normal"
 				>
 					{colours.map((colour, i) => {
 						return (
@@ -190,7 +192,7 @@ function PlayerColourSelection({ playerNumber, playerProps, colours, setLoading 
 					})}
 				</select>
 			</label>
-			<div className="flex gap-2">
+			<div className="!mt-2.5 flex items-start justify-center gap-2">
 				<div
 					className={`player-${playerNumber}-preview-light bg-light-${colourProps.name} h-8 w-8`}
 				></div>

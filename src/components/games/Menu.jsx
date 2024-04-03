@@ -45,14 +45,14 @@ export default function Menu({ resetGame, game }) {
 	function Scores() {
 		return (
 			<dl className="flex w-fit grow-0 items-center space-x-4 self-start rounded-[--border-radius] md:mx-auto md:mb-4 md:mt-1">
-				<h2 className="-mr-2 mb-auto text-lg">Score:</h2>
+				<h2 className="-mr-2 mb-auto text-lg text-dark-grey">Score:</h2>
 				<div className="flex items-center space-x-1">
-					<dd className="text-sm">Player 1:</dd>
-					<dt className="font-bold">{player1wins[game]}</dt>
+					<dd className="text-sm text-dark-grey">Player 1:</dd>
+					<dt className="font-bold text-dark-grey">{player1wins[game]}</dt>
 				</div>
 				<div className="flex items-center space-x-1">
-					<dd className="text-sm">Player 2:</dd>
-					<dt className="font-bold">{player2wins[game]}</dt>
+					<dd className="text-sm text-dark-grey">Player 2:</dd>
+					<dt className="font-bold text-dark-grey">{player2wins[game]}</dt>
 				</div>
 			</dl>
 		)
