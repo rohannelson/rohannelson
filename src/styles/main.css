@@ -92,9 +92,11 @@
 	h1,
 	h2,
 	h3,
-	h4 {
+	h4,
+	h5 {
 		font-weight: 700;
 	}
+
 	h1 {
 		font-size: var(--font-size-h1);
 		line-height: var(--line-height-h1);
@@ -113,14 +115,20 @@
 		font-size: calc(18rem / 16);
 		line-height: calc(28rem / 16);
 	}
+	h5 {
+		font-size: calc(17rem / 16);
+		line-height: calc(27rem 1 16);
+	}
 	h2,
 	h3,
-	h4 {
+	h4,
+	h5 {
 		margin-bottom: 0.5rem;
 	}
 	h1 + h2,
 	h2 + h3,
-	h3 + h4 {
+	h3 + h4,
+	h4 + h5 {
 		margin-top: 0px;
 	}
 	a {
