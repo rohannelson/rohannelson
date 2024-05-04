@@ -81,18 +81,14 @@ function CheckerBoard({ squares, onSquareClick }) {
 
 export default function Game() {
 	const initialSquares = Array(64).fill('')
+	//Set initial pieces (not sure why Prettier is insisting on moving the semicolons to the beginnign of the next line...)
 	;[1, 3, 5, 7, 8, 10, 12, 14, 17, 19, 21, 23].forEach((i) => (initialSquares[i] = 'black'))
 	;[40, 42, 44, 46, 49, 51, 53, 55, 56, 58, 60, 62].forEach((i) => (initialSquares[i] = 'white'))
 	const [squares, setSquares] = useState(initialSquares)
 	const [held, setHeld] = useState(false)
 	const [blacksTurn, setBlacksTurn] = useState(true)
 	const [offensive, setOffensive] = useState(false)
-	let turn
-	blacksTurn ? (turn = 'black') : (turn = 'white')
-	let notTurn
-	blacksTurn ? (notTurn = 'white') : (notTurn = 'black')
-	let turnToken
-	blacksTurn ? (turnToken = 1) : (turnToken = -1)
+	let [turn, notTurn, turnToken] = blacksTurn ? ['black', 'white', 1] : ['white', 'black', -1]
 	function handleClick(value, index, offset) {
 		let diagonalA
 		let diagonalB
