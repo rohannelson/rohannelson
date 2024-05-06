@@ -1,4 +1,3 @@
-import Brevo from '@getbrevo/brevo'
 import type { APIRoute } from 'astro'
 
 export const POST: APIRoute = async ({ request, redirect }) => {
@@ -6,19 +5,30 @@ export const POST: APIRoute = async ({ request, redirect }) => {
 	const firstName = formData.get('firstName')
 	const lastName = formData.get('lastName')
 	const email = formData.get('email')
-	let contactsApi = new Brevo.ContactsApi()
-	contactsApi.setApiKey(Brevo.ContactsApiApiKeys.apiKey, import.meta.env.BREVO_API)
-	let createContact = new Brevo.CreateContact()
-	createContact.listIds = [4]
-	createContact.updateEnabled = true
-	createContact.email = email
-	createContact.attributes = { FIRSTNAME: firstName, LASTNAME: lastName, OPT_IN: true }
-	const { response, body } = await contactsApi.createContact(createContact)
+	const body = JSON.stringify({
+		attributes: {
+			Firstname: firstName,
+			Lastname: lastName,
+			OPT_IN: true
+		},
+		updateEnabled: true,
+		email: email,
+		listIds: [4]
+	})
+	console.log('body', body)
+	const response = await fetch('https://api.brevo.com/v3/contacts', {
+		method: 'post',
+		headers: {
+			'api-key': import.meta.env.BREVO_API,
+			accept: 'application/json',
+			'content-type': 'application/json'
+		},
+		body: body
+	})
 	if (response) {
 		const responseBody = {
-			statusCode: response.statusCode,
-			statusMessage: response.statusMessage,
-			body: JSON.stringify(body)
+			statusCode: response.status,
+			statusMessage: response.statusText
 		}
 		return new Response(JSON.stringify(responseBody))
 	}
