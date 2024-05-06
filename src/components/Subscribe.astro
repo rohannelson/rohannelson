@@ -89,7 +89,7 @@ import Button from '../components/Button.astro'
 		submitSubscription().then((data) => {
 			console.log(data)
 			if (data.statusCode == 201) {
-				status.textContent = 'Subscribed!'
+				status.textContent = 'Almost there - check your email!'
 			} else if (data.statusCode == 204) {
 				status.textContent = 'Updated'
 			}
