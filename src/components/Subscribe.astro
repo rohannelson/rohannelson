@@ -1,8 +1,98 @@
 ---
-
+import Button from '../components/Button.astro'
 ---
 
-<p>
-	Want to know when there are new posts?<br />
-	<a href="/subscribe">Sign up to my mailing list!</a>
-</p>
+<div class="mt-5 rounded-[--border-radius] bg-light-red p-[1.2rem]">
+	<h2 class="text-white md:text-2xl">Join my Mailing List</h2>
+	<div class="flex rounded-[--border-radius] bg-white py-4">
+		<form
+			action="/api/subscribe"
+			method="post"
+			id="subscribe"
+			class="mx-auto flex flex-col space-y-2 md:px-4"
+		>
+			<div class="mt-1">
+				<p class="!mt-0">
+					Want to know what's new on my&nbsp;blog?<br />Sign up here! (Max six emails per&nbsp;year)
+				</p>
+			</div>
+			<div class="flex space-x-4 md:flex-col md:space-x-0">
+				<label class="flex flex-col text-lg font-medium text-dark-grey">
+					First Name*
+					<input
+						type="text"
+						name="firstName"
+						id="firstName"
+						required
+						oninvalid="this.setCustomValidity('Please enter your first name')"
+						oninput="setCustomValidity('')"
+						class="w-fit rounded border border-solid border-light-grey px-2 py-1.5 text-base md:w-full"
+					/>
+				</label>
+				<label class="flex flex-col text-lg font-medium text-dark-grey">
+					Last Name
+					<input
+						type="text"
+						name="lastName"
+						id="lastName"
+						class="w-fit rounded border border-solid border-light-grey px-2 py-1.5 text-base md:w-full"
+					/>
+				</label>
+			</div>
+			<label class="flex flex-col text-lg font-medium text-dark-grey">
+				Email*
+				<input
+					type="email"
+					name="email"
+					id="email"
+					required
+					oninvalid="this.setCustomValidity('Please enter valid email')"
+					oninput="setCustomValidity('')"
+					class="w-full rounded border border-solid border-light-grey px-2 py-1 text-base"
+				/>
+			</label>
+			<div class="flex w-fit pt-1.5">
+				<Button>Subscribe</Button>
+				<p id="status" class="!mt-0 mb-[0.3rem] ml-1.5 self-end font-medium text-light-grey"></p>
+			</div>
+		</form>
+	</div>
+</div>
+<script>
+	const form = document.querySelector('#subscribe')
+	const firstName = document.querySelector('#firstName')
+	const lastName = document.querySelector('#lastName')
+	const email = document.querySelector('#email')
+	const status = document.querySelector('#status')
+	form.addEventListener('submit', (e) => {
+		e.preventDefault()
+		status.textContent = 'Loading...'
+		const method = e.target.method
+		const formData = new FormData()
+		formData.append('firstName', firstName.value)
+		formData.append('lastName', lastName.value)
+		formData.append('email', email.value)
+		async function submitSubscription() {
+			try {
+				const response = await fetch('/api/subscribe', {
+					method: method,
+					body: formData
+				})
+				console.log(response)
+				const data = await response.json()
+				return data
+			} catch (error) {
+				console.error('Error:', error)
+				status.textContent = 'Error - try again later'
+			}
+		}
+		submitSubscription().then((data) => {
+			console.log(data)
+			if (data.statusCode == 201) {
+				status.textContent = 'Subscribed!'
+			} else if (data.statusCode == 204) {
+				status.textContent = 'Updated'
+			}
+		})
+	})
+</script>
