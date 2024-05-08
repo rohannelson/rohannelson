@@ -4,7 +4,7 @@ import { Icon } from 'astro-icon/components'
 import LinkButton from './LinkButton.astro'
 const {
 	heading = 'Heading',
-	linkObj = { label: 'link', href: 'link', buttonStyle: 'white' },
+	linkObj = { label: 'link', href: 'link', buttonStyle: 'white', target: '' },
 	icon = 'quill'
 } = Astro.props
 let padding = icon == 'puzzle' ? 'pb-1' : ''
@@ -20,7 +20,12 @@ let padding = icon == 'puzzle' ? 'pb-1' : ''
 		</div>
 	</div>
 	<slot name="links">
-		<LinkButton href={linkObj.href} label={linkObj.label} buttonStyle={linkObj.buttonStyle} />
+		<LinkButton
+			href={linkObj.href}
+			label={linkObj.label}
+			buttonStyle={linkObj.buttonStyle}
+			target={linkObj.target}
+		/>
 	</slot>
 	<slot name="altPath" />
 	<div class="inner-card mt-[1.2rem] h-full rounded-[--border-radius] bg-white p-5 pb-[10px]">
