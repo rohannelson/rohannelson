@@ -1,9 +1,6 @@
 import { useState } from 'react'
 import { capitalise } from '../utils'
 import Menu from './Menu'
-
-//Checkers is still bug-ridden. I really need to fix this...
-
 /*Some ideas for styling. I don't currently have the svgs:
 	.placeholder {
 		cursor: url(whiteChecker.svg), default;
@@ -28,18 +25,16 @@ function CheckerSquare({ className, value, onSquareClick }) {
 }
 
 function Black({ king }) {
-	let kingStyle =
-		king == 'blackCheckerKing' ? 'border-[3px] border-tint-yellow' : 'border border-white'
+	let kingStyle = king ? 'border-[3px] border-tint-yellow' : 'border border-white'
 	return (
 		<div
-			className={`blackChecker bg-black h-[90%] w-[90%] rounded-full border-solid ${kingStyle}`}
+			className={`blackChecker h-[90%] w-[90%] rounded-full border-solid bg-black ${kingStyle}`}
 		></div>
 	)
 }
 
 function White({ king }) {
-	let kingStyle =
-		king == 'whiteCheckerKing' ? 'border-[3px] border-tint-yellow' : 'border border-black'
+	let kingStyle = king ? 'border-[3px] border-tint-yellow' : 'border border-black'
 	return (
 		<div
 			className={`whiteChecker h-[90%] w-[90%] rounded-full border-solid bg-white ${kingStyle}`}
@@ -47,34 +42,30 @@ function White({ king }) {
 	)
 }
 
-function CheckerRow({ iRow, squares, onSquareClick }) {
-	const checkerRow = [0, 1, 2, 3, 4, 5, 6, 7].map((iSquare) => {
-		let classname = 'black'
-		let offset
-		iRow % 2 === 0 ? (offset = 0) : (offset = 1)
-		if (iSquare % 2 === offset) {
-			classname = 'white'
+function CheckerRow({ rowIndex, squares, onSquareClick }) {
+	const checkerRow = [0, 1, 2, 3, 4, 5, 6, 7].map((squareIndex) => {
+		let offset = rowIndex % 2
+		let classname = squareIndex % 2 == offset ? 'white' : 'black'
+		let key = rowIndex * 8 + squareIndex
+		let value
+		if (squares[key] === 'black') {
+			value = <Black king={false} />
 		}
-		let keyValue = iRow * 8 + iSquare
-		let valueValue
-		if (squares[keyValue] === 'black') {
-			valueValue = <Black king="" />
+		if (squares[key] === 'white') {
+			value = <White king={false} />
 		}
-		if (squares[keyValue] === 'white') {
-			valueValue = <White king="" />
+		if (squares[key] === 'blackKing') {
+			value = <Black king={true} />
 		}
-		if (squares[keyValue] === 'blackKing') {
-			valueValue = <Black king="blackCheckerKing" />
-		}
-		if (squares[keyValue] === 'whiteKing') {
-			valueValue = <White king="whiteCheckerKing" />
+		if (squares[key] === 'whiteKing') {
+			value = <White king={true} />
 		}
 		return (
 			<CheckerSquare
 				className={classname}
-				value={valueValue}
-				key={keyValue}
-				onSquareClick={() => onSquareClick(squares[keyValue], keyValue, offset)}
+				value={value}
+				key={key}
+				onSquareClick={() => onSquareClick(squares[key], key, offset)}
 			/>
 		)
 	})
@@ -82,26 +73,22 @@ function CheckerRow({ iRow, squares, onSquareClick }) {
 }
 
 function CheckerBoard({ squares, onSquareClick }) {
-	const checkerBoard = [0, 1, 2, 3, 4, 5, 6, 7].map((iRow) => (
-		<CheckerRow iRow={iRow} squares={squares} onSquareClick={onSquareClick} />
+	const checkerBoard = [0, 1, 2, 3, 4, 5, 6, 7].map((rowIndex) => (
+		<CheckerRow rowIndex={rowIndex} squares={squares} onSquareClick={onSquareClick} />
 	))
 	return checkerBoard
 }
 
 export default function Game() {
 	const initialSquares = Array(64).fill('')
-	;[1, 3, 5, 7, 8, 10, 12, 14].forEach((i) => (initialSquares[i] = 'black'))
-	;[49, 51, 53, 55, 56, 58, 60, 62].forEach((i) => (initialSquares[i] = 'white'))
+	//Set initial pieces (not sure why Prettier is insisting on moving the semicolons to the beginnign of the next line...)
+	;[1, 3, 5, 7, 8, 10, 12, 14, 17, 19, 21, 23].forEach((i) => (initialSquares[i] = 'black'))
+	;[40, 42, 44, 46, 49, 51, 53, 55, 56, 58, 60, 62].forEach((i) => (initialSquares[i] = 'white'))
 	const [squares, setSquares] = useState(initialSquares)
 	const [held, setHeld] = useState(false)
 	const [blacksTurn, setBlacksTurn] = useState(true)
 	const [offensive, setOffensive] = useState(false)
-	let turn
-	blacksTurn ? (turn = 'black') : (turn = 'white')
-	let notTurn
-	blacksTurn ? (notTurn = 'white') : (notTurn = 'black')
-	let turnToken
-	blacksTurn ? (turnToken = 1) : (turnToken = -1)
+	let [turn, notTurn, turnToken] = blacksTurn ? ['black', 'white', 1] : ['white', 'black', -1]
 	function handleClick(value, index, offset) {
 		let diagonalA
 		let diagonalB

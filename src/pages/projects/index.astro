@@ -64,7 +64,37 @@ const email = Astro.locals.email
 				}
 			</p>
 			<p class="mb-3">
-				I made some board games in React, partly for fun, but partly to learn React. Check them out!
+				I made some board games in React, partly for fun, but partly to learn React (and SQL). Check
+				them&nbsp;out!
+			</p>
+		</FeatureCard>
+		<FeatureCard
+			heading="Multisite Build"
+			linkObj={{
+				label: 'Check one out',
+				target: '_blank',
+				href: 'https://livinggracedianella.org.au',
+				buttonStyle: 'red'
+			}}
+			icon="blog"
+		>
+			<p class="mb-">
+				I built these sites with some friends using Astro as SSR and Strapi as headless CMS.
+				<ul class="ml-4 mt-2 space-y-2">
+					<li class="list-disc">
+						<a href="https://livinggracedianella.org.au" class="underline" target="_blank"
+							>Living Grace Dianella</a
+						>
+					</li>
+					<li class="list-disc">
+						<a href="https://anchorage.org.au" class="underline" target="_blank"
+							>The Anchorage Collective</a
+						>
+					</li>
+					<li class="list-disc">
+						<a href="https://68waverley.org.au" class="underline" target="_blank">68 Waverley</a>
+					</li>
+				</ul>
 			</p>
 		</FeatureCard>
 	</Grid>

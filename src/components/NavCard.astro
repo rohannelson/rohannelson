@@ -19,8 +19,23 @@ import { Icon } from 'astro-icon/components'
 				class="float-right ml-4 h-[60px] w-auto text-[--seriesColourLight]"
 			/>
 			<h4 class="m-0 p-0 [color:--seriesColourLight]">{blogPost.frontmatter.title}</h4>
-			<p class="m-0 !mt-[10px] mr-[50px]">{blogPost.frontmatter.description}</p>
+			<p class="cardbody m-0 !mt-[10px] mr-[50px]">{blogPost.frontmatter.description}</p>
 		</div>
 	</li>
 </a>
-<style define:vars={{ seriesColourGradient, seriesColourLight }}></style>
+<style define:vars={{ seriesColourGradient, seriesColourLight }}>
+	a {
+		container-type: inline-size;
+		container-name: card;
+	}
+	@container card (max-width: calc(350rem / 16)) {
+		p.cardbody {
+			margin-right: 20px;
+		}
+	}
+	@container card (max-width: calc(330rem / 16)) {
+		p.cardbody {
+			margin-right: 10px;
+		}
+	}
+</style>
