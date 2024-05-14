@@ -3,15 +3,18 @@ import Layout from '../../../layouts/BaseLayout.astro'
 import NavCard from '../../../components/NavCard.astro'
 import { capitaliseAll } from '../../../components/utils.js'
 const { series } = Astro.params
-console.log(series)
 const allBlogs = await Astro.glob('../*.mdx')
 const filteredBlogs = allBlogs.filter((blog) => blog.frontmatter.series?.includes(series))
 const title = capitaliseAll(series)
 const description = `The home of my ${capitaliseAll(series)} series.`
 const seriesPages = await Astro.glob('../../../components/series/*.mdx')
 const seriesPage = seriesPages.filter((page) => page.frontmatter.series?.includes(series))
+console.log(seriesPage[0].frontmatter)
 const SeriesPageContent = seriesPage[0].Content
 const seriesColour = seriesPage[0].frontmatter.seriesColour
+if (seriesPage[0].frontmatter?.reversed) {
+	filteredBlogs.reverse()
+}
 ---
 
 <Layout title={capitaliseAll(title)} description={description}>
