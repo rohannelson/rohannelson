@@ -81,12 +81,12 @@ export default function Game() {
 		if (thisWinner) {
 			return
 		} else {
-			setplayerOneIsNext(!playerOneIsNext)
 			let nextCircles = [...circles]
 			for (let x = i + 5; x >= i; x--) {
 				if (nextCircles[x]) {
 					null
 				} else {
+					setplayerOneIsNext(!playerOneIsNext)
 					nextCircles[x] = playerOneIsNext ? 1 : 2
 					setCircles(nextCircles)
 					return
