@@ -49,7 +49,19 @@ if (!nextInSeries && seriesIndex + 1 <= seriesArray.length - 1) {
 			<slot />
 		</div>
 		<Grid>
-			<div>
+			<div class="-col-start-[-2] col-end-[-1]">
+				{
+					nextInSeries && (
+						<NavCard blogPost={nextInSeries} titlePrefix="Next in Series: " {seriesColour} />
+					)
+				}
+				{
+					isNextSeries && (
+						<SeriesCard series={allSeries[seriesIndex + 1]} titlePrefix="Next Series:" />
+					)
+				}
+			</div>
+			<div class="row-start-1 md:row-start-2">
 				{
 					previousInSeries && (
 						<NavCard
@@ -62,18 +74,6 @@ if (!nextInSeries && seriesIndex + 1 <= seriesArray.length - 1) {
 				{
 					!previousInSeries && seriesIndex - 1 >= 0 && (
 						<SeriesCard series={allSeries[seriesIndex - 1]} titlePrefix="Previous Series:" />
-					)
-				}
-			</div>
-			<div>
-				{
-					nextInSeries && (
-						<NavCard blogPost={nextInSeries} titlePrefix="Next in Series: " {seriesColour} />
-					)
-				}
-				{
-					isNextSeries && (
-						<SeriesCard series={allSeries[seriesIndex + 1]} titlePrefix="Next Series:" />
 					)
 				}
 			</div>
