@@ -1,0 +1,66 @@
+---
+layout: '../../layouts/BlogLayout.astro'
+title: 'Headless Shadcn'
+description: 'I learned how to make Shadcn headless.'
+image: 'shadcn'
+pubDate: '2024-07-29'
+series: 'today I learned...'
+---
+
+Today I was trying to turn a [Shadcn](https://ui.shadcn.com/) button into a headless button (in this case, a button that had functionality, but no styling).
+
+I knew that Shadcn is based on [Radix](https://www.radix-ui.com/), and that Radix components have the `asChild` atrribute. I gave asChild a shot, but unfortunately it didn't quite do what I thought it would... While it did pass its functionality down to the child component, it also passed down its styling, so no luck there.
+
+After a short break, I remembered some nifty CSS that I had learned during a recent project. I had been trying to create a CSS only tabs component using the `details` and `summary` elements, and came across [a tutorial](https://codepen.io/RYJASM/pen/eYoYeRg) that used `display: contents` and `order` to make the summary elements appear before content divs which were nested in the details components. Here's the HTML:
+
+```
+<div class="flex">
+<details>
+    <summary>
+        tab 1 trigger
+    </summary>
+    <div class="content">
+        tab 1 content
+    </div>
+</details>
+<details>
+    <summary>
+        tab 2 trigger
+    </summary>
+    <div class="content">
+        tab 2 content
+    </div>
+</details>
+```
+
+And here's the CSS:
+
+```
+div.flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+details {
+    display: contents;
+}
+summary {
+    order: 0;
+}
+div.content {
+    order: 1;
+    width: 100%;
+}
+```
+
+While I'd come across `order` before, `display: contents` was new to me. Not only does it remove the styling from an element, but it also means that its box isn't rendered. It worked for my tabs component (although I needed to add a little JS for Firefox...), and as it turns out, it was also exactly what I needed to turn my Shadcn button into a headless button! It also occurred to me on the way home that I could setup a `headless` prop that could be used for switching the headless functionality on and off. Here's a barebones&nbsp;example:
+
+```
+export function MyButton({headless, children}: {headless: boolean, children: ReactNode}) {
+    const isHeadless = headless ? "contents" : ""
+    return (
+        <Button className={isHeadless}>
+            {children}
+        </Button>
+    )
+}
+```
