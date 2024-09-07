@@ -3,6 +3,7 @@ import Header from '../components/Header.astro'
 import Title from '../components/Title.astro'
 import Footer from '../components/Footer.astro'
 import '../styles/main.css'
+import Metadata from '../components/Metadata.astro'
 export interface Props {
 	title: string
 	description: string
@@ -30,10 +31,15 @@ const pageDescription = description ?? frontmatter.description
 		/>
 		<meta name="generator" content={Astro.generator} />
 		<meta name="description" content={pageDescription} />
-		<script
-			defer
-			src="https://cloud.umami.is/script.js"
-			data-website-id="b166f848-ec31-4579-b581-c1892cdb6a95"></script>
+		{
+			import.meta.env.THIS_SITE === 'https://rohannelson.com' && (
+				<script
+					defer
+					src="https://cloud.umami.is/script.js"
+					data-website-id="b166f848-ec31-4579-b581-c1892cdb6a95"
+				/>
+			)
+		}
 		<title>{pageTitle} - rohannelson.com</title>
 	</head>
 	<body>
