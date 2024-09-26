@@ -9,7 +9,7 @@ import Button from '../components/Button.astro'
 			action="/api/subscribe"
 			method="post"
 			id="subscribe"
-			class="mx-auto flex flex-col space-y-2 md:px-4"
+			class="relative mx-auto flex flex-col space-y-2 md:px-4"
 		>
 			<div class="mt-1">
 				<p class="!mt-0">
@@ -51,10 +51,24 @@ import Button from '../components/Button.astro'
 					class="w-full rounded border border-solid border-light-grey px-2 py-1 text-base"
 				/>
 			</label>
-			<div class="cf-turnstile" data-sitekey="0x4AAAAAAAZZ46tfw_-gA1lA" data-theme="light"></div>
-			<div class="flex w-fit pt-1.5">
-				<Button>Subscribe</Button>
-				<p id="status" class="!mt-0 mb-[0.3rem] ml-1.5 self-end font-medium text-light-grey"></p>
+			<div class="flex w-full flex-row pt-1.5 md:flex-col">
+				<div>
+					<Button>Subscribe</Button>
+					<p
+						id="status"
+						class="!mt-1 mb-[0.3rem] ml-3 mr-auto self-end font-medium text-light-grey"
+					>
+					</p>
+				</div>
+				<div class="relative ml-auto h-[72.5px] w-[300px] md:w-full md:pt-2">
+					<div
+						class="cf-turnstile absolute left-0"
+						data-sitekey="0x4AAAAAAAZZ46tfw_-gA1lA"
+						data-theme="light"
+						data-size="normal"
+					>
+					</div>
+				</div>
 			</div>
 		</form>
 	</div>
@@ -92,7 +106,7 @@ import Button from '../components/Button.astro'
 		submitSubscription().then((data) => {
 			console.log(data)
 			if (data.statusCode == 201) {
-				status.textContent = 'Almost there - check your email!'
+				status.textContent = 'Check your email!'
 			} else if (data.statusCode == 204) {
 				status.textContent = 'Updated'
 			}
