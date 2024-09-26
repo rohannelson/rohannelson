@@ -51,6 +51,7 @@ import Button from '../components/Button.astro'
 					class="w-full rounded border border-solid border-light-grey px-2 py-1 text-base"
 				/>
 			</label>
+			<div class="cf-turnstile" data-sitekey="0x4AAAAAAAZZ46tfw_-gA1lA" data-theme="light"></div>
 			<div class="flex w-fit pt-1.5">
 				<Button>Subscribe</Button>
 				<p id="status" class="!mt-0 mb-[0.3rem] ml-1.5 self-end font-medium text-light-grey"></p>
@@ -64,6 +65,7 @@ import Button from '../components/Button.astro'
 	const lastName = document.querySelector('#lastName')
 	const email = document.querySelector('#email')
 	const status = document.querySelector('#status')
+	const turnstile = document.querySelector("input[name='cf-turnstile-response']")
 	form.addEventListener('submit', (e) => {
 		e.preventDefault()
 		status.textContent = 'Loading...'
@@ -72,13 +74,14 @@ import Button from '../components/Button.astro'
 		formData.append('firstName', firstName.value)
 		formData.append('lastName', lastName.value)
 		formData.append('email', email.value)
+		formData.append('cf-turnstile-response', turnstile?.value ?? '')
 		async function submitSubscription() {
 			try {
 				const response = await fetch('/api/subscribe', {
 					method: method,
 					body: formData
 				})
-				console.log(response)
+				console.log('response', response)
 				const data = await response.json()
 				return data
 			} catch (error) {
