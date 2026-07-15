@@ -1,9 +1,16 @@
 import type { APIRoute } from 'astro'
 
-export const POST: APIRoute = async ({ request, redirect }) => {
-	const formData = await request.formData()
-	const turnstileResponse = await turnstile(request, formData)
-	if (turnstileResponse) {
+export const POST: APIRoute = async ({ request }) => {
+	try {
+		const formData = await request.formData()
+
+		const turnstilePassed = await turnstile(request, formData)
+		if (!turnstilePassed) {
+			return new Response(JSON.stringify({ error: 'Turnstile failed. Please try again.' }), {
+				status: 400
+			})
+		}
+
 		const firstName = formData.get('firstName')
 		const lastName = formData.get('lastName')
 		const email = formData.get('email')
@@ -17,6 +24,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
 			email: email,
 			listIds: [4]
 		})
+
 		const response = await fetch('https://api.brevo.com/v3/contacts', {
 			method: 'post',
 			headers: {
@@ -26,39 +34,57 @@ export const POST: APIRoute = async ({ request, redirect }) => {
 			},
 			body: body
 		})
-		if (response) {
-			const responseBody = {
-				statusCode: response.status,
-				statusMessage: response.statusText
-			}
-			return new Response(JSON.stringify(responseBody))
+
+		const responseBody = {
+			statusCode: response.status,
+			statusMessage: response.statusText
 		}
+
+		if (!response.ok) {
+			const responseText = await response.text()
+			console.error('Brevo error:', response.status, responseText)
+		}
+
+		return new Response(JSON.stringify(responseBody))
+	} catch (error) {
+		console.error('Subscribe error:', error)
+		return new Response(
+			JSON.stringify({ error: error instanceof Error ? error.message : 'Internal server error' }),
+			{ status: 500 }
+		)
 	}
-	return new Response('error')
 }
 
 async function turnstile(request, body) {
-	// Turnstile injects a token in "cf-turnstile-response".
-	const token = body.get('cf-turnstile-response')
-	const ip = request.headers.get('CF-Connecting-IP')
+	try {
+		const token = body.get('cf-turnstile-response')
+		const ip = request.headers.get('CF-Connecting-IP')
 
-	// Validate the token by calling the
-	// "/siteverify" API endpoint.
-	let formData = new FormData()
-	formData.append('secret', import.meta.env.TURNSTILE_SECRET_KEY)
-	formData.append('response', token)
-	formData.append('remoteip', ip)
+		if (!token) {
+			console.error('Turnstile error: no token in form data')
+			return false
+		}
 
-	const url = 'https://challenges.cloudflare.com/turnstile/v0/siteverify'
-	const result = await fetch(url, {
-		body: formData,
-		method: 'POST'
-	})
+		let formData = new FormData()
+		formData.append('secret', import.meta.env.TURNSTILE_SECRET_KEY)
+		formData.append('response', token)
+		if (ip) formData.append('remoteip', ip)
 
-	const outcome = await result.json()
-	if (outcome.success) {
-		return true
+		const url = 'https://challenges.cloudflare.com/turnstile/v0/siteverify'
+		const result = await fetch(url, {
+			body: formData,
+			method: 'POST'
+		})
+
+		const outcome = await result.json()
+		if (outcome.success) {
+			return true
+		}
+
+		console.error('Turnstile failed:', outcome)
+		return false
+	} catch (error) {
+		console.error('Turnstile error:', error)
+		return false
 	}
-	console.log('Turnstile failed: ', outcome)
-	return false
 }

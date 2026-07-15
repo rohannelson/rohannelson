@@ -79,8 +79,7 @@ import Button from '../components/Button.astro'
 	const lastName = document.querySelector('#lastName')
 	const email = document.querySelector('#email')
 	const status = document.querySelector('#status')
-	const turnstile = document.querySelector("input[name='cf-turnstile-response']")
-	form.addEventListener('submit', (e) => {
+	form.addEventListener('submit', async (e) => {
 		e.preventDefault()
 		status.textContent = 'Loading...'
 		const method = e.target.method
@@ -88,28 +87,26 @@ import Button from '../components/Button.astro'
 		formData.append('firstName', firstName.value)
 		formData.append('lastName', lastName.value)
 		formData.append('email', email.value)
-		formData.append('cf-turnstile-response', turnstile?.value ?? '')
-		async function submitSubscription() {
-			try {
-				const response = await fetch('/api/subscribe', {
-					method: method,
-					body: formData
-				})
-				console.log('response', response)
-				const data = await response.json()
-				return data
-			} catch (error) {
-				console.error('Error:', error)
-				status.textContent = 'Error - try again later'
-			}
-		}
-		submitSubscription().then((data) => {
-			console.log(data)
+		const token = window.turnstile?.getResponse()
+		formData.append('cf-turnstile-response', token ?? '')
+		try {
+			const response = await fetch('/api/subscribe', {
+				method: method,
+				body: formData
+			})
+			const data = await response.json()
 			if (data.statusCode == 201) {
 				status.textContent = 'Check your email!'
 			} else if (data.statusCode == 204) {
 				status.textContent = 'Updated'
+			} else if (data.error) {
+				status.textContent = data.error
+			} else {
+				status.textContent = data.statusMessage || 'Unexpected error'
 			}
-		})
+		} catch (error) {
+			console.error('Error:', error)
+			status.textContent = 'Error - try again later'
+		}
 	})
 </script>
